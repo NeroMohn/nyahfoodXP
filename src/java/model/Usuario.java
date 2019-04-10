@@ -5,9 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-public abstract class Usuario {
+
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Usuario implements Serializable{
+    private static final long serialVerionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String nome;
     private String telefone;
     private String email;
@@ -24,28 +33,27 @@ public abstract class Usuario {
         
     }
 
-
-    public Usuario(String nome,
-            String email, String senha,String telefone,
-            String logradouro, String cep, String numero,
-            String bairro, String complemento, String cidade,
-            String estado){
+    public Usuario(String nome, String telefone, String email, String senha, String cep, String logradouro, String bairro, String complemento, String cidade, String estado, String numero) {
         this.nome = nome;
+        this.telefone = telefone;
         this.email = email;
         this.senha = senha;
-        this.telefone = telefone;
-        this.logradouro = logradouro;
         this.cep = cep;
-        this.numero = numero;
+        this.logradouro = logradouro;
         this.bairro = bairro;
         this.complemento = complemento;
         this.cidade = cidade;
         this.estado = estado;
+        this.numero = numero;
     }
 
- 
+    public Long getId() {
+        return id;
+    }
 
-   
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -83,8 +91,8 @@ public abstract class Usuario {
         return cep;
     }
 
-    public void setCep(String Cep) {
-        this.cep = Cep;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public String getLogradouro() {
@@ -134,6 +142,5 @@ public abstract class Usuario {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-    
-    
+
 }

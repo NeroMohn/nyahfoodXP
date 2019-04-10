@@ -5,25 +5,16 @@
  */
 package model;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import java.io.Serializable;
 
 /**
  *
  * @author Yukas
  */
 @Entity
-public class Loja extends Usuario implements Serializable {
-    private static final long serialVerionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Loja extends Usuario {
     private String cnpj;
     private String descricao;
     private String nomeGerente;
@@ -87,13 +78,6 @@ public class Loja extends Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public TipoCozinha getTipoCozinha() {
         return tipoCozinha;
