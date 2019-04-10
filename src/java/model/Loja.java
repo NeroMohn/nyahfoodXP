@@ -18,7 +18,8 @@ public class Loja extends Usuario {
     private String cnpj;
     private String descricao;
     private String nomeGerente;
-    private String pagamento;
+    @ManyToOne
+    private TipoPagamento tipoPagamento;
     private String foto;
     @ManyToOne
     private TipoCozinha tipoCozinha;
@@ -27,11 +28,11 @@ public class Loja extends Usuario {
     public Loja(){
         
     }
-
-    public Loja(String nome, String nomeGerente, String email, String senha, String telefone, String cnpj,String descricao,Long codTipoCozinha,String foto,String cep, String logradouro, String bairro,String numero, String complemento, String cidade, String estado) {
-        super(nome, email, senha, telefone, logradouro, cep, numero, bairro, complemento, cidade, estado);
+    public Loja(String nome, String nomeGerente, String telefone, String email, String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,String foto,TipoPagamento tipoPagamento, String cep, String logradouro, String bairro,String complemento, String cidade, String estado, String numero) {
+        super(nome, telefone, email, senha, cep, logradouro, bairro, complemento, cidade, estado, numero);
         this.nomeGerente = nomeGerente;
         this.foto = foto;
+        this.tipoPagamento = tipoPagamento;
         this.cnpj = cnpj;
         this.descricao = descricao;
         this.tipoCozinha = tipoCozinha;
@@ -62,14 +63,15 @@ public class Loja extends Usuario {
         this.nomeGerente = nomeGerente;
     }
 
-    public String getPagamento() {
-        return pagamento;
+    public TipoPagamento getTipoPagamento() {
+        return tipoPagamento;
     }
 
-    public void setPagamento(String pagamento) {
-        this.pagamento = pagamento;
+    public void setTipoPagamento(TipoPagamento tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
     }
-    
+
+ 
     public String getFoto() {
         return foto;
     }

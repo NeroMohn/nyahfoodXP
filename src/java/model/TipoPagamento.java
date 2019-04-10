@@ -20,7 +20,10 @@ public class TipoPagamento implements Serializable{
     private Long id;
     private String nome;
 
-
+    public TipoPagamento(){
+        
+    }
+    
     public TipoPagamento(String nome) {
         this.nome = nome;
     }

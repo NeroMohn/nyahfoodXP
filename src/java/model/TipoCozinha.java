@@ -20,7 +20,9 @@ public class TipoCozinha implements Serializable{
     private Long id;
     private String nome;
 
-
+    public TipoCozinha(){
+        
+    }
     public TipoCozinha(String nome) {
         this.nome = nome;
     }
