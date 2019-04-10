@@ -4,9 +4,73 @@
         <servlet-name>ManterClienteController</servlet-name>
         <servlet-class>controller.ManterClienteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManterComidaController</servlet-name>
+        <servlet-class>controller.ManterComidaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterComidaControllerADM</servlet-name>
+        <servlet-class>controller.ManterComidaControllerADM</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterComidaPedida</servlet-name>
+        <servlet-class>controller.ManterComidaPedida</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterLojaController</servlet-name>
+        <servlet-class>controller.ManterLojaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterPedidoController</servlet-name>
+        <servlet-class>controller.ManterPedidoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcessoNegadoController</servlet-name>
+        <servlet-class>controller.AcessoNegadoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginLojaController</servlet-name>
+        <servlet-class>controller.LoginLojaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ManterClienteController</servlet-name>
         <url-pattern>/ManterClienteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterComidaController</servlet-name>
+        <url-pattern>/ManterComidaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterComidaControllerADM</servlet-name>
+        <url-pattern>/ManterComidaControllerADM</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterComidaPedida</servlet-name>
+        <url-pattern>/ManterComidaPedida</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterLojaController</servlet-name>
+        <url-pattern>/ManterLojaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterPedidoController</servlet-name>
+        <url-pattern>/ManterPedidoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcessoNegadoController</servlet-name>
+        <url-pattern>/AcessoNegadoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginLojaController</servlet-name>
+        <url-pattern>/LoginLojaController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
