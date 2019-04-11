@@ -28,7 +28,11 @@ public class Loja extends Usuario {
     public Loja(){
         
     }
-    public Loja(String nome, String nomeGerente, String telefone, String email, String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,String foto,TipoPagamento tipoPagamento, String cep, String logradouro, String bairro,String complemento, String cidade, String estado, String numero) {
+    public Loja(String nome, String nomeGerente, String telefone, String email,
+            String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,
+            String foto,TipoPagamento tipoPagamento, String cep, String logradouro,
+            String bairro,String complemento, String cidade, String estado,
+            String numero) {
         super(nome, telefone, email, senha, cep, logradouro, bairro, complemento, cidade, estado, numero);
         this.nomeGerente = nomeGerente;
         this.foto = foto;

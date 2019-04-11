@@ -13,10 +13,6 @@
         <servlet-class>controller.ManterComidaControllerADM</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ManterComidaPedida</servlet-name>
-        <servlet-class>controller.ManterComidaPedida</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ManterLojaController</servlet-name>
         <servlet-class>controller.ManterLojaController</servlet-class>
     </servlet>
@@ -36,6 +32,10 @@
         <servlet-name>LoginLojaController</servlet-name>
         <servlet-class>controller.LoginLojaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManterComidaPedidaController</servlet-name>
+        <servlet-class>controller.ManterComidaPedidaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ManterClienteController</servlet-name>
         <url-pattern>/ManterClienteController</url-pattern>
@@ -47,10 +47,6 @@
     <servlet-mapping>
         <servlet-name>ManterComidaControllerADM</servlet-name>
         <url-pattern>/ManterComidaControllerADM</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ManterComidaPedida</servlet-name>
-        <url-pattern>/ManterComidaPedida</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManterLojaController</servlet-name>
@@ -71,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>LoginLojaController</servlet-name>
         <url-pattern>/LoginLojaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterComidaPedidaController</servlet-name>
+        <url-pattern>/ManterComidaPedidaController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

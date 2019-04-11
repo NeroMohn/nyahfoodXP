@@ -5,47 +5,125 @@
  */
 package controller;
 
+import dao.LojaDAO;
+import dao.TipoCozinhaDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import static java.lang.Long.parseLong;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Loja;
+import static model.Loja_.tipoCozinha;
+import static model.Loja_.tipoPagamento;
+import model.TipoCozinha;
+import model.TipoPagamento;
 
 /**
  *
- * @author David
+ * @author Yukas
  */
-@WebServlet (name= "ManterLojaController", urlPatterns = "/ManterLojaController")
+@WebServlet(name = "ManterLojaController", urlPatterns = "/ManterLojaController")
 public class ManterLojaController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ManterLojaController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ManterLojaController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String acao = request.getParameter("acao");
+        if (acao.equals("confirmarOperacao")) {
+            confirmarOperacao(request, response);
+        } else {
+            if (acao.equals("prepararOperacao")) {
+                prepararOperacao(request, response);
+
+            }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+        try {
+
+            String operacao = request.getParameter("operacao");
+            request.setAttribute("operacao", operacao);
+            request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
+            if (!operacao.equals("Incluir")) {
+                Long idLoja = Long.parseLong(request.getParameter("idLoja"));
+                Loja loja = LojaDAO.getInstance().getLoja(idLoja);
+                request.setAttribute("loja", loja);
+            }
+
+            RequestDispatcher view = request.getRequestDispatcher("/ManterLoja.jsp");
+            view.forward(request, response);
+        } catch (ServletException ex) {
+            Logger.getLogger(ManterLojaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ManterLojaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException {
+        String operacao = request.getParameter("operacao");
+        String nome = request.getParameter("txtNomeLoja");
+        String nomeGerente = request.getParameter("txtNomeGerenteLoja");
+        String email = request.getParameter("txtEmailLoja");
+        String senha = request.getParameter("txtSenhaLoja");
+        String telefone = request.getParameter("txtTelefoneLoja");
+        String cnpj = request.getParameter("txtCnpjLoja");
+        String descricao = request.getParameter("txtDescricaoLoja");
+        Long codTipoCozinha = Long.parseLong(request.getParameter("optTipoCozinha"));
+        String foto = request.getParameter("txtFotoLoja");
+        String cep = request.getParameter("txtCepLoja");
+        String logradouro = request.getParameter("txtLogradouroLoja");
+        String bairro = request.getParameter("txtBairroLoja");
+        String numero = request.getParameter("txtNumeroLoja");
+        String complemento = request.getParameter("txtComplementoLoja");
+        String cidade = request.getParameter("txtCidadeLoja");
+        String estado = request.getParameter("txtEstadoLoja");
+        try {
+            if (operacao.equals("Incluir")) {
+                Loja loja = new (nome, nomeGerente, telefone, email,
+                        senha, cnpj, descricao, tipoCozinha,
+                        foto, tipoPagamento, cep, logradouro,
+                        bairro, complemento, cidade, estado,
+                        numero);
+                loja.gravar();
+            } else {
+                if (operacao.equals("Editar")) {
+                    // if(request.getSession().getAttribute("id")!=null)
+                    //  String idLoja1 = (String)request.getSession().getAttribute("id");
+                    Long idLoja = Long.parseLong(request.getParameter("txtIdLoja"));
+
+                    Loja loja = new Loja(idLoja, nome, nomeGerente, email, senha, telefone, cnpj, descricao, codTipoCozinha, foto, cep, logradouro, bairro, numero, complemento, cidade, estado);
+                    loja.alterar();
+                } else {
+                    if (operacao.equals("Excluir")) {
+                        Long idLoja = Long.parseLong(request.getParameter("txtIdLoja"));
+                        Loja loja = new Loja(idLoja, nome, nomeGerente, email, senha, telefone, cnpj, descricao, codTipoCozinha, foto, cep, logradouro, bairro, numero, complemento, cidade, estado);
+
+                        loja.excluir();
+                    }
+                }
+            }
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaLojaControllerADM");
+            view.forward(request, response);
+        } catch (IOException e) {
+            throw new ServletException(e);
+        } catch (SQLException e) {
+            throw new ServletException(e);
+        } catch (ClassNotFoundException e) {
+            throw new ServletException(e);
+        } catch (ServletException e) {
+            throw e;
+        }
+
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -57,7 +135,13 @@ public class ManterLojaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManterLojaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterLojaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -71,7 +155,13 @@ public class ManterLojaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManterLojaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterLojaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -84,4 +174,7 @@ public class ManterLojaController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Long parseLong(Long idLoja1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
