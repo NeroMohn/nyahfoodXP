@@ -84,15 +84,18 @@ public class ManterLojaController extends HttpServlet {
         String complemento = request.getParameter("txtComplementoLoja");
         String cidade = request.getParameter("txtCidadeLoja");
         String estado = request.getParameter("txtEstadoLoja");
+        //TipoPagamento tipoPagamento = TipoCozinhaDAO.getInstance().getTipoCozinha();
+        //TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha();
         try {
             if (operacao.equals("Incluir")) {
+                
                 Loja loja = new (nome, nomeGerente, telefone, email,
                         senha, cnpj, descricao, tipoCozinha,
                         foto, tipoPagamento, cep, logradouro,
                         bairro, complemento, cidade, estado,
                         numero);
-                loja.gravar();
-            } else {
+                LojaDAO.getInstance().salvar(loja);
+            } /*else {
                 if (operacao.equals("Editar")) {
                     // if(request.getSession().getAttribute("id")!=null)
                     //  String idLoja1 = (String)request.getSession().getAttribute("id");
@@ -100,7 +103,7 @@ public class ManterLojaController extends HttpServlet {
 
                     Loja loja = new Loja(idLoja, nome, nomeGerente, email, senha, telefone, cnpj, descricao, codTipoCozinha, foto, cep, logradouro, bairro, numero, complemento, cidade, estado);
                     loja.alterar();
-                } else {
+                }*/ else {
                     if (operacao.equals("Excluir")) {
                         Long idLoja = Long.parseLong(request.getParameter("txtIdLoja"));
                         Loja loja = new Loja(idLoja, nome, nomeGerente, email, senha, telefone, cnpj, descricao, codTipoCozinha, foto, cep, logradouro, bairro, numero, complemento, cidade, estado);
