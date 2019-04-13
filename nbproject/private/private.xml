@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/yukas/Documents/GitHub/nyahfoodXP/src/conf/persistence.xml</file>
-            <file>file:/C:/Users/yukas/Documents/GitHub/nyahfoodXP/src/java/dao/PersistenceUtil.java</file>
-            <file>file:/C:/Users/yukas/Documents/GitHub/nyahfoodXP/src/java/controller/CadastroLojaController.java</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/web/ManterPedido.jsp</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/web/ManterCompra.jsp</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/web/ManterTipoCozinha.jsp</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/web/ManterTipoPagamento.jsp</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/web/ManterLoja.jsp</file>
         </group>
     </open-files>
 </project-private>

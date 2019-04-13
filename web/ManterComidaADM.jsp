@@ -115,7 +115,7 @@
                                             Tempo Preparo (em minutos):
                                         </td>
                                         <td>
-                                            <input type="text" pattern="[0-9].{1,45}$" required name="txtTempoEstimado" value="${comida.tempoEstimado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                            <input type="text" pattern="[0-9].{1,5}$" required name="txtTempoEstimado" value="${comida.tempoEstimado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                                         </td>
                                     </tr>
                                     <tr>
