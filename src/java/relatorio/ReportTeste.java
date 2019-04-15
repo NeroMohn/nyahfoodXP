@@ -3,34 +3,42 @@ package relatorio;
 import dao.BD;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-
-public class ReportLoja extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+@WebServlet (name= "RelatorioController", urlPatterns = "/RelatorioController")
+public class ReportTeste extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
  Connection conexao = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+         
+            /*Class.forName("com.mysql.jdbc.Driver");*/
             conexao = BD.getConexao();
-            
-            
             HashMap parametros = new HashMap();
-            //parametros.put("PAR_codCurso", Integer.parseInt(request.getParameter("txtCodCurso")));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/ReportLoja.jasper";
+            parametros.put("PAR_cidade", request.getParameter("txtAnswer"));
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioTeste.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=reportLoja.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorio.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
-        } catch (ClassNotFoundException ex) {
+           
+        
+                        
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (JRException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
