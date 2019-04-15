@@ -40,6 +40,18 @@ public class Loja extends Usuario {
         this.cnpj = cnpj;
         this.descricao = descricao;
         this.tipoCozinha = tipoCozinha;
+    }    
+        public Loja(String nome, String nomeGerente, String telefone, String email,
+            String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,
+            String foto,String cep, String logradouro,
+            String bairro,String complemento, String cidade, String estado,
+            String numero) {
+        super(nome, telefone, email, senha, cep, logradouro, bairro, complemento, cidade, estado, numero);
+        this.nomeGerente = nomeGerente;
+        this.foto = foto;
+        this.cnpj = cnpj;
+        this.descricao = descricao;
+        this.tipoCozinha = tipoCozinha;
     }
 
 

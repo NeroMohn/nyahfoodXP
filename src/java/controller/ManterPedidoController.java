@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ClienteDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -44,7 +45,7 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
            
         String operacao = request.getParameter("operacao");
         request.setAttribute("operacao", operacao);
-        request.setAttribute("clientes", Cliente.obterTodosClientes());
+        request.setAttribute("clientes", ClienteDAO.getInstance().getAllClientes());
         String tipo = request.getSession().getAttribute("tipo").toString();
        
         if(tipo != "3"){
