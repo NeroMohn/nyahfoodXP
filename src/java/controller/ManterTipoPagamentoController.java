@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.TipoPagamentoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -40,17 +41,13 @@ public class ManterTipoPagamentoController extends HttpServlet {
         request.setAttribute("operacao", operacao);  
         if (!operacao.equals("Incluir")) {
             Long idTipoPagamento = Long.parseLong(request.getParameter("idTipoPagamento"));
-            TipoPagamento tipoPagamento = TipoPagamento.obterTipoPagamento(idTipoPagamento);
+            TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento);
             request.setAttribute("tipoPagamento", tipoPagamento);
 
         }
         RequestDispatcher view = request.getRequestDispatcher("/ManterTipoPagamento.jsp");
         view.forward(request, response);
-    }   catch (SQLException ex) {
-            Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+    } catch (ServletException ex) {
             Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,18 +62,18 @@ public void confirmarOperacao(HttpServletRequest request, HttpServletResponse re
     try{
        if (operacao.equals("Incluir")){
             TipoPagamento tipoPagamento = new TipoPagamento (nome);
-            tipoPagamento.gravar();
+            TipoPagamentoDAO.getInstance().salvar(tipoPagamento);
         }else{ 
             if(operacao.equals("Editar")){
                 Long idTipoPagamento = Long.parseLong(request.getParameter("txtIdTipoPagamento"));
-                TipoPagamento tipoPagamento = new TipoPagamento (idTipoPagamento, nome);
-                tipoPagamento.alterar();
+                TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento) ;
+                TipoPagamentoDAO.getInstance().salvar(tipoPagamento);
         } else{ 
                 if (operacao.equals("Excluir")){
                 Long idTipoPagamento = Long.parseLong(request.getParameter("txtIdTipoPagamento"));
-                TipoPagamento tipoPagamento = new TipoPagamento (idTipoPagamento, nome);
+                TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento);
                 
-                tipoPagamento.excluir();
+                TipoPagamentoDAO.getInstance().excluir(tipoPagamento);
                 }
             }
     }
@@ -84,10 +81,6 @@ public void confirmarOperacao(HttpServletRequest request, HttpServletResponse re
         view.forward(request,response);
 }
          catch (IOException e) {
-            throw new ServletException(e);
-        }catch (SQLException e){
-            throw new ServletException(e);
-        }catch(ClassNotFoundException e){
             throw new ServletException(e);
         }catch(ServletException e){
             throw e;

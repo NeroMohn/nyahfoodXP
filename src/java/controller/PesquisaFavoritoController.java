@@ -1,5 +1,6 @@
 package controller;
 
+import dao.FavoritoDAO;
 import model.Favorito;
 
 import javax.servlet.RequestDispatcher;
@@ -16,11 +17,11 @@ import java.util.List;
 public class PesquisaFavoritoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Favorito> obterTodosFavoritos = Favorito.obterTodosFavoritos();
+        List<Favorito> obterTodosFavoritos = FavoritoDAO.getInstance().getAllFavoritos();
         if(obterTodosFavoritos.isEmpty()){
             request.setAttribute("vazio", "Mensagem");
         }
-        request.setAttribute("favoritos", Favorito.obterTodosFavoritos());
+        request.setAttribute("favoritos", FavoritoDAO.getInstance().getAllFavoritos());
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaFavorito.jsp");
         view.forward(request, response);
     }

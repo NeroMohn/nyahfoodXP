@@ -1,6 +1,7 @@
 package controller;
 
-import model.Pedido;
+import dao.ComidaPedidaDAO;
+import model.ComidaPedida;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,24 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PesquisaPedidoClienteController", urlPatterns = {"/PesquisaPedidoClienteController"})
-public class PesquisaPedidoClienteController extends HttpServlet {
+@WebServlet(name = "PesquisaComidaPedidaController", urlPatterns = {"/PesquisaComidaPedidaController"})
+public class PesquisaComidaPedidaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            List<Pedido> obterTodosPedidos = Pedido.obterTodosPedidos();
-            if(obterTodosPedidos.isEmpty()){
-                 request.setAttribute("vazio", "");
-            }
-            request.setAttribute("pedidos", Pedido.obterTodosPedidos());
-            RequestDispatcher view = request.getRequestDispatcher("/PesquisaPedidoCliente.jsp");
-            view.forward(request, response);
-
-        } catch (ClassNotFoundException e) {
-            throw new ServletException(e);
-        } catch (SQLException e) {
-            throw new ServletException(e);
+        List<ComidaPedida> obterTodasComidasPedidas = ComidaPedidaDAO.getInstance().getAllComidaPedidas();
+        if (obterTodasComidasPedidas.isEmpty()) {
+            request.setAttribute("vazio", "Mensagem");
         }
+        request.setAttribute("comidasPedidas", ComidaPedidaDAO.getInstance().getAllComidaPedidas());
+        RequestDispatcher view = request.getRequestDispatcher("/PesquisaComidaPedida.jsp");
+        view.forward(request, response);
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

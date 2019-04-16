@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CupomDescontoDAO;
 import model.CupomDesconto;
 
 import javax.servlet.RequestDispatcher;
@@ -21,20 +22,13 @@ public class PesquisaCupomDescontoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            List<CupomDesconto> obterTodosCuponsDesconto = CupomDesconto.obterTodosCuponsDesconto();
-            if (obterTodosCuponsDesconto.isEmpty()) {
-                request.setAttribute("vazio", "Mensagem");
-            }
-            request.setAttribute("cuponsDesconto", CupomDesconto.obterTodosCuponsDesconto());
-            RequestDispatcher view = request.getRequestDispatcher("/PesquisaCupomDesconto.jsp");
-            view.forward(request, response);
-
-        } catch (ClassNotFoundException e) {
-            throw new ServletException(e);
-        } catch (SQLException e) {
-            throw new ServletException(e);
+        List<CupomDesconto> obterTodosCuponsDesconto = CupomDescontoDAO.getInstance().getAllCupomDescontos();
+        if (obterTodosCuponsDesconto.isEmpty()) {
+            request.setAttribute("vazio", "Mensagem");
         }
+        request.setAttribute("cuponsDesconto", CupomDescontoDAO.getInstance().getAllCupomDescontos());
+        RequestDispatcher view = request.getRequestDispatcher("/PesquisaCupomDesconto.jsp");
+        view.forward(request, response);
     }
 
     @Override

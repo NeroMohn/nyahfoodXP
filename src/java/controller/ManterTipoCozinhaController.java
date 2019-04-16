@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.TipoCozinhaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -45,17 +46,13 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
         request.setAttribute("operacao", operacao);  
         if (!operacao.equals("Incluir")) {
             Long idTipoCozinha = Long.parseLong(request.getParameter("idTipoCozinha"));
-            TipoCozinha tipoCozinha = TipoCozinha.obterTipoCozinha(idTipoCozinha);
+            TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
             request.setAttribute("tipoCozinha", tipoCozinha);
 
         }
         RequestDispatcher view = request.getRequestDispatcher("/ManterTipoCozinha.jsp");
         view.forward(request, response);
-    }   catch (SQLException ex) {
-            Logger.getLogger(ManterTipoCozinhaController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterTipoCozinhaController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+    } catch (ServletException ex) {
             Logger.getLogger(ManterTipoCozinhaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ManterTipoCozinhaController.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,18 +67,17 @@ public void confirmarOperacao(HttpServletRequest request, HttpServletResponse re
     try{
        if (operacao.equals("Incluir")){
             TipoCozinha tipoCozinha = new TipoCozinha (nome);
-            tipoCozinha.gravar();
+            TipoCozinhaDAO.getInstance().salvar(tipoCozinha);
         }else{ 
             if(operacao.equals("Editar")){
                 Long idTipoCozinha = Long.parseLong(request.getParameter("txtIdTipoCozinha"));
-                TipoCozinha tipoCozinha = new TipoCozinha (idTipoCozinha, nome);
-                tipoCozinha.alterar();
+                TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
+                TipoCozinhaDAO.getInstance().salvar(tipoCozinha);
         } else{ 
                 if (operacao.equals("Excluir")){
                 Long idTipoCozinha = Long.parseLong(request.getParameter("txtIdTipoCozinha"));
-                TipoCozinha tipoCozinha = new TipoCozinha (idTipoCozinha, nome);
-                
-                tipoCozinha.excluir();
+                TipoCozinha tipoCozinha =TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
+                TipoCozinhaDAO.getInstance().excluir(tipoCozinha);
                 }
             }
     }
@@ -89,10 +85,6 @@ public void confirmarOperacao(HttpServletRequest request, HttpServletResponse re
         view.forward(request,response);
 }
          catch (IOException e) {
-            throw new ServletException(e);
-        }catch (SQLException e){
-            throw new ServletException(e);
-        }catch(ClassNotFoundException e){
             throw new ServletException(e);
         }catch(ServletException e){
             throw e;

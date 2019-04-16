@@ -45,15 +45,11 @@ public class ManterCupomDescontoController extends HttpServlet {
         request.setAttribute("operacao", operacao);
         if (!operacao.equals("Incluir")) {
             Long idCupomDesconto = Long.parseLong(request.getParameter("idCupomDesconto"));
-            CupomDesconto cupomDesconto = CupomDescontoDAO(idCupomDesconto);
+            CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
             request.setAttribute("cupomDesconto", cupomDesconto);
         }
         RequestDispatcher view = request.getRequestDispatcher("/ManterCupomDesconto.jsp");    
         view.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManterCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServletException ex) {
             Logger.getLogger(ManterCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -73,27 +69,23 @@ public class ManterCupomDescontoController extends HttpServlet {
         try {
           if (operacao.equals("Incluir")){
             CupomDesconto cupomDesconto = new CupomDesconto(  nome, valor, ativo);
-            cupomDesconto.gravar();
+            CupomDescontoDAO.getInstance().salvar(cupomDesconto);
         }else{ 
             if(operacao.equals("Editar")){
                 Long idCupomDesconto = Long.parseLong(request.getParameter("txtIdCupomDesconto"));
-                CupomDesconto cupomDesconto = new CupomDesconto(  idCupomDesconto, nome, valor, ativo);
-                cupomDesconto.alterar();
+                CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
+                CupomDescontoDAO.getInstance().salvar(cupomDesconto);
         } else{ 
                 if (operacao.equals("Excluir")){
                 Long idCupomDesconto = Long.parseLong(request.getParameter("txtIdCupomDesconto"));
-                CupomDesconto cupomDesconto = new CupomDesconto ( idCupomDesconto, nome, valor, ativo);
-                cupomDesconto.excluir();
+                CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
+                CupomDescontoDAO.getInstance().excluir(cupomDesconto);
                 }
             }
       }
         RequestDispatcher view =request.getRequestDispatcher("PesquisaCupomDescontoController");
         view.forward(request,response);
         } catch (IOException e) {
-            throw new ServletException(e);
-        }catch (SQLException e){
-            throw new ServletException(e);
-        }catch(ClassNotFoundException e){
             throw new ServletException(e);
         }catch(ServletException e){
             throw e;

@@ -15,7 +15,7 @@ import java.util.List;
 
 @WebServlet(name = "PesquisaClienteControllerADM", urlPatterns = {"/PesquisaClienteControllerADM"})
 
-public class PesquisaClienteControllerADM extends tHtpServlet {
+public class PesquisaClienteControllerADM extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String tipo = request.getSession().getAttribute("tipo").toString();

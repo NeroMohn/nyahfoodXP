@@ -1,5 +1,6 @@
 package controller;
 
+import dao.ComidaDAO;
 import model.Comida;
 
 import javax.servlet.RequestDispatcher;
@@ -16,11 +17,11 @@ import java.util.List;
 public class PesquisaComidaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Comida> obterTodasComidas = Comida.obterTodasComidas();
+        List<Comida> obterTodasComidas = ComidaDAO.getInstance().getAllComidas();
         if(obterTodasComidas.isEmpty()){
             request.setAttribute("vazio", "Mensagem");
         }
-        request.setAttribute("comidas", Comida.obterTodasComidas());
+        request.setAttribute("comidas", ComidaDAO.getInstance().getAllComidas());
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaComida.jsp");
         view.forward(request, response);
     }
