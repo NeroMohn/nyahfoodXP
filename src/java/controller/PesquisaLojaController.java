@@ -1,5 +1,6 @@
 package controller;
 
+import dao.LojaDAO;
 import model.Loja;
 
 import java.io.IOException;
@@ -17,22 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 public class PesquisaLojaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            List<Loja> obterTodasLojas = Loja.obterTodasLojas();
-            if(obterTodasLojas.isEmpty()){
-                request.setAttribute("vazio", "Mensagem");
-            }
-             String id = request.getSession().getAttribute("id").toString();
-             request.setAttribute("id",id);
-             request.setAttribute("lojas", Loja.obterTodasLojas());
-             RequestDispatcher view = request.getRequestDispatcher("/PesquisaLoja.jsp");
-             view.forward(request, response);
-                
-        } catch (ClassNotFoundException e) {
-            throw new ServletException(e);
-        } catch (SQLException e) {
-            throw new ServletException(e);
+        List<Loja> obterTodasLojas = LojaDAO.getInstance().getAllLojas();
+        if(obterTodasLojas.isEmpty()){
+            request.setAttribute("vazio", "Mensagem");
         }
+        String id = request.getSession().getAttribute("id").toString();
+        request.setAttribute("id",id);
+        request.setAttribute("lojas", LojaDAO.getInstance().getAllLojas());
+        RequestDispatcher view = request.getRequestDispatcher("/PesquisaLoja.jsp");
+        view.forward(request, response);
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
