@@ -43,7 +43,6 @@ public class CadastroLojaController extends HttpServlet {
 
     public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
         try {
-
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
@@ -59,7 +58,6 @@ public class CadastroLojaController extends HttpServlet {
         } catch (IOException ex) {
             Logger.getLogger(CadastroLojaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException {
@@ -93,9 +91,7 @@ public class CadastroLojaController extends HttpServlet {
                     if (request.getSession().getAttribute("id") != null) {
                         String idLoja1 = (String) request.getSession().getAttribute("id");
                         Long idLoja = parseLong(idLoja1);
-                        Loja loja = new Loja(nome, nomeGerente, email, senha, telefone, cnpj,
-                                descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
-                                complemento, cidade, estado);
+                        Loja loja = LojaDAO.getInstance().getLoja(idLoja);
                         LojaDAO.getInstance().salvar(loja);
                     }
                 } else {
