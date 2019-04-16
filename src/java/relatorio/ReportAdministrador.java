@@ -18,7 +18,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 public class ReportAdministrador extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
  Connection conexao = null;
         try {
          
@@ -35,11 +35,7 @@ public class ReportAdministrador extends HttpServlet {
            
         
                         
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+        } catch (JRException | IOException ex) {
             ex.printStackTrace();
         } finally {
             try {
