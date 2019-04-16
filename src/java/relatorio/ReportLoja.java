@@ -5,17 +5,20 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 
 public class ReportLoja extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws JRException {
  Connection conexao = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -55,7 +58,11 @@ public class ReportLoja extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (JRException ex) {
+            Logger.getLogger(ReportLoja.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 
@@ -68,7 +75,11 @@ public class ReportLoja extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (JRException ex) {
+            Logger.getLogger(ReportLoja.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 
