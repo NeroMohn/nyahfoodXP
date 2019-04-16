@@ -104,5 +104,25 @@ public class LojaDAO {
         return lojas;
     }
     
+    public Loja getLoja(String email){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Loja loja = null;
+        try{
+            tx.begin();
+            loja = em.find(Loja.class, email);
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return loja;
+    }
+    
     
 }

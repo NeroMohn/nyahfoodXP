@@ -104,5 +104,25 @@ public class ClienteDAO {
         return clientes;
     }
     
+    public Cliente getCliente(String email){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Cliente cliente = null;
+        try{
+            tx.begin();
+            cliente = em.find(Cliente.class, email);
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return cliente;
+    }
+    
     
 }

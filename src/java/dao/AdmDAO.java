@@ -104,5 +104,24 @@ public class AdmDAO {
         return adms;
     }
     
+    public Adm getAdm(String email){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Adm adm = null;
+        try{
+            tx.begin();
+            adm = em.find(Adm.class, email);
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return adm;
+    }
     
 }
