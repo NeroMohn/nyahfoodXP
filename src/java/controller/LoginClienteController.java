@@ -1,6 +1,7 @@
 
 package controller;
 
+import dao.ClienteDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -67,8 +68,8 @@ public class LoginClienteController extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         String tipo = "1";
-        Cliente cliente = Cliente.obterCliente(login);
-        Long idCliente = cliente.getIdCliente();
+        Cliente cliente = ClienteDAO.getInstance().getCliente(login);
+        Long idCliente = cliente.getId();
         String nomeCliente = cliente.getNome();
         if(cliente == null){
             try{
