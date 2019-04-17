@@ -6,6 +6,9 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 
@@ -15,6 +18,9 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Loja extends Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String cnpj;
     private String descricao;
     private String nomeGerente;
@@ -54,13 +60,20 @@ public class Loja extends Usuario {
         this.tipoCozinha = tipoCozinha;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(String CNPJ) {
-        this.cnpj = CNPJ;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getDescricao() {
@@ -87,7 +100,6 @@ public class Loja extends Usuario {
         this.tipoPagamento = tipoPagamento;
     }
 
- 
     public String getFoto() {
         return foto;
     }
@@ -95,7 +107,6 @@ public class Loja extends Usuario {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-
 
     public TipoCozinha getTipoCozinha() {
         return tipoCozinha;
@@ -105,5 +116,5 @@ public class Loja extends Usuario {
         this.tipoCozinha = tipoCozinha;
     }
 
-    
+
 }

@@ -9,14 +9,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 
-
-@Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Usuario implements Serializable{
     private static final long serialVerionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String nome;
     private String telefone;
     private String email;
@@ -45,14 +40,6 @@ public abstract class Usuario implements Serializable{
         this.cidade = cidade;
         this.estado = estado;
         this.numero = numero;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
