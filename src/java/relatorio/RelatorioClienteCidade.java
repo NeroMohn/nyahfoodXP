@@ -19,7 +19,8 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class ReportAdministrador extends HttpServlet {
+@WebServlet (name= "RelatorioController", urlPatterns = "/RelatorioController")
+public class RelatorioClienteCidade extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
  Connection conexao = null;
         try {
@@ -27,17 +28,19 @@ public class ReportAdministrador extends HttpServlet {
             /*Class.forName("com.mysql.jdbc.Driver");*/
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
-            //parametros.put("PAR_Tempo", Integer.parseInt(request.getParameter("txtCodCurso")));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/ReportAdministrador.jasper";
+            parametros.put("PAR_cidade", request.getParameter("txtAnswer"));
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioClienteCidade.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=relatorioAdmin.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorioClienteCidade.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
            
         
                         
-        } catch (JRException | IOException ex) {
+        } catch (JRException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
             try {
@@ -63,7 +66,7 @@ public class ReportAdministrador extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioClienteCidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -80,7 +83,7 @@ public class ReportAdministrador extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioClienteCidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

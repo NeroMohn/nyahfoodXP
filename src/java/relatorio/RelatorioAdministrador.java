@@ -19,7 +19,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class ReportTipoCozinha extends HttpServlet {
+public class RelatorioAdministrador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
  Connection conexao = null;
         try {
@@ -28,18 +28,16 @@ public class ReportTipoCozinha extends HttpServlet {
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
             //parametros.put("PAR_Tempo", Integer.parseInt(request.getParameter("txtCodCurso")));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/ReportTipoCozinha.jasper";
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioAdministrador.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=relatorioTipoCozinha.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorioAdmin.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
            
         
                         
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+        } catch (JRException | IOException ex) {
             ex.printStackTrace();
         } finally {
             try {
@@ -65,7 +63,7 @@ public class ReportTipoCozinha extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportTipoCozinha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,7 +80,7 @@ public class ReportTipoCozinha extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportTipoCozinha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

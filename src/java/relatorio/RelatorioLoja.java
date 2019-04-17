@@ -3,14 +3,11 @@ package relatorio;
 import dao.BD;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,26 +16,24 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-@WebServlet (name= "RelatorioController", urlPatterns = "/RelatorioController")
-public class ReportTeste extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
+
+public class RelatorioLoja extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws JRException {
  Connection conexao = null;
         try {
-         
-            /*Class.forName("com.mysql.jdbc.Driver");*/
+            Class.forName("com.mysql.jdbc.Driver");
             conexao = BD.getConexao();
+            
+            
             HashMap parametros = new HashMap();
-            parametros.put("PAR_cidade", request.getParameter("txtAnswer"));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioTeste.jasper";
+            //parametros.put("PAR_codCurso", Integer.parseInt(request.getParameter("txtCodCurso")));
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioLoja.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=relatorio.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorioLoja.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
-           
-        
-                        
-        } catch (JRException ex) {
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -65,8 +60,8 @@ public class ReportTeste extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportTeste.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(RelatorioLoja.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,8 +77,8 @@ public class ReportTeste extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportTeste.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(RelatorioLoja.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

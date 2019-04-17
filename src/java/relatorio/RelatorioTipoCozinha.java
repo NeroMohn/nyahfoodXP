@@ -19,18 +19,19 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class ReportCliente extends HttpServlet {
+public class RelatorioTipoCozinha extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
  Connection conexao = null;
         try {
          
+            /*Class.forName("com.mysql.jdbc.Driver");*/
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
             //parametros.put("PAR_Tempo", Integer.parseInt(request.getParameter("txtCodCurso")));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/ReportCliente.jasper";
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioTipoCozinha.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=relatorioCliente.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorioTipoCozinha.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
            
@@ -64,7 +65,7 @@ public class ReportCliente extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioTipoCozinha.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,7 +82,7 @@ public class ReportCliente extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioTipoCozinha.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

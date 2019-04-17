@@ -19,19 +19,18 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class ReportClientID extends HttpServlet {
+public class RelatorioCliente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
  Connection conexao = null;
         try {
          
-            /*Class.forName("com.mysql.jdbc.Driver");*/
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
-            parametros.put("PAR_idCliente", Integer.parseInt(request.getParameter("txtIdCliente")));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/ReportClientID.jasper";
+            //parametros.put("PAR_Tempo", Integer.parseInt(request.getParameter("txtCodCurso")));
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioCliente.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=relatorioAdmin.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorioCliente.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
            
@@ -65,7 +64,7 @@ public class ReportClientID extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportClientID.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,7 +81,7 @@ public class ReportClientID extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportClientID.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

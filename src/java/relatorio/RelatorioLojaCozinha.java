@@ -19,7 +19,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class ReportLojaTipoCozinha extends HttpServlet {
+public class RelatorioLojaCozinha extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
  Connection conexao = null;
         try {
@@ -28,10 +28,10 @@ public class ReportLojaTipoCozinha extends HttpServlet {
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
             parametros.put("PAR_TipoCozinha", request.getParameter("optTipoCozinha"));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/ReportLojaTipoCozinha.jasper";
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioLojaCozinha.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=reportLojaCozinha.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorioLojaCozinha.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
            
@@ -65,7 +65,7 @@ public class ReportLojaTipoCozinha extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportLojaTipoCozinha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioLojaCozinha.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,7 +82,7 @@ public class ReportLojaTipoCozinha extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportLojaTipoCozinha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioLojaCozinha.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
