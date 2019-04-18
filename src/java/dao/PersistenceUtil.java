@@ -17,7 +17,7 @@ public class PersistenceUtil {
     
     private static EntityManagerFactory emf = null;
     
-    private PersistenceUtil(){
+    public PersistenceUtil(){
     }
     
     public static EntityManager getEntityManager(){

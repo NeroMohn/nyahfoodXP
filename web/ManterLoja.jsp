@@ -167,7 +167,7 @@
                 <td>
                     <select name="optTipoCozinha" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                         <c:forEach items="${tiposCozinha}" var="tipoCozinha">
-                            <option value="${tipoCozinha.idTipoCozinha}" <c:if test="${loja.codTipoCozinha == tipoCozinha.idTipoCozinha}"> selected</c:if>>${tipoCozinha.nome}</option>
+                            <option value="${tipoCozinha.id}" <c:if test="${loja.codTipoCozinha == tipoCozinha.id}"> selected</c:if>>${tipoCozinha.nome}</option>
                         </c:forEach>
                     </select>
                 </td>

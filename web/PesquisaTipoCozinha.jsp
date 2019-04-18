@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -76,11 +77,11 @@
            
                 <c:forEach items="${tiposcozinhas}" var="tipocozinha">
                     <tr>
-                        <td><c:out value="${tipocozinha.idTipoCozinha}"/></td>
+                        <td><c:out value="${tipocozinha.id}"/></td>
                         <td><c:out value="${tipocozinha.nome}"/></td>
-                        <td><a href="ManterTipoCozinhaController?acao=prepararOperacao&operacao=Editar&idTipoCozinha=<c:out value="${tipocozinha.idTipoCozinha}"/>">Editar</a></td>
+                        <td><a href="ManterTipoCozinhaController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${tipocozinha.id}"/>">Editar</a></td>
                         <td>
-                            <a href="ManterTipoCozinhaController?acao=prepararOperacao&operacao=Excluir&idTipoCozinha=<c:out value="${tipocozinha.idTipoCozinha}"/>">Excluir</a></td>
+                            <a href="ManterTipoCozinhaController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${tipocozinha.id}"/>">Excluir</a></td>
                     </tr>
                 </c:forEach>
 

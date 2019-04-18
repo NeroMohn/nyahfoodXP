@@ -8,7 +8,6 @@ package controller;
 import dao.LojaDAO;
 import dao.TipoCozinhaDAO;
 import java.io.IOException;
-import static java.lang.Long.parseLong;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Loja;
 import model.TipoCozinha;
-import model.TipoPagamento;
 
 /**
  *
