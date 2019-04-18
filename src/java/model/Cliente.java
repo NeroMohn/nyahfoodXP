@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
  * @author Yukas
  */
 @Entity
-public class Cliente extends Usuario {
+public class Cliente extends Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -21,8 +22,8 @@ public class Cliente extends Usuario {
 
     }
 
-    public Cliente(String nome,String cpf, String telefone, String email, String senha, String cep, String logradouro, String bairro, String complemento, String cidade, String estado, String numero) {
-        super(nome, telefone, email, senha, cep, logradouro, bairro, complemento, cidade, estado, numero);
+    public Cliente(String nome,String cpf, String email, String senha, String telefone, String cep, String logradouro, String bairro,String numero, String complemento, String cidade, String estado) {
+        super(nome, email, senha, telefone, cep, logradouro, bairro, numero, complemento, cidade, estado);
         this.cpf = cpf;
     }
 

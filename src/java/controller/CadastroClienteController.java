@@ -56,17 +56,17 @@ public class CadastroClienteController extends HttpServlet {
         String email = request.getParameter("txtEmailCliente");
         String senha = request.getParameter("txtSenhaCliente");
         String telefone = request.getParameter("txtTelefoneCliente");
-        String logradouro = request.getParameter("txtLogradouroCliente");
         String cep = request.getParameter("txtCepCliente");
-        String numero = request.getParameter("txtNumeroCliente");
+        String logradouro = request.getParameter("txtLogradouroCliente");
         String bairro = request.getParameter("txtBairroCliente");
+        String numero = request.getParameter("txtNumeroCliente");
         String complemento = request.getParameter("txtComplementoCliente");
         String cidade = request.getParameter("txtCidadeCliente");
         String estado = request.getParameter("txtEstadoCliente");
 
         try {
             if (operacao.equals("Incluir")) {
-                Cliente cliente = new Cliente(nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
+                Cliente cliente = new Cliente(nome, cpf, email, senha, telefone, cep,logradouro, bairro, numero,
                         complemento, cidade, estado);
                 ClienteDAO.getInstance().salvar(cliente);
             } else {
