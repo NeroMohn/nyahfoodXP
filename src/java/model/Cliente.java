@@ -12,11 +12,8 @@ import javax.persistence.Id;
  * @author Yukas
  */
 @Entity
-public class Cliente extends Usuario implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Cliente extends Usuario  {
+    
     private String cpf;
 
     public Cliente() {
@@ -27,13 +24,9 @@ public class Cliente extends Usuario implements Serializable {
         super(nome, email, senha, telefone, cep, logradouro, bairro, numero, complemento, cidade, estado);
         this.cpf = cpf;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    
+        public Cliente(Long id){
+        super(id);
     }
 
     public String getCpf() {

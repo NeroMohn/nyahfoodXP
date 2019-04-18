@@ -19,10 +19,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Loja extends Usuario implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+
     private String cnpj;
     private String descricao;
     private String nomeGerente;
@@ -62,12 +59,8 @@ public class Loja extends Usuario implements Serializable {
         this.tipoCozinha = tipoCozinha;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Loja(Long id){
+        super(id);
     }
 
     public String getCnpj() {
