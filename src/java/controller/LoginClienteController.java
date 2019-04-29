@@ -68,7 +68,7 @@ public class LoginClienteController extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         String tipo = "1";
-        Cliente cliente = ClienteDAO.getInstance().getCliente(login);
+        Cliente cliente = ClienteDAO.getInstance().getClienteEmail(login);
         Long idCliente = cliente.getId();
         String nomeCliente = cliente.getNome();
         if(cliente == null){

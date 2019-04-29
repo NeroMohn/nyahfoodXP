@@ -67,9 +67,8 @@ public class LoginLojaController extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         String tipo = "2";
-
- 
-        Loja loja = LojaDAO.getInstance().getLoja(login);
+        Loja loja = LojaDAO.getInstance().getLojaEmail(login);
+     
         if(loja == null){
             try{
                 RequestDispatcher view = request.getRequestDispatcher("/LoginIncorreto.jsp");       

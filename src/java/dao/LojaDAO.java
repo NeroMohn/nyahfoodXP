@@ -104,14 +104,17 @@ public class LojaDAO {
         return lojas;
     }
     
-    public Loja getLoja(String email){
+    public Loja getLojaEmail(String email){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Loja loja = null;
         try{
             tx.begin();
-            loja = em.find(Loja.class, email);
+            TypedQuery<Loja> query = em.createQuery("select l From Loja l where l.email LIKE :email", Loja.class);
+            query.setParameter("email", email);
+            
+            loja = query.getSingleResult();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
