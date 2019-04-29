@@ -104,7 +104,7 @@ public class AdmDAO {
         return adms;
     }
     
-    public Adm getAdm(String email){
+    public Adm getAdm(String login){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -112,7 +112,7 @@ public class AdmDAO {
         try{
            tx.begin();
             TypedQuery<Adm> query = em.createQuery("select a From Adm a where a.login LIKE :login", Adm.class);
-            query.setParameter("email", email);
+            query.setParameter("login", login);
             
             adm = query.getSingleResult();
             tx.commit();
