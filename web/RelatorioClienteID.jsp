@@ -7,7 +7,7 @@
     </head>
     <body>
         <div>
-            <form action="ReportClientID" method="post">
+            <form action="RelatorioClienteID" method="post">
                 <input type="text" name = "txtIdCliente">
                 <input type ="submit" name="btnReport" value="Enviar">
             </form>

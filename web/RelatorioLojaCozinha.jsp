@@ -7,7 +7,7 @@
     </head>
     <body>
         <div>
-            <form action="RelatorioLojaTipoCozinha" method="post">
+            <form action="RelatorioLojaCozinha" method="post">
                 <select name="optTipoCozinha">
                         <c:forEach items="${tiposCozinha}" var="tipoCozinha">
                             <option value="${tipoCozinha.idTipoCozinha}" <c:if test="${loja.codTipoCozinha == tipoCozinha.idTipoCozinha}"> </c:if>${tipoCozinha.nome} </option>

@@ -13,31 +13,31 @@
     </head>
     <body>
         <div>
-            <a href="ReportClientID.jsp">Relatorio Digita</a>
+            <a href="RelatorioClienteID.jsp">Relatorio Digita</a>
         </div>
         <div>
-            <a href="RelatorioLojaTipoCozinha.jsp">Relatorio Select</a>
+            <a href="RelatorioLojaCozinha.jsp">Relatorio Select</a>
         </div>
         <div>
-            <form action="ReportAdministrador" method="post">
+            <form action="RelatorioAdministrador" method="post">
                 <input type ="submit" name="btnReport" value="RelatorioAdministrador">
 
             </form>
         </div>
         <div>
-            <form action="ReportCliente" method="post">
+            <form action="RelatorioCliente" method="post">
                 <input type ="submit" name="btnReport" value="RelatorioCliente">
 
             </form>
         </div>
         <div>
-            <form action="ReportLoja" method="post">
+            <form action="RelatorioLoja" method="post">
                 <input type ="submit" name="btnReport" value="RelatorioLoja">
 
             </form>
         </div>
         <div>
-            <form action="ReportTipoCozinha" method="post">
+            <form action="RelatorioTipoCozinha" method="post">
                 <input type ="submit" name="btnReport" value="RelatorioTipoCozinha">
 
             </form>
