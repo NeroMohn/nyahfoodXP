@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.TipoPagamento;
 
-
 public class ManterTipoPagamentoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -34,60 +33,56 @@ public class ManterTipoPagamentoController extends HttpServlet {
     }
 
     public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
-        try{
-    
+        try {
 
-        String operacao = request.getParameter("operacao");
-        request.setAttribute("operacao", operacao);  
-        if (!operacao.equals("Incluir")) {
-            Long idTipoPagamento = Long.parseLong(request.getParameter("idTipoPagamento"));
-            TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento);
-            request.setAttribute("tipoPagamento", tipoPagamento);
+            String operacao = request.getParameter("operacao");
+            request.setAttribute("operacao", operacao);
+            if (!operacao.equals("Incluir")) {
+                Long idTipoPagamento = Long.parseLong(request.getParameter("idTipoPagamento"));
+                TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento);
+                request.setAttribute("tipoPagamento", tipoPagamento);
 
-        }
-        RequestDispatcher view = request.getRequestDispatcher("/ManterTipoPagamento.jsp");
-        view.forward(request, response);
-    } catch (ServletException ex) {
+            }
+            RequestDispatcher view = request.getRequestDispatcher("/ManterTipoPagamento.jsp");
+            view.forward(request, response);
+        } catch (ServletException ex) {
             Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-   
-}
 
-public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException{
-    String operacao = request.getParameter("operacao");
-    String nome = request.getParameter("txtNome");
-    
-    try{
-       if (operacao.equals("Incluir")){
-            TipoPagamento tipoPagamento = new TipoPagamento (nome);
-            TipoPagamentoDAO.getInstance().salvar(tipoPagamento);
-        }else{ 
-            if(operacao.equals("Editar")){
-                Long idTipoPagamento = Long.parseLong(request.getParameter("txtIdTipoPagamento"));
-                TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento) ;
-                TipoPagamentoDAO.getInstance().salvar(tipoPagamento);
-        } else{ 
-                if (operacao.equals("Excluir")){
-                Long idTipoPagamento = Long.parseLong(request.getParameter("txtIdTipoPagamento"));
-                TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento);
-                
-                TipoPagamentoDAO.getInstance().excluir(tipoPagamento);
-                }
-            }
     }
-        RequestDispatcher view =request.getRequestDispatcher("PesquisaTipoPagamentoController");
-        view.forward(request,response);
-}
-         catch (IOException e) {
+
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        String operacao = request.getParameter("operacao");
+        String nome = request.getParameter("txtNome");
+        Long id = null;
+
+        if (!operacao.equals("Incluir")) {
+            id = Long.parseLong(request.getParameter("id"));
+        }
+
+        try {
+            TipoPagamento tipoPagamento = new TipoPagamento(nome);
+            if (operacao.equals("Incluir")) {
+                tipoPagamento.salvar();
+            } else if (operacao.equals("Editar")) {
+                tipoPagamento.setId(id);
+                tipoPagamento.salvar();
+            } else if (operacao.equals("Excluir")) {
+                tipoPagamento.setId(id);
+                tipoPagamento.excluir();
+
+            }
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaTipoPagamentoController");
+            view.forward(request, response);
+        } catch (IOException e) {
             throw new ServletException(e);
-        }catch(ServletException e){
+        } catch (ServletException e) {
             throw e;
         }
-}
-    
-    
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

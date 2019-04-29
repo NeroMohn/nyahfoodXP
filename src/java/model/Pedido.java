@@ -1,6 +1,8 @@
 package model;
 
+import dao.PedidoDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -87,6 +89,22 @@ public class Pedido implements Serializable{
 
     public void setCupomDesconto(CupomDesconto cupomDesconto) {
         this.cupomDesconto = cupomDesconto;
+    }
+    
+        public void salvar(){
+        PedidoDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        PedidoDAO.getInstance().excluir(this);
+    }
+    
+    public static Pedido getPedido(long id){
+        return PedidoDAO.getInstance().getPedido(id);
+    }
+    
+    public static List<Pedido> getAllPedidos(){
+        return PedidoDAO.getInstance().getAllPedidos();
     }
 
 }

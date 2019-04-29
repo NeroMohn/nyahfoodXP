@@ -1,11 +1,12 @@
 package model;
 
+import dao.CupomDescontoDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 
 /**
@@ -62,6 +63,22 @@ public class CupomDesconto implements Serializable{
 
     public void setAtivo(int ativo) {
         this.ativo = ativo;
+    }
+    
+        public void salvar(){
+        CupomDescontoDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        CupomDescontoDAO.getInstance().excluir(this);
+    }
+    
+    public static CupomDesconto getCupomDesconto(long id){
+        return CupomDescontoDAO.getInstance().getCupomDesconto(id);
+    }
+    
+    public static List<CupomDesconto> getAllCupomDescontos(){
+        return CupomDescontoDAO.getInstance().getAllCupomDescontos();
     }
 
 

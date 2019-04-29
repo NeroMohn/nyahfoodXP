@@ -118,11 +118,11 @@ public class Comida implements Serializable {
         ComidaDAO.getInstance().excluir(this);
     }
     
-    public static Comida getCliente(long id){
+    public static Comida getComida(long id){
         return ComidaDAO.getInstance().getComida(id);
     }
     
-    public static List<Comida> getAllClientes(){
+    public static List<Comida> getAllComidas(){
         return ComidaDAO.getInstance().getAllComidas();
     }
 

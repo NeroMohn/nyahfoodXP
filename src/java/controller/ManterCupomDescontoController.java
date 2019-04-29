@@ -23,7 +23,7 @@ import dao.CupomDescontoDAO;
  *
  * @author David
  */
-@WebServlet (name= "ManterCupomDescontoController", urlPatterns = "/controller.ManterCupomDescontoController")
+@WebServlet(name = "ManterCupomDescontoController", urlPatterns = "/controller.ManterCupomDescontoController")
 public class ManterCupomDescontoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -41,15 +41,15 @@ public class ManterCupomDescontoController extends HttpServlet {
 
     public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
         try {
-        String operacao = request.getParameter("operacao");
-        request.setAttribute("operacao", operacao);
-        if (!operacao.equals("Incluir")) {
-            Long idCupomDesconto = Long.parseLong(request.getParameter("idCupomDesconto"));
-            CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
-            request.setAttribute("cupomDesconto", cupomDesconto);
-        }
-        RequestDispatcher view = request.getRequestDispatcher("/ManterCupomDesconto.jsp");    
-        view.forward(request, response);
+            String operacao = request.getParameter("operacao");
+            request.setAttribute("operacao", operacao);
+            if (!operacao.equals("Incluir")) {
+                Long idCupomDesconto = Long.parseLong(request.getParameter("idCupomDesconto"));
+                CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
+                request.setAttribute("cupomDesconto", cupomDesconto);
+            }
+            RequestDispatcher view = request.getRequestDispatcher("/ManterCupomDesconto.jsp");
+            view.forward(request, response);
         } catch (ServletException ex) {
             Logger.getLogger(ManterCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -57,41 +57,39 @@ public class ManterCupomDescontoController extends HttpServlet {
         }
 
     }
-    
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException{
+
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String operacao = request.getParameter("operacao");
         String nome = request.getParameter("nome");
         Double valor = Double.parseDouble(request.getParameter("valor"));
         Integer ativo = Integer.parseInt(request.getParameter("ativo"));
-       
-       
-        
+        Long id = null;
+
+        if (!operacao.equals("Incluir")) {
+            id = Long.parseLong(request.getParameter("id"));
+        }
+
         try {
-          if (operacao.equals("Incluir")){
-            CupomDesconto cupomDesconto = new CupomDesconto(  nome, valor, ativo);
-            CupomDescontoDAO.getInstance().salvar(cupomDesconto);
-        }else{ 
-            if(operacao.equals("Editar")){
-                Long idCupomDesconto = Long.parseLong(request.getParameter("txtIdCupomDesconto"));
-                CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
-                CupomDescontoDAO.getInstance().salvar(cupomDesconto);
-        } else{ 
-                if (operacao.equals("Excluir")){
-                Long idCupomDesconto = Long.parseLong(request.getParameter("txtIdCupomDesconto"));
-                CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
-                CupomDescontoDAO.getInstance().excluir(cupomDesconto);
-                }
+            CupomDesconto cupomDesconto = new CupomDesconto(nome, valor, ativo);
+            if (operacao.equals("Incluir")) {
+                cupomDesconto.salvar();
+            } else if (operacao.equals("Editar")) {
+                cupomDesconto.setId(id);
+                cupomDesconto.salvar();
+            } else if (operacao.equals("Excluir")) {
+                cupomDesconto.setId(id);
+                cupomDesconto.excluir();
             }
-      }
-        RequestDispatcher view =request.getRequestDispatcher("PesquisaCupomDescontoController");
-        view.forward(request,response);
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaCupomDescontoController");
+
+            view.forward(request, response);
         } catch (IOException e) {
             throw new ServletException(e);
-        }catch(ServletException e){
+        } catch (ServletException e) {
             throw e;
         }
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

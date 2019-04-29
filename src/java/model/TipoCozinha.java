@@ -1,6 +1,8 @@
 package model;
 
+import dao.TipoCozinhaDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,6 +43,22 @@ public class TipoCozinha implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+        public void salvar(){
+        TipoCozinhaDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        TipoCozinhaDAO.getInstance().excluir(this);
+    }
+    
+    public static TipoCozinha getTipoCozinha(Long id){
+        return TipoCozinhaDAO.getInstance().getTipoCozinha(id);
+    }
+    
+    public static List<TipoCozinha> getAllTipoCozinhas(){
+        return TipoCozinhaDAO.getInstance().getAllTipoCozinhas();
     }
     
     

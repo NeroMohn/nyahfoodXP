@@ -1,6 +1,8 @@
 package model;
 
+import dao.ComidaPedidaDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -76,5 +78,20 @@ public class ComidaPedida implements Serializable{
         this.pedido = pedido;
     }
     
+    public void salvar(){
+        ComidaPedidaDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        ComidaPedidaDAO.getInstance().excluir(this);
+    }
+    
+    public static ComidaPedida getComidaPedida(Long id){
+        return ComidaPedidaDAO.getInstance().getComidaPedida(id);
+    }
+    
+    public static List<ComidaPedida> getAllComidaPedidas(){
+        return ComidaPedidaDAO.getInstance().getAllComidaPedidas();
+    }
     
 }

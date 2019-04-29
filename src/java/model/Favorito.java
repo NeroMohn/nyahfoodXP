@@ -1,6 +1,8 @@
 package model;
 
+import dao.FavoritoDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +21,13 @@ public class Favorito implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    private Cliente cliente;
+    private Favorito cliente;
     @ManyToOne
     private Loja loja;
     
     public Favorito(){}
 
-    public Favorito(Cliente cliente, Loja loja) {
+    public Favorito(Favorito cliente, Loja loja) {
         this.cliente = cliente;
         this.loja = loja;
     }
@@ -38,11 +40,11 @@ public class Favorito implements Serializable{
         this.id = id;
     }
 
-    public Cliente getCliente() {
+    public Favorito getFavorito() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setFavorito(Favorito cliente) {
         this.cliente = cliente;
     }
 
@@ -52,6 +54,22 @@ public class Favorito implements Serializable{
 
     public void setLoja(Loja loja) {
         this.loja = loja;
+    }
+    
+     public void salvar(){
+        FavoritoDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        FavoritoDAO.getInstance().excluir(this);
+    }
+    
+    public static Favorito getFavorito(Long id){
+        return FavoritoDAO.getInstance().getFavorito(id);
+    }
+    
+    public static List<Favorito> getAllFavoritos(){
+        return FavoritoDAO.getInstance().getAllFavoritos();
     }
 
     

@@ -72,7 +72,7 @@ public class ManterPedidoController extends HttpServlet {
 
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException {
         String operacao = request.getParameter("operacao");
         Double total = Double.parseDouble(request.getParameter("txtTotal"));
         String metodoPagamento = request.getParameter("txtMetodoPagamento");
@@ -81,23 +81,29 @@ public class ManterPedidoController extends HttpServlet {
         Cliente cliente = ClienteDAO.getInstance().getCliente(codCliente);
         Long codCupomDesconto = Long.parseLong(request.getParameter("txtCodCupomDesconto"));
         CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(codCupomDesconto);
+        Long id = null;
 
-        if (operacao.equals("Incluir")) {
-            Pedido pedido;
-            pedido = new Pedido(total, metodoPagamento, date, cliente, cupomDesconto);
-            PedidoDAO.getInstance().salvar(pedido);
-        } else {
-            if (operacao.equals("Editar")) {
-                Long idPedido = Long.parseLong(request.getParameter("txtIdPedido"));
-                Pedido pedido = PedidoDAO.getInstance().getPedido(idPedido);
-                PedidoDAO.getInstance().salvar(pedido);
-            } else {
-                if (operacao.equals("Excluir")) {
-                    Long idPedido = Long.parseLong(request.getParameter("txtIdPedido"));
-                    Pedido pedido = PedidoDAO.getInstance().getPedido(idPedido);
-                    PedidoDAO.getInstance().excluir(pedido);
-                }
+        if (!operacao.equals("Incluir")) {
+            id = Long.parseLong(request.getParameter("id"));
+        }
+
+        try {
+            Pedido pedido = new Pedido(total, metodoPagamento, date, cliente, cupomDesconto);
+            if (operacao.equals("Incluir")) {
+                pedido.salvar();
+            } else if (operacao.equals("Editar")) {
+                pedido.setId(id);
+                pedido.salvar();
+            } else if (operacao.equals("Excluir")) {
+                pedido.setId(id);
+                pedido.excluir();
             }
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaClienteController");
+            view.forward(request, response);
+        } catch (IOException e) {
+            throw new ServletException(e);
+        } catch (ServletException e) {
+            throw e;
         }
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -115,10 +121,14 @@ public class ManterPedidoController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManterPedidoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManterPedidoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -135,10 +145,14 @@ public class ManterPedidoController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManterPedidoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManterPedidoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

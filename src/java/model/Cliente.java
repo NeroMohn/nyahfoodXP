@@ -44,7 +44,7 @@ public class Cliente extends Usuario implements Serializable {
         ClienteDAO.getInstance().excluir(this);
     }
     
-    public static Cliente getCliente(long id){
+    public static Cliente getCliente(Long id){
         return ClienteDAO.getInstance().getCliente(id);
     }
     

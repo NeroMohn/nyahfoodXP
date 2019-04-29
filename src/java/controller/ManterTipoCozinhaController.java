@@ -22,11 +22,11 @@ import model.TipoCozinha;
  *
  * @author David
  */
-@WebServlet (name= "ManterTipoCozinhaController", urlPatterns = "/controller.ManterTipoCozinhaController")
+@WebServlet(name = "ManterTipoCozinhaController", urlPatterns = "/controller.ManterTipoCozinhaController")
 public class ManterTipoCozinhaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         String acao = request.getParameter("acao");
         if (acao.equals("confirmarOperacao")) {
             confirmarOperacao(request, response);
@@ -38,71 +38,68 @@ public class ManterTipoCozinhaController extends HttpServlet {
         }
     }
 
-public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
-        try{
-    
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+        try {
 
-        String operacao = request.getParameter("operacao");
-        request.setAttribute("operacao", operacao);  
-        if (!operacao.equals("Incluir")) {
-            Long idTipoCozinha = Long.parseLong(request.getParameter("idTipoCozinha"));
-            TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
-            request.setAttribute("tipoCozinha", tipoCozinha);
+            String operacao = request.getParameter("operacao");
+            request.setAttribute("operacao", operacao);
+            if (!operacao.equals("Incluir")) {
+                Long idTipoCozinha = Long.parseLong(request.getParameter("idTipoCozinha"));
+                TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
+                request.setAttribute("tipoCozinha", tipoCozinha);
 
-        }
-        RequestDispatcher view = request.getRequestDispatcher("/ManterTipoCozinha.jsp");
-        view.forward(request, response);
-    } catch (ServletException ex) {
+            }
+            RequestDispatcher view = request.getRequestDispatcher("/ManterTipoCozinha.jsp");
+            view.forward(request, response);
+        } catch (ServletException ex) {
             Logger.getLogger(ManterTipoCozinhaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ManterTipoCozinhaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-   
-}
 
-public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException{
-    String operacao = request.getParameter("operacao");
-    String nome = request.getParameter("txtNome");
-    
-    try{
-       if (operacao.equals("Incluir")){
-            TipoCozinha tipoCozinha = new TipoCozinha (nome);
-            TipoCozinhaDAO.getInstance().salvar(tipoCozinha);
-        }else{ 
-            if(operacao.equals("Editar")){
-                Long idTipoCozinha = Long.parseLong(request.getParameter("txtIdTipoCozinha"));
-                TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
-                TipoCozinhaDAO.getInstance().salvar(tipoCozinha);
-        } else{ 
-                if (operacao.equals("Excluir")){
-                Long idTipoCozinha = Long.parseLong(request.getParameter("txtIdTipoCozinha"));
-                TipoCozinha tipoCozinha =TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
-                TipoCozinhaDAO.getInstance().excluir(tipoCozinha);
-                }
-            }
     }
-        RequestDispatcher view =request.getRequestDispatcher("PesquisaTipoCozinhaController");
-        view.forward(request,response);
-}
-         catch (IOException e) {
+
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        String operacao = request.getParameter("operacao");
+        String nome = request.getParameter("txtNome");
+        Long id = null;
+
+        if (!operacao.equals("Incluir")) {
+            id = Long.parseLong(request.getParameter("id"));
+        }
+
+        try {
+            TipoCozinha tipoCozinha = new TipoCozinha(nome);
+            if (operacao.equals("Incluir")) {
+                
+                tipoCozinha.salvar();
+            } else if (operacao.equals("Editar")) {
+                tipoCozinha.setId(id);
+                tipoCozinha.salvar();
+            } else if (operacao.equals("Excluir")) {
+                tipoCozinha.setId(id);
+                tipoCozinha.excluir();
+            }
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaTipoCozinhaController");
+            view.forward(request, response);
+        } catch (IOException e) {
             throw new ServletException(e);
-        }catch(ServletException e){
+        } catch (ServletException e) {
             throw e;
         }
-}
-
+    }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -116,7 +113,7 @@ public void confirmarOperacao(HttpServletRequest request, HttpServletResponse re
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -127,8 +124,7 @@ public void confirmarOperacao(HttpServletRequest request, HttpServletResponse re
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 }
-

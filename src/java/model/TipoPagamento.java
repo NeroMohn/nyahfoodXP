@@ -44,5 +44,21 @@ public class TipoPagamento implements Serializable{
         this.nome = nome;
     }
     
+     public void salvar(){
+        TipoPagamentoDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        TipoPagamentoDAO.getInstance().excluir(this);
+    }
+    
+    public static TipoPagamento getTipoPagamento(Long id){
+        return TipoPagamentoDAO.getInstance().getTipoPagamento(id);
+    }
+    
+    public static List<TipoPagamento> getAllTipoPagamentos(){
+        return TipoPagamentoDAO.getInstance().getAllTipoPagamentos();
+    }
+    
 
 }
