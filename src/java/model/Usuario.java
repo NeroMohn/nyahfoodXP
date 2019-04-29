@@ -30,18 +30,18 @@ public abstract class Usuario implements Serializable{
         
     }
 
-    public Usuario(String nome, String telefone, String email, String senha, String cep, String logradouro, String bairro, String complemento, String cidade, String estado, String numero) {
+    public Usuario(String nome, String email, String senha,String telefone, String cep, String logradouro, String bairro,String numero, String complemento, String cidade, String estado) {
         this.nome = nome;
-        this.telefone = telefone;
         this.email = email;
         this.senha = senha;
+        this.telefone = telefone;
         this.cep = cep;
         this.logradouro = logradouro;
         this.bairro = bairro;
+        this.numero = numero;
         this.complemento = complemento;
         this.cidade = cidade;
         this.estado = estado;
-        this.numero = numero;
     }
     
     public Usuario(Long id){

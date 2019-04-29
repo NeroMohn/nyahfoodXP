@@ -104,14 +104,17 @@ public class ClienteDAO {
         return clientes;
     }
     
-    public Cliente getCliente(String email){
+    public Cliente getClienteEmail(String email){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         Cliente cliente = null;
         try{
             tx.begin();
-            cliente = em.find(Cliente.class, email);
+            TypedQuery<Cliente> query = em.createQuery("select c From Cliente c where c.email LIKE :email", Cliente.class);
+            query.setParameter("email", email);
+            
+            cliente = query.getSingleResult();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){

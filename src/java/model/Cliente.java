@@ -1,10 +1,9 @@
 package model;
 
+import dao.ClienteDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 
 /**
@@ -12,7 +11,7 @@ import javax.persistence.Id;
  * @author Yukas
  */
 @Entity
-public class Cliente extends Usuario  {
+public class Cliente extends Usuario implements Serializable {
     
     private String cpf;
 
@@ -36,7 +35,22 @@ public class Cliente extends Usuario  {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-
-
-
+    
+    public void salvar(){
+        ClienteDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        ClienteDAO.getInstance().excluir(this);
+    }
+    
+    public static Cliente getCliente(long id){
+        return ClienteDAO.getInstance().getCliente(id);
+    }
+    
+    public static List<Cliente> getAllClientes(){
+        return ClienteDAO.getInstance().getAllClientes();
+    }
+   
+    
 }

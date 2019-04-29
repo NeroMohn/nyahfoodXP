@@ -71,6 +71,10 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
         String complemento =  request.getParameter("txtComplementoCliente");
         String cidade =  request.getParameter("txtCidadeCliente");
         String estado =  request.getParameter("txtEstadoCliente");
+        Long id = null;
+        if(operacao.equals("Editar") || operacao.equals("Excluir")){
+            id = Long.parseLong(request.getParameter("id").trim());
+        }
        
         try {
         if (operacao.equals("Incluir")){
