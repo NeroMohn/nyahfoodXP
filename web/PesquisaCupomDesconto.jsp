@@ -89,11 +89,11 @@
           
                 <c:forEach items="${cuponsDesconto}" var="cupomDesconto">
                     <tr>
-                        <td><c:out value="${cupomDesconto.idCupomDesconto}"/></td>
+                        <td><c:out value="${cupomDesconto.id}"/></td>
                         <td><c:out value="${cupomDesconto.nome}"/></td>
-                        <td><a href="ManterCupomDescontoController?acao=prepararOperacao&operacao=Editar&idCupomDesconto=<c:out value="${cupomDesconto.idCupomDesconto}"/>">Editar</a></td>
+                        <td><a href="ManterCupomDescontoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${cupomDesconto.id}"/>">Editar</a></td>
                         <td>
-                            <a href="ManterCupomDescontoController?acao=prepararOperacao&operacao=Excluir&idCupomDesconto=<c:out value="${cupomDesconto.idCupomDesconto}"/>">Excluir</a></td>
+                            <a href="ManterCupomDescontoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${cupomDesconto.id}"/>">Excluir</a></td>
                     </tr>
                 </c:forEach>
     

@@ -74,7 +74,7 @@
           
                 <c:forEach items="${compras}" var="compra">
                     <tr>
-                        <td><c:out value="${compra.idCompra}"/></td>
+                        <td><c:out value="${compra.id}"/></td>
                         <td><c:out value="${compra.status}"/></td>
                         <td><c:out value="${compra.total}"/></td>
                         

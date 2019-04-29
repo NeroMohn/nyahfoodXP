@@ -81,15 +81,15 @@
           
                 <c:forEach items="${pedidos}" var="pedido">
                     <tr>
-                        <td><c:out value="${pedido.idPedido}"/></td>
+                        <td><c:out value="${pedido.id}"/></td>
                         <td><c:out value="${pedido.total}"/></td>
                         <td><c:out value="${pedido.metodoPagamento}"/></td>
                         <td><c:out value="${pedido.date}"/></td>
                         <td><c:out value="${pedido.codCliente}"/></td>
                         <td><c:out value="${pedido.codCupomDesconto}"/></td>
-                        <td><a href="ManterPedidoController?acao=prepararOperacao&operacao=Editar&idPedido=<c:out value="${pedido.idPedido}"/>">Editar</a></td>
+                        <td><a href="ManterPedidoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${pedido.id}"/>">Editar</a></td>
                         <td>
-                            <a href="ManterPedidoController?acao=prepararOperacao&operacao=Excluir&idPedido=<c:out value="${pedido.idPedido}"/>">Excluir</a></td>
+                            <a href="ManterPedidoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${pedido.id}"/>">Excluir</a></td>
                     </tr>
                 </c:forEach>
 

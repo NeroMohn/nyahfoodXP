@@ -73,12 +73,12 @@
            
                 <c:forEach items="${comidasPedidas}" var="comidaPedida">
                     <tr>
-                        <td><c:out value="${comidaPedida.idComidaPedida}"/></td>
+                        <td><c:out value="${comidaPedida.id}"/></td>
                         <td><c:out value="${comidaPedida.codComida}"/></td>
                         <td><c:out value="${comidaPedida.precoTotal}"/></td>
-                        <td><a href="ManterComidaPedidaController?acao=prepararOperacao&operacao=Editar&idComidaPedida=<c:out value="${comidaPedida.idComidaPedida}"/>">Editar</a></td>
+                        <td><a href="ManterComidaPedidaController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${comidaPedida.id}"/>">Editar</a></td>
                         <td>
-                            <a href="ManterComidaPedidaController?acao=prepararOperacao&operacao=Excluir&idComidaPedida=<c:out value="${comidaPedida.idComidaPedida}"/>">Excluir</a></td>
+                            <a href="ManterComidaPedidaController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${comidaPedida.id}"/>">Excluir</a></td>
                     </tr>
                 </c:forEach>
 

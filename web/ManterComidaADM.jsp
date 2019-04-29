@@ -82,7 +82,7 @@
                                 <tr>
                                     <td>Código da Comida:</td>
                                     <td>
-                                        <input type="text" name="txtIdComida" value="${comida.idComida}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+                                        <input type="text" name="txtIdComida" value="${comida.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
                                         </td>
                                     </tr>
                                     <tr>

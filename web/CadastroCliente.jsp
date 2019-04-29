@@ -129,7 +129,7 @@
             <table>
             <tr>
               
-                <td><input type="hidden" name="txtIdCliente" value="${cliente.idCliente}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></td>
+                <td><input type="hidden" name="txtIdCliente" value="${cliente.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></td>
             </tr>
             <tr>
                 <td>Nome*:</td>

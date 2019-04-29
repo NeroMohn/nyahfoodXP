@@ -1,6 +1,5 @@
 package teste;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import dao.AdmDAO;
 import dao.ClienteDAO;
 import dao.LojaDAO;
@@ -26,7 +25,7 @@ public class ClienteTeste {
     TipoPagamentoDAO.getInstance().salvar(p1);
     Loja l1 = new Loja("NomeLoja","NomeGerente","3232323232","aaaaa@hotmail.com","123123","10099988823","Lugar legal",tp1,"foto",p1,"36011400","Rua Barão","Santa Helena","aaa","juiz de Fora","MG","164");
     LojaDAO.getInstance().salvar(l1);
-         Adm adm = new Adm("admin","administrador","123456789" );
-         AdmDAO.getInstance().salvar(adm);
+    Adm a1 = new Adm("admin","Admin","123");
+    AdmDAO.getInstance().salvar(a1);
 }
 }

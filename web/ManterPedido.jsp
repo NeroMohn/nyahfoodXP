@@ -129,7 +129,7 @@
                             <table>
                                 <tr>
 
-                                    <td><input type="hidden" name="txtIdPedido" value="${pedido.idPedido}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
+                                    <td><input type="hidden" name="txtIdPedido" value="${pedido.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
                                     </tr>
                                     <tr>
                                         <td>Total:</td>
@@ -148,7 +148,7 @@
                                         <td>
                                             <select name="optLoja" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                                             <c:forEach items="${clientes}" var="cliente">
-                                                <option value="${cliente.idCliente}" <c:if test="${cliente.idCliente == pedido.codCliente}"> selected</c:if>>${cliente.nome}</option>
+                                                <option value="${cliente.id}" <c:if test="${cliente.id == pedido.Cliente}"> selected</c:if>>${cliente.nome}</option>
                                             </c:forEach>
                                         </select>
                                     </td>

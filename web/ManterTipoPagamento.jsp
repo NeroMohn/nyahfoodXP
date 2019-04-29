@@ -121,7 +121,7 @@
             <table>
                 <tr>
                
-                <td><input type="hidden" name="txtIdTipoPagamento" value="${tipoPagamento.idTipoPagamento}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
+                <td><input type="hidden" name="txtIdTipoPagamento" value="${tipoPagamento.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
             </tr>
             <tr>
                 <td>Tipo de Pagamento:</td>
