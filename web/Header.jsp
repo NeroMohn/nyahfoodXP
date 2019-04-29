@@ -55,7 +55,7 @@
 					<ul>
                                                 
 						<li class="active"><a href="index.jsp">Inicio</a></li>|
-                                               <!--  <li><a href="Relatorio.jsp">Relatorio</a></li> -->
+                                               <!--  -->
 						
                                                
                                                 <% if (session.getAttribute("tipo") == "1") { %>
@@ -72,6 +72,7 @@
                                             <% } %>
                                                  <% if (session.getAttribute("tipo") == "3") { %>
                                                     <li><a href="AdminLogado.jsp">ADMINISTRADOR</a></li>
+                                                     <li><a href="Relatorio.jsp">Relatorios</a></li>
                                                    
                                                     
                                             <% } %>

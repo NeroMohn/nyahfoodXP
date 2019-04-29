@@ -42,5 +42,12 @@
 
             </form>
         </div>
+        
+         <div>
+            <form action="RelatorioLojaCozinha" method="post">
+                <input type ="submit" name="btnReport" value="RelatorioLojaCozinha">
+
+            </form>
+        </div>
     </body>
 </html>
