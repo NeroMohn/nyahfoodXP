@@ -137,7 +137,7 @@
             </tr>
             <tr>
                 <td>CPF*:</td>
-                <td><input pattern="[0-9].{11}$" title="Utilize Apenas Numeros" required type="text" name="txtCpfCliente" value="${cliente.cpf}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></td>
+                <td><input pattern="[0-9].{10}$" title="Utilize Apenas Numeros" required type="text" name="txtCpfCliente" value="${cliente.cpf}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></td>
             </tr>
              <tr>
                 <td>Email*:</td>
