@@ -132,7 +132,7 @@
                <form action ="ManterLojaController?acao=confirmarOperacao&operacao=${operacao}"  method = "post" name="ManterLoja">
             <table>
              <tr>
-                <td><input type="hidden" name="txtIdLoja" value="${loja.idLoja}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
+                <td><input type="hidden" name="txtIdLoja" value="${loja.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
             </tr>
             <tr>
                 <td>Nome Loja*:</td>
@@ -167,7 +167,7 @@
                 <td>
                     <select name="optTipoCozinha" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                         <c:forEach items="${tiposCozinha}" var="tipoCozinha">
-                            <option value="${tipoCozinha.id}" <c:if test="${loja.codTipoCozinha == tipoCozinha.id}"> selected</c:if>>${tipoCozinha.nome}</option>
+                            <option value="${tipoCozinha.id}" <c:if test="${loja.TipoCozinha == tipoCozinha.id}"> selected</c:if>>${tipoCozinha.nome}</option>
                         </c:forEach>
                     </select>
                 </td>

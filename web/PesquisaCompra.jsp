@@ -89,11 +89,11 @@
           
                 <c:forEach items="${compras}" var="compra">
                     <tr>
-                        <td><c:out value="${compra.idCompra}"/></td>
+                        <td><c:out value="${compra.id}"/></td>
                         <td><c:out value="${compra.total}"/></td>
-                        <td><a href="ManterCompraController?acao=prepararOperacao&operacao=Editar&idCompra=<c:out value="${compra.idCompra}"/>">Editar</a></td>
+                        <td><a href="ManterCompraController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${compra.id}"/>">Editar</a></td>
                         <td>
-                            <a href="ManterCompraController?acao=prepararOperacao&operacao=Excluir&idCompra=<c:out value="${compra.idCompra}"/>">Excluir</a></td>
+                            <a href="ManterCompraController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${compra.id}"/>">Excluir</a></td>
                     </tr>
                 </c:forEach>
     

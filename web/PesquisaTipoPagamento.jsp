@@ -79,11 +79,11 @@
            
                 <c:forEach items="${tipospagamentos}" var="tipopagamento">
                     <tr>
-                        <td><c:out value="${tipopagamento.idTipoPagamento}"/></td>
+                        <td><c:out value="${tipopagamento.id}"/></td>
                         <td><c:out value="${tipopagamento.nome}"/></td>
-                        <td><a href="ManterTipoPagamentoController?acao=prepararOperacao&operacao=Editar&idTipoPagamento=<c:out value="${tipopagamento.idTipoPagamento}"/>">Editar</a></td>
+                        <td><a href="ManterTipoPagamentoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${tipopagamento.id}"/>">Editar</a></td>
                         <td>
-                            <a href="ManterTipoPagamentoController?acao=prepararOperacao&operacao=Excluir&idTipoPagamento=<c:out value="${tipopagamento.idTipoPagamento}"/>">Excluir</a></td>
+                            <a href="ManterTipoPagamentoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${tipopagamento.id}"/>">Excluir</a></td>
                     </tr>
                 </c:forEach>
 

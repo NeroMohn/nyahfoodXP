@@ -129,7 +129,7 @@
                <form action ="CadastroLojaController?acao=confirmarOperacao&operacao=${operacao}"  method = "post" name="ManterLoja" onsubmit=" return validacaoLoja()">
             <table>
             <tr>
-                <td><input type="hidden" name="txtIdLoja" value="${loja.idLoja}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
+                <td><input type="hidden" name="txtIdLoja" value="${loja.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></input></td>
             </tr>
             <tr>
                 <td>Nome Loja*:</td>
