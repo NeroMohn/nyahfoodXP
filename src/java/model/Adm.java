@@ -1,7 +1,9 @@
 
 package model;
 
+import dao.AdmDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -58,5 +60,21 @@ private static final long serialVersionUID = 1L;
 
     public void setLogin(String login) {
         this.login = login;
+    }
+    
+           public void salvar(){
+        AdmDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        AdmDAO.getInstance().excluir(this);
+    }
+    
+    public static Adm getAdm(long id){
+        return AdmDAO.getInstance().getAdm(id);
+    }
+    
+    public static List<Adm> getAllAdms(){
+        return AdmDAO.getInstance().getAllAdms();
     }
 }

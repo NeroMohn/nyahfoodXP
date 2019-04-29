@@ -110,8 +110,11 @@ public class AdmDAO {
         EntityTransaction tx = em.getTransaction();
         Adm adm = null;
         try{
-            tx.begin();
-            adm = em.find(Adm.class, email);
+           tx.begin();
+            TypedQuery<Adm> query = em.createQuery("select a From Adm a where a.login LIKE :login", Adm.class);
+            query.setParameter("email", email);
+            
+            adm = query.getSingleResult();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){

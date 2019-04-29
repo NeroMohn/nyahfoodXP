@@ -5,11 +5,10 @@
  */
 package model;
 
+import dao.LojaDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 
@@ -109,6 +108,22 @@ public class Loja extends Usuario implements Serializable {
 
     public void setTipoCozinha(TipoCozinha tipoCozinha) {
         this.tipoCozinha = tipoCozinha;
+    }
+    
+    public void salvar(){
+        LojaDAO.getInstance().salvar(this);
+    }
+    
+    public void excluir(){
+        LojaDAO.getInstance().excluir(this);
+    }
+    
+    public static Loja getLoja(long id){
+        return LojaDAO.getInstance().getLoja(id);
+    }
+    
+    public static List<Loja> getAllLojas(){
+        return LojaDAO.getInstance().getAllLojas();
     }
 
 
