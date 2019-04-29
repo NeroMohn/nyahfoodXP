@@ -73,26 +73,24 @@ public class ManterComidaController extends HttpServlet {
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
 
         Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
-
+        Long id = null;
+      
+        if (!operacao.equals("Incluir")) {
+         id = Long.parseLong(request.getParameter("id"));    
+        }
+        
         try {
-
+           Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, codLoja);
+           
             if (operacao.equals("Incluir")) {
-                Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, codLoja);
-                ComidaDAO.getInstance().salvar(comida);
-            }/*else{ 
-             if(operacao.equals("Editar")){
-             Long idComida = Long.parseLong(request.getParameter("txtIdComida"));
-             Comida comida = new Comida(idComida,nome,  ingrediente,  tempoEstimado,  foto,  preco, codLoja);
-             comida.alterar();
-             } else*/
-
-            {
-                if (operacao.equals("Excluir")) {
-                    Long idComida = Long.parseLong(request.getParameter("txtIdComida"));
-                    Comida comida;
-                    comida = ComidaDAO.getInstance().getComida(idComida);
-                    ComidaDAO.getInstance().excluir(comida);
-                }
+                
+                comida.salvar();
+            } else if (operacao.equals("Editar")) {
+                comida.setId(id);
+                comida.salvar();
+            } else if (operacao.equals("Excluir")) {
+                comida.setId(id);
+                comida.excluir();
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaClienteController");
             view.forward(request, response);
@@ -101,17 +99,10 @@ public class ManterComidaController extends HttpServlet {
         } catch (ServletException e) {
             throw e;
         }
-    }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
+    }
+       
+       
 
     @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)

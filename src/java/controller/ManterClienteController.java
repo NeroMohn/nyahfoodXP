@@ -72,40 +72,35 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
         String cidade =  request.getParameter("txtCidadeCliente");
         String estado =  request.getParameter("txtEstadoCliente");
         Long id = null;
-        if(operacao.equals("Editar") || operacao.equals("Excluir")){
-            id = Long.parseLong(request.getParameter("id").trim());
+      
+        if (!operacao.equals("Incluir")) {
+         id = Long.parseLong(request.getParameter("id"));    
         }
-       
+        
         try {
-        if (operacao.equals("Incluir")){
-            Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
+             Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
                 complemento, cidade, estado);
-            ClienteDAO.getInstance().salvar(cliente);
-        //}else{ 
-            /*if(operacao.equals("Editar")){
-               //  com isso editar nao funciona Long idCliente =parseLong(request.getSession().getAttribute("id").toString());
-                Long idCliente = Long.parseLong(request.getParameter("txtIdCliente"));
-                Cliente cliente;
-                cliente = new Cliente(idCliente, nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
-                        complemento, cidade, estado);
-                cliente.alterar();*/
-        } else{ 
-                if (operacao.equals("Excluir")){
-                Long idCliente = Long.parseLong(request.getParameter("txtIdCliente"));
-                Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
-                ClienteDAO.getInstance().excluir(cliente);
-                }
+           
+            if (operacao.equals("Incluir")) {
+                
+                cliente.salvar();
+            } else if (operacao.equals("Editar")) {
+                cliente.setId(id);
+                cliente.salvar();
+            } else if (operacao.equals("Excluir")) {
+                cliente.setId(id);
+                cliente.excluir();
             }
-        RequestDispatcher view =request.getRequestDispatcher("PesquisaClienteControllerADM");
-        view.forward(request,response);
-        }catch (IOException e) {
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaClienteController");
+            view.forward(request, response);
+        } catch (IOException e) {
             throw new ServletException(e);
-            
-        }catch(ServletException e){
-            
+        } catch (ServletException e) {
             throw e;
         }
+
     }
+       
     @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
