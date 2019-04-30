@@ -39,7 +39,7 @@ public class CadastroLojaController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            //request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
+            request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
             if (!operacao.equals("Incluir")) {
                 Long idLoja = Long.parseLong(request.getParameter("idLoja"));
                 Loja loja = LojaDAO.getInstance().getLoja(idLoja);
