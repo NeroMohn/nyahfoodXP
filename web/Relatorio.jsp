@@ -31,6 +31,12 @@
             </form>
         </div>
         <div>
+            <form action="RelatorioClienteCidade" method="post">
+                <input type ="submit" name="btnReport" value="RelatorioClienteCidade">
+
+            </form>
+        </div>
+        <div>
             <form action="RelatorioLoja" method="post">
                 <input type ="submit" name="btnReport" value="RelatorioLoja">
 

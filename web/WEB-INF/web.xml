@@ -132,6 +132,34 @@
         <servlet-name>Upload</servlet-name>
         <servlet-class>controller.Upload</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RelatorioAdministrador</servlet-name>
+        <servlet-class>relatorio.RelatorioAdministrador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RelatorioCliente</servlet-name>
+        <servlet-class>relatorio.RelatorioCliente</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RelatorioClienteCidade</servlet-name>
+        <servlet-class>relatorio.RelatorioClienteCidade</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RelatorioClienteID</servlet-name>
+        <servlet-class>relatorio.RelatorioClienteID</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RelatorioLoja</servlet-name>
+        <servlet-class>relatorio.RelatorioLoja</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RelatorioLojaCozinha</servlet-name>
+        <servlet-class>relatorio.RelatorioLojaCozinha</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RelatorioTipoCozinha</servlet-name>
+        <servlet-class>relatorio.RelatorioTipoCozinha</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ManterClienteController</servlet-name>
         <url-pattern>/ManterClienteController</url-pattern>
@@ -263,6 +291,34 @@
     <servlet-mapping>
         <servlet-name>Upload</servlet-name>
         <url-pattern>/Upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioAdministrador</servlet-name>
+        <url-pattern>/RelatorioAdministrador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioCliente</servlet-name>
+        <url-pattern>/RelatorioCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioClienteCidade</servlet-name>
+        <url-pattern>/RelatorioClienteCidade</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioClienteID</servlet-name>
+        <url-pattern>/RelatorioClienteID</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioLoja</servlet-name>
+        <url-pattern>/RelatorioLoja</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioLojaCozinha</servlet-name>
+        <url-pattern>/RelatorioLojaCozinha</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioTipoCozinha</servlet-name>
+        <url-pattern>/RelatorioTipoCozinha</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
