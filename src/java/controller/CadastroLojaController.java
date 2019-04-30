@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.LojaDAO;
@@ -36,7 +31,6 @@ public class CadastroLojaController extends HttpServlet {
         } else {
             if (acao.equals("prepararOperacao")) {
                 prepararOperacao(request, response);
-
             }
         }
     }
@@ -45,7 +39,7 @@ public class CadastroLojaController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
+            //request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
             if (!operacao.equals("Incluir")) {
                 Long idLoja = Long.parseLong(request.getParameter("idLoja"));
                 Loja loja = LojaDAO.getInstance().getLoja(idLoja);
