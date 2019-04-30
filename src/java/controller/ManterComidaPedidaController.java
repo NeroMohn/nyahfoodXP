@@ -10,9 +10,7 @@ import dao.ComidaDAO;
 import dao.ComidaPedidaDAO;
 import dao.PedidoDAO;
 import java.io.IOException;
-import static java.lang.Long.parseLong;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;

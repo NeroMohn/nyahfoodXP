@@ -3,7 +3,6 @@ package controller;
 import dao.ClienteDAO;
 import java.io.IOException;
 import static java.lang.Long.parseLong;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -12,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static javax.swing.text.html.CSS.getAttribute;
 import model.Cliente;
 
 @WebServlet(name = "CadastroClienteController", urlPatterns = "/CadastroClienteController")
