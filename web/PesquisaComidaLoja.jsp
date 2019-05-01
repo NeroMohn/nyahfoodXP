@@ -62,7 +62,7 @@
             <div><c:out value="${vazio}"/></div>
                 <c:forEach items="${comidas}" var="comida">
                     
-                    <tr> <c:if test="${Loja.id == Comida.id}">
+                    <tr> <c:if test="${id == comida.loja.id}">
                         <td><c:out value="${comida.id}"/></td>
                         <td><c:out value="${comida.nome}"/></td>
                         
