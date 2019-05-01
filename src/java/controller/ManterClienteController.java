@@ -93,9 +93,8 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
                 cliente.salvar();
             } else if (operacao.equals("Editar")) {
                 
-                Cliente editavel = ClienteDAO.getInstance().getCliente(id);
-                
-                ClienteDAO.getInstance().salvar(editavel);
+                cliente.setId(id);
+                cliente.salvar();
             } else if (operacao.equals("Excluir")) {
                 cliente.setId(id);
                 cliente.excluir();
