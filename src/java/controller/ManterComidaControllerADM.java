@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Comida;
+import model.Loja;
 
 /**
  *
@@ -76,6 +77,7 @@ public class ManterComidaControllerADM extends HttpServlet {
         String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
         Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
+        Loja loja = LojaDAO.getInstance().getLoja(codLoja);
         Long id = null;
 
         if (!operacao.equals("Incluir")) {
@@ -83,7 +85,7 @@ public class ManterComidaControllerADM extends HttpServlet {
         }
 
         try {
-            Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, codLoja);
+            Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
 
             if (operacao.equals("Incluir")) {
                 comida.salvar();

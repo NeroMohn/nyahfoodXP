@@ -23,7 +23,6 @@ public class Loja extends Usuario implements Serializable {
     private String descricao;
     private String nomeGerente;
     @ManyToOne
-    private TipoPagamento tipoPagamento;
     private String foto;
     @ManyToOne
     private TipoCozinha tipoCozinha;
@@ -40,7 +39,6 @@ public class Loja extends Usuario implements Serializable {
         super(nome, telefone, email, senha, cep, logradouro, bairro, complemento, cidade, estado, numero);
         this.nomeGerente = nomeGerente;
         this.foto = foto;
-        this.tipoPagamento = tipoPagamento;
         this.cnpj = cnpj;
         this.descricao = descricao;
         this.tipoCozinha = tipoCozinha;
@@ -84,14 +82,6 @@ public class Loja extends Usuario implements Serializable {
 
     public void setNomeGerente(String nomeGerente) {
         this.nomeGerente = nomeGerente;
-    }
-
-    public TipoPagamento getTipoPagamento() {
-        return tipoPagamento;
-    }
-
-    public void setTipoPagamento(TipoPagamento tipoPagamento) {
-        this.tipoPagamento = tipoPagamento;
     }
 
     public String getFoto() {

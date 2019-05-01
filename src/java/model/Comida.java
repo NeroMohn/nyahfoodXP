@@ -25,7 +25,6 @@ public class Comida implements Serializable {
     private int tempoEstimado;
     private String foto;
     private double preco;
-    private double desconto;
     @ManyToOne
     private Loja loja;
 
@@ -97,13 +96,6 @@ public class Comida implements Serializable {
         this.preco = preco;
     }
 
-    public double getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(double desconto) {
-        this.desconto = desconto;
-    }
 
     public Long getId() {
         return id;
