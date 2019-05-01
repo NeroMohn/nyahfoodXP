@@ -92,7 +92,7 @@ public class ManterComidaController extends HttpServlet {
                 comida.setId(id);
                 comida.excluir();
             }
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaClienteController");
+            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
             view.forward(request, response);
         } catch (IOException e) {
             throw new ServletException(e);
