@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
 import dao.ClienteDAO;
+import java.sql.SQLException;
 
 /**
  *
@@ -34,9 +35,15 @@ public class ManterClienteController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String acao = request.getParameter("acao");
+        if (acao.equals("confirmarOperacao")) {
+            confirmarOperacao(request, response);
+        } else {
+            if (acao.equals("prepararOperacao")) {
+                prepararOperacao(request, response);
+            }
+        }
     }
 public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
         try{
@@ -104,13 +111,25 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
     @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
         @Override
