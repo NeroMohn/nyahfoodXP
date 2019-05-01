@@ -17,14 +17,10 @@ import model.TipoPagamento;
  */
 public class ClienteTeste {
      public static void main(String[] args) {
-    Cliente c1 = new Cliente("Lucas","10677662602","32153215","yukas@gmail.com","123123","36015370","Rua Barão","Santa Helena","aaa","juiz de Fora","MG","164");
-    ClienteDAO.getInstance().salvar(c1);
     TipoCozinha tp1 = new TipoCozinha("Japonesa");
     TipoCozinhaDAO.getInstance().salvar(tp1);
     TipoPagamento p1 = new TipoPagamento("Dinheiro");
     TipoPagamentoDAO.getInstance().salvar(p1);
-    Loja l1 = new Loja("NomeLoja","NomeGerente","3232323232","aaaaa@hotmail.com","123123","10099988823","Lugar legal",tp1,"foto",p1,"36011400","Rua Barão","Santa Helena","aaa","juiz de Fora","MG","164");
-    LojaDAO.getInstance().salvar(l1);
     Adm a1 = new Adm("admin","Admin","123");
     AdmDAO.getInstance().salvar(a1);
 }
