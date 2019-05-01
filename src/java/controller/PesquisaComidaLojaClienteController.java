@@ -17,9 +17,12 @@ public class PesquisaComidaLojaClienteController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-         String id = request.getSession().getAttribute("id").toString();
+        String id = request.getSession().getAttribute("id").toString();
         request.setAttribute("id",id);
-        request.setAttribute("comidas", ComidaDAO.getInstance().getAllComidas());
+        String idLojaString = request.getAttribute("codLoja").toString();
+        Long idLoja = Long.parseLong(idLojaString);
+        List<Comida> comidas = ComidaDAO.getInstance().getAllComidasFromLoja(idLoja);
+        request.setAttribute("comidas", comidas );
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaComidaLojaCliente.jsp");
         view.forward(request, response);
        
