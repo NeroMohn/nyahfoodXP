@@ -31,7 +31,7 @@ public class Loja extends Usuario implements Serializable {
     public Loja(){
         
     }
-    public Loja(String nome, String nomeGerente, String telefone, String email,
+/*    public Loja(String nome, String nomeGerente, String telefone, String email,
             String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,
             String foto,TipoPagamento tipoPagamento, String cep, String logradouro,
             String bairro,String complemento, String cidade, String estado,
@@ -42,7 +42,8 @@ public class Loja extends Usuario implements Serializable {
         this.cnpj = cnpj;
         this.descricao = descricao;
         this.tipoCozinha = tipoCozinha;
-    }    
+    }*/
+    
         public Loja(String nome, String nomeGerente, String telefone, String email,
             String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,
             String foto,String cep, String logradouro,
