@@ -19,6 +19,12 @@
             <a href="RelatorioLojaCozinha.jsp">Relatorio Select</a>
         </div>
         <div>
+            <form action="ReportTestee" method="post">
+                <input type ="submit" name="btnReport" value="Testee">
+
+            </form>
+        </div>
+        <div>
             <form action="RelatorioAdministrador" method="post">
                 <input type ="submit" name="btnReport" value="RelatorioAdministrador">
 
@@ -45,13 +51,6 @@
         <div>
             <form action="RelatorioTipoCozinha" method="post">
                 <input type ="submit" name="btnReport" value="RelatorioTipoCozinha">
-
-            </form>
-        </div>
-        
-         <div>
-            <form action="RelatorioLojaCozinha" method="post">
-                <input type ="submit" name="btnReport" value="RelatorioLojaCozinha">
 
             </form>
         </div>

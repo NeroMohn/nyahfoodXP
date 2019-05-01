@@ -160,6 +160,10 @@
         <servlet-name>RelatorioTipoCozinha</servlet-name>
         <servlet-class>relatorio.RelatorioTipoCozinha</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportTestee</servlet-name>
+        <servlet-class>relatorio.ReportTestee</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ManterClienteController</servlet-name>
         <url-pattern>/ManterClienteController</url-pattern>
@@ -319,6 +323,10 @@
     <servlet-mapping>
         <servlet-name>RelatorioTipoCozinha</servlet-name>
         <url-pattern>/RelatorioTipoCozinha</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportTestee</servlet-name>
+        <url-pattern>/ReportTestee</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

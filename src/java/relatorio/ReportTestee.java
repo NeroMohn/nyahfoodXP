@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,26 +15,22 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class RelatorioCliente extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, ClassNotFoundException {
- Connection conexao = null;
+@WebServlet(name = "RelatorioAdministrador", urlPatterns = "/RelatorioAdministrador")
+public class ReportTestee extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+        Connection conexao = null;
         try {
-         
             conexao = BD.getConexao();
             HashMap parametros = new HashMap();
-            //parametros.put("PAR_Tempo", Integer.parseInt(request.getParameter("txtCodCurso")));
-            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio")+"/RelatorioCliente.jasper";
+            String relatorio = getServletContext().getRealPath("/WEB-INF/classes/relatorio") + "/ReportTestee.jasper";
             JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
             byte[] relat = JasperExportManager.exportReportToPdf(jp);
-            response.setHeader("Content-Disposition", "attachment;filename=relatorioCliente.pdf");
+            response.setHeader("Content-Disposition", "attachment;filename=relatorioTeste.pdf");
             response.setContentType("application/pdf");
             response.getOutputStream().write(relat);
-           
-        
-                        
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+
+        } catch (ClassNotFoundException | JRException | IOException ex) {
             ex.printStackTrace();
         } finally {
             try {
@@ -46,10 +41,10 @@ public class RelatorioCliente extends HttpServlet {
             }
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -58,15 +53,12 @@ public class RelatorioCliente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(RelatorioCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -75,15 +67,12 @@ public class RelatorioCliente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(RelatorioCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
