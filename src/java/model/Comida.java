@@ -3,6 +3,7 @@ package model;
 import dao.ComidaDAO;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Comida implements Serializable {
     private String nome;
     private String ingrediente;
     private int tempoEstimado;
+    @Column(nullable = true)
     private String foto;
     private double preco;
     @ManyToOne
