@@ -148,14 +148,14 @@
                                         <td>
                                             <select name="optLoja" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                                             <c:forEach items="${clientes}" var="cliente">
-                                                <option value="${cliente.id}" <c:if test="${cliente.id == pedido.Cliente}"> selected</c:if>>${cliente.nome}</option>
+                                                <option value="${cliente.id}" <c:if test="${cliente.id == pedido.Cliente.id}"> selected</c:if>>${cliente.nome}</option>
                                             </c:forEach>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Cupom Desconto:</td>
-                                    <td><input type="text"  pattern="[a-zA-Z0-9].{0,45}$" requiredname="txtCodCupomDesconto" value="${pedido.codCupomDesconto}"<c:if test="${operacao == 'Excluir'}"> readonly</c:if>></input></td>
+                                    <td><input type="text"  pattern="[a-zA-Z0-9].{0,45}$" requiredname="txtCodCupomDesconto" value="${pedido.CupomDesconto.id}"<c:if test="${operacao == 'Excluir'}"> readonly</c:if>></input></td>
                                 </tr>
                             </table>
                             <td><input type="submit" name="btnConfirmar" value="Confirmar"></td>

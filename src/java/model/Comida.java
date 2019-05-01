@@ -45,6 +45,17 @@ public class Comida implements Serializable {
 
     }
 
+    public Comida(String nome, String ingrediente, int tempoEstimado, String foto, double preco, Loja loja) {
+        this.nome = nome;
+        this.ingrediente = ingrediente;
+        this.tempoEstimado = tempoEstimado;
+        this.foto = foto;
+        this.preco = preco;
+        this.loja = loja;
+    }
+    
+
+
 
     public String getNome() {
         return nome;
