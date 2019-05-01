@@ -107,14 +107,14 @@ public class ComidaDAO {
     
         public List<Comida> getAllComidasFromLoja(Long id){
         
-        Loja loja= LojaDAO.getInstance().getLoja(id);
+   
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         List<Comida> comidas = null;
         try{
             tx.begin();
             TypedQuery<Comida> query = em.createQuery("select co from Comida co where co.loja LIKE loja ", Comida.class);
-            query.setParameter("loja", loja);
+          
             comidas = query.getResultList();
             tx.commit();
         } catch (Exception e){
