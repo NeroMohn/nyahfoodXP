@@ -16,16 +16,14 @@ import java.util.List;
 public class PesquisaComidaLojaClienteController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        List<Comida> obterTodasComidas = ComidaDAO.getInstance().getAllComidasFromLoja(id);
-        if(obterTodasComidas.isEmpty()){
-            request.setAttribute("vazio", "");
-        }
-        Long idLoja = Long.parseLong(request.getParameter("idLoja"));
-        request.setAttribute("id", idLoja);
+    
+         String id = request.getSession().getAttribute("id").toString();
+        request.setAttribute("id",id);
         request.setAttribute("comidas", ComidaDAO.getInstance().getAllComidas());
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaComidaLojaCliente.jsp");
         view.forward(request, response);
+       
+     
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

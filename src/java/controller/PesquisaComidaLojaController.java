@@ -16,10 +16,7 @@ import java.util.List;
 public class PesquisaComidaLojaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Comida> obterTodasComidas = ComidaDAO.getInstance().getAllComidas();
-        if(obterTodasComidas.isEmpty()){
-            request.setAttribute("vazio", "");
-        }
+   
         String id = request.getSession().getAttribute("id").toString();
         request.setAttribute("id",id);
         request.setAttribute("comidas", ComidaDAO.getInstance().getAllComidas());
