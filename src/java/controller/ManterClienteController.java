@@ -47,7 +47,7 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
             Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
             request.setAttribute("cliente", cliente);
         }
-        RequestDispatcher view = request.getRequestDispatcher("/ManterCliente.jsp");    
+        RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");    
         view.forward(request, response);
         } catch (ServletException ex) {
             Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
