@@ -33,7 +33,7 @@ public class Comida implements Serializable {
 
     }
 
-    public Comida(String nome, String ingrediente, int tempoEstimado, String foto, double preco,
+ /*   public Comida(String nome, String ingrediente, int tempoEstimado, String foto, double preco,
             Long codLoja) {
 
         setNome(nome);
@@ -44,7 +44,7 @@ public class Comida implements Serializable {
         setLoja(loja);
 
     }
-
+*/
     public Comida(String nome, String ingrediente, int tempoEstimado, String foto, double preco, Loja loja) {
         this.nome = nome;
         this.ingrediente = ingrediente;

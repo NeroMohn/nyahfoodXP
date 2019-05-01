@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Comida;
 import dao.ComidaDAO;
+import dao.LojaDAO;
+import model.Loja;
 
 /**
  *
@@ -72,17 +74,16 @@ public class ManterComidaController extends HttpServlet {
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
 
         Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
+        Loja loja = LojaDAO.getInstance().getLoja(codLoja);
         Long id = null;
-      
+
         if (!operacao.equals("Incluir")) {
-         id = Long.parseLong(request.getParameter("id"));    
+            id = Long.parseLong(request.getParameter("id"));
         }
-        
+
         try {
-           Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, codLoja);
-           
+            Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
             if (operacao.equals("Incluir")) {
-                
                 comida.salvar();
             } else if (operacao.equals("Editar")) {
                 comida.setId(id);
@@ -100,11 +101,9 @@ public class ManterComidaController extends HttpServlet {
         }
 
     }
-       
-       
 
     @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -116,7 +115,7 @@ public class ManterComidaController extends HttpServlet {
     }
 
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -127,8 +126,8 @@ public class ManterComidaController extends HttpServlet {
         }
     }
 
-        @Override
-        public String getServletInfo() {
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }
 }
