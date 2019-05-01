@@ -1,7 +1,12 @@
+
+/**
+ *
+ * @author David
+ */
 package controller;
 
-import dao.TipoCozinhaDAO;
-import model.TipoCozinha;
+import dao.PedidoDAO;
+import model.Pedido;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,21 +14,21 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-public class PesquisaTipoCozinhaController extends HttpServlet {
+@WebServlet(name = "PesquisaPedidoControllerADM", urlPatterns = {"/PesquisaPedidoControllerADM"})
+public class PesquisaPedidoControllerADM extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<TipoCozinha> obterTodosTiposCozinha = TipoCozinhaDAO.getInstance().getAllTipoCozinhas();
-        if(obterTodosTiposCozinha.isEmpty()){
-            request.setAttribute("vazio", "Mensagem");
+        List<Pedido> obterTodosPedidos = PedidoDAO.getInstance().getAllPedidos();
+        if(obterTodosPedidos.isEmpty()){
+            request.setAttribute("vazio", "");
         }
-        request.setAttribute("tiposcozinhas", obterTodosTiposCozinha);
-        RequestDispatcher view = request.getRequestDispatcher("/PesquisaTipoCozinha.jsp");
+        request.setAttribute("pedidos",obterTodosPedidos);
+        RequestDispatcher view = request.getRequestDispatcher("/PesquisaPedidoADM.jsp");
         view.forward(request, response);
     }
     @Override

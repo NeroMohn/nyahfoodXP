@@ -164,6 +164,10 @@
         <servlet-name>ReportTestee</servlet-name>
         <servlet-class>relatorio.ReportTestee</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PesquisaPedidoControllerADM</servlet-name>
+        <servlet-class>controller.PesquisaPedidoControllerADM</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ManterClienteController</servlet-name>
         <url-pattern>/ManterClienteController</url-pattern>
@@ -327,6 +331,10 @@
     <servlet-mapping>
         <servlet-name>ReportTestee</servlet-name>
         <url-pattern>/ReportTestee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisaPedidoControllerADM</servlet-name>
+        <url-pattern>/PesquisaPedidoControllerADM</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
