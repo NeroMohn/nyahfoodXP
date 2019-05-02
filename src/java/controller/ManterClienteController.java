@@ -50,7 +50,7 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
         String operacao = request.getParameter("operacao");
         request.setAttribute("operacao", operacao);
         if (!operacao.equals("Incluir")) {
-            Long idCliente = Long.parseLong(request.getParameter("idCliente"));
+            Long idCliente = Long.parseLong(request.getParameter("id"));
             Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
             request.setAttribute("cliente", cliente);
         }
@@ -91,8 +91,7 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
             if (operacao.equals("Incluir")) {
                 
                 cliente.salvar();
-            } else if (operacao.equals("Editar")) {
-                
+            } else if (operacao.equals("Editar")) { 
                 cliente.setId(id);
                 cliente.salvar();
             } else if (operacao.equals("Excluir")) {

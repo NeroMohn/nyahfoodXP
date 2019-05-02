@@ -108,7 +108,7 @@
                            <td><c:out value="${loja.cnpj}"/></td>
                              <td><c:out value="${loja.descricao}"/></td>
                                <td><c:out value="${loja.nomeGerente}"/></td>
-                                 <td><c:out value="${loja.codTipoCozinha}"/></td>
+                                 <td><c:out value="${loja.TipoCozinha}"/></td>
                                              
                         <td><a href="ManterLojaController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${loja.id}"/>">Editar</a></td>
                         <td>
