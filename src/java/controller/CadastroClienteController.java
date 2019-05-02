@@ -33,7 +33,7 @@ public class CadastroClienteController extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
-                Long idCliente = Long.parseLong(request.getParameter("idCliente"));
+                Long idCliente = Long.parseLong(request.getParameter("id"));
                 Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
                 request.setAttribute("cliente", cliente);
             }
@@ -61,26 +61,25 @@ public class CadastroClienteController extends HttpServlet {
         String complemento = request.getParameter("txtComplementoCliente");
         String cidade = request.getParameter("txtCidadeCliente");
         String estado = request.getParameter("txtEstadoCliente");
-
+        Long id = null;
+      
+        if (!operacao.equals("Incluir")) {
+         id = Long.parseLong(request.getParameter("txtIdCliente"));    
+        }
+        
         try {
+             Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
+                complemento, cidade, estado);
+           
             if (operacao.equals("Incluir")) {
-                Cliente cliente = new Cliente(nome, cpf, email, senha, telefone, cep,logradouro, bairro, numero,
-                        complemento, cidade, estado);
-                ClienteDAO.getInstance().salvar(cliente);
-            } else {
-                if (operacao.equals("Editar")) {
-                    Long idCliente = parseLong(request.getSession().getAttribute("id").toString());
-                    Cliente cliente = new Cliente(nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
-                            complemento, cidade, estado);
-                    ClienteDAO.getInstance().salvar(cliente);
-                } else {
-                    if (operacao.equals("Excluir")) {
-                        Long idCliente = Long.parseLong(request.getParameter("txtIdCliente"));
-                        Cliente cliente = new Cliente(nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
-                                complemento, cidade, estado);
-                        ClienteDAO.getInstance().excluir(cliente);
-                    }
-                }
+                
+                cliente.salvar();
+            } else if (operacao.equals("Editar")) { 
+                cliente.setId(id);
+                cliente.salvar();
+            } else if (operacao.equals("Excluir")) {
+                cliente.setId(id);
+                cliente.excluir();
             }
             RequestDispatcher view = request.getRequestDispatcher("LoginCliente.jsp");
             view.forward(request, response);
