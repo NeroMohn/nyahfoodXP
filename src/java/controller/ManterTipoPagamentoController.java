@@ -57,7 +57,7 @@ public class ManterTipoPagamentoController extends HttpServlet {
         Long id = null;
 
         if (!operacao.equals("Incluir")) {
-            id = Long.parseLong(request.getParameter("id"));
+            id = Long.parseLong(request.getParameter("txtIdTipoPagamento"));
         }
 
         try {

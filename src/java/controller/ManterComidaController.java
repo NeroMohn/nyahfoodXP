@@ -78,7 +78,7 @@ public class ManterComidaController extends HttpServlet {
         Long id = null;
 
         if (!operacao.equals("Incluir")) {
-            id = Long.parseLong(request.getParameter("id"));
+            id = Long.parseLong(request.getParameter("txtIdComida"));
         }
 
         try {
