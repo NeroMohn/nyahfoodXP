@@ -58,13 +58,9 @@
     </head>
     <body>
         <!-- header-section-starts -->
-        <% if (session.getAttribute("tipo") != "3") { %>
-        <img src="images/Acesso.png">
-
-        <% } %>
 
 
-        <% if (session.getAttribute("tipo") == "3") { %>
+        <% if (session.getAttribute("tipo") == "1") { %>
         <div id="header"></div>
 
 
@@ -81,36 +77,26 @@
                             <table>
                                 <tr>
 
-                                    <td><input type="hidden" name="txtIdComidaPedida" value="${comidaPedida.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></td>
+                                    <td><input type="hidden" name="txtIdComidaPedida" value="${comida.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>></td>
                                     </tr>
                                     <tr>
                                         <td>Quantidade:</td>
                                         <td><input type="text" name="txtQuantidade" value="${comidaPedida.quantidade}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></td>
                                     </tr>
-                                    <tr>
+                                   <!--  <tr>
                                         <td>Total:</td>
                                         <td><input type="text" name="txtTotal" value="${comidaPedida.total}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></td>
                                     </tr>
-                                    <tr>
+                                    <tr>-->
                                         <td>Comida:</td>
                                         <td>
                                             <select name="optComida" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
-                                            <c:forEach items="${comidas}" var="comida">
-                                                <option value="${comida.id}" <c:if test="${comida.id == comidaPedida.Comida.id}"> selected</c:if>>${comida.nome}</option>
-                                            </c:forEach>
+                                     
+                                                <option value="${comida.id}"> ${comida.nome}</option>
+                          
                                         </select>
                                     </td>
-                                </tr>
-                                    <tr>
-                                        <td>Pedido:</td>
-                                        <td>
-                                            <select name="optPedido" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
-                                            <c:forEach items="${pedidos}" var="pedido">
-                                                <option value="${pedido.id}" <c:if test="${pedido.id == comidaPedida.Pedido.id}"> selected</c:if>>${pedido.id}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </td>
-                                </tr>
+                  
                             </table>
 
                             <td><input type="submit" name="btnConfirmar" value="Confirmar"></td>
@@ -123,120 +109,10 @@
                 </div>
             </div>
         </div>
-        <div class="special-offers-section">
-            <div class="container">
-                <div class="special-offers-section-head text-center dotted-line">
-                    <h4>Best Ofertas</h4>
-                </div>
-                <div class="special-offers-section-grids">
-                    <div class="m_3"><span class="middle-dotted-line"> </span> </div>
-                    <div class="container">
-                        <ul id="flexiselDemo3">
-                            <li>
-                                <div class="offer">
-                                    <div class="offer-image">
-                                        <img src="images/p1.jpg" class="img-responsive" alt=""/>
-                                    </div>
-                                    <div class="offer-text">
-                                        <h4>Frago Frito</h4>
-                                        <p>O melhor frango já frito que você irá comer. </p>
-                                        <input type="button" value="Pedir">
-                                        <span></span>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="offer">
-                                    <div class="offer-image">
-                                        <img src="images/p2.jpg" class="img-responsive" alt=""/>
-                                    </div>
-                                    <div class="offer-text">
-                                        <h4>Sopa pra nóis</h4>
-                                        <p>A melhor sopa já feita que você irá comer. </p>
-                                        <input type="button" value="Pedir">
-                                        <span></span>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="offer">
-                                    <div class="offer-image">
-                                        <img src="images/p1.jpg" class="img-responsive" alt=""/>
-                                    </div>
-                                    <div class="offer-text">
-                                        <h4>Frago Frito</h4>
-                                        <p>O melhor frango já frito que você irá comer com outro tempero. </p>
-                                        <input type="button" value="Pedir">
-                                        <span></span>
-                                    </div>
-
-                                    <div class="clearfix"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="offer">
-                                    <div class="offer-image">
-                                        <img src="images/p2.jpg" class="img-responsive" alt=""/>
-                                    </div>
-                                    <div class="offer-text">
-                                        <h4>Frago Frito de Novo</h4>
-                                        <p>Só existe frango frito nesse delivery. </p>
-                                        <input type="button" value="Pedir">
-                                        <span></span>
-                                    </div>
-
-                                    <div class="clearfix"></div>
-                                </div>
-                            </li>
-                        </ul>
-                        <script type="text/javascript">
-                            $(window).load(function () {
-
-                                $("#flexiselDemo3").flexisel({
-                                    visibleItems: 3,
-                                    animationSpeed: 1000,
-                                    autoPlay: true,
-                                    autoPlaySpeed: 3000,
-                                    pauseOnHover: true,
-                                    enableResponsiveBreakpoints: true,
-                                    responsiveBreakpoints: {
-                                        portrait: {
-                                            changePoint: 480,
-                                            visibleItems: 1
-                                        },
-                                        landscape: {
-                                            changePoint: 640,
-                                            visibleItems: 2
-                                        },
-                                        tablet: {
-                                            changePoint: 768,
-                                            visibleItems: 3
-                                        }
-                                    }
-                                });
-
-                            });
-                        </script>
-                        <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix"></div>
-    </div>
-</div>
-</div>
-</div>
+       
 <!-- content-section-ends -->
 <!-- footer-section-starts -->
-<div class="footer"> 
-    <div class="container">
-        <p class="wow fadeInLeft" data-wow-delay="0.4s">&copy; 2018 NyahFood</p>		</div>
-</div>
-</div>
+
 <!-- footer-section-ends -->
 <script type="text/javascript">
                             $(document).ready(function () {

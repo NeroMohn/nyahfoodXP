@@ -57,6 +57,7 @@
             <tr>
                 <td>Código Comida</td>
                 <td>Nome Comida</td>
+                 <td>Preço</td>
                 <td colspan=2>Ação</td>
             </tr>
             <div><c:out value="${vazio}"/></div>
