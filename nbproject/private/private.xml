@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/model/Cliente.java</file>
-            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/controller/PesquisaComidaLojaClienteController.java</file>
-            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/controller/ManterClienteController.java</file>
-            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/web/PesquisaClienteADM.jsp</file>
-            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/model/Usuario.java</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/controller/ManterComidaController.java</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/controller/LoginLojaController.java</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/web/PesquisaComidaLoja.jsp</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/controller/PesquisaComidaLojaController.java</file>
+            <file>file:/C:/Users/Braian/Documents/GitHub/nyahfoodXP/src/java/controller/LoginClienteController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -51,7 +51,7 @@ public class ManterComidaController extends HttpServlet {
             } else {
                 if (!operacao.equals("Incluir")) {
 
-                    Long idComida = Long.parseLong(request.getParameter("idComida"));
+                    Long idComida = Long.parseLong(request.getParameter("id"));
                     Comida comida = ComidaDAO.getInstance().getComida(idComida);
                     request.setAttribute("comida", comida);
                 }
@@ -92,7 +92,7 @@ public class ManterComidaController extends HttpServlet {
                 comida.setId(id);
                 comida.excluir();
             }
-            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaComidaLojaController");
             view.forward(request, response);
         } catch (IOException e) {
             throw new ServletException(e);

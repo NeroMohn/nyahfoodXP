@@ -50,9 +50,7 @@ public class LoginLojaController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginLojaController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(LoginLojaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
