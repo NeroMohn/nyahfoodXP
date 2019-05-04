@@ -56,8 +56,8 @@ public class CadastroClienteController extends HttpServlet {
         String telefone = request.getParameter("txtTelefoneCliente");
         String cep = request.getParameter("txtCepCliente");
         String logradouro = request.getParameter("txtLogradouroCliente");
-        String bairro = request.getParameter("txtBairroCliente");
-        String numero = request.getParameter("txtNumeroCliente");
+        String numero = request.getParameter("txtBairroCliente");
+        String bairro = request.getParameter("txtNumeroCliente");
         String complemento = request.getParameter("txtComplementoCliente");
         String cidade = request.getParameter("txtCidadeCliente");
         String estado = request.getParameter("txtEstadoCliente");
