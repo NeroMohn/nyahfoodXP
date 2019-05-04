@@ -119,6 +119,7 @@ public class AdmDAO {
         } catch (Exception e){
             if(tx != null && tx.isActive()){
                 tx.rollback();
+                return adm;
             }
             throw new RuntimeException(e);
         }finally{

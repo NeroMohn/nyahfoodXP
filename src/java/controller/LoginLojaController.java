@@ -70,12 +70,14 @@ public class LoginLojaController extends HttpServlet {
         Loja loja = LojaDAO.getInstance().getLojaEmail(login);
      
         if(loja == null){
-            try{
-                RequestDispatcher view = request.getRequestDispatcher("/LoginIncorreto.jsp");       
-                view.forward(request, response);
+             try{
+            RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");       
+            view.forward(request, response);
             } catch (IOException ex) {  
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
-            }}else if(senha.equals(loja.getSenha())&& login.equals(loja.getEmail())){
+            }
+        }
+        else if(senha.equals(loja.getSenha())&& login.equals(loja.getEmail())){
             try {
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("senha", senha);
@@ -86,7 +88,7 @@ public class LoginLojaController extends HttpServlet {
             } catch (IOException ex) {  
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(login.equals(loja.getEmail())&&!senha.equals(loja.getSenha())){
+        }else {
             try{
             RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");       
             view.forward(request, response);

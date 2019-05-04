@@ -13,7 +13,7 @@
     </head>
     <body>
         <div>
-        Senha incorreta ;-;
+        Senha ou Login incorreto, tente novamente.
         <a href="LoginClienteController?acao=preparar">Tentar novamente</a>
         </div>
     </body>

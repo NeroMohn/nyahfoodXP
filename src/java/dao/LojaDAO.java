@@ -118,7 +118,9 @@ public class LojaDAO {
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
+                
                 tx.rollback();
+                return loja;
             }
             throw new RuntimeException(e);
         }finally{

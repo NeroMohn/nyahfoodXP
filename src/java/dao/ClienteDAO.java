@@ -119,6 +119,7 @@ public class ClienteDAO {
         } catch (Exception e){
             if(tx != null && tx.isActive()){
                 tx.rollback();
+                return cliente;
             }
             throw new RuntimeException(e);
         }finally{
