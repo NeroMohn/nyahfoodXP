@@ -111,7 +111,7 @@ public class LoginAdmController extends HttpServlet {
                     request.getSession().setAttribute("login", login);
                     request.getSession().setAttribute("tipo", tipo);
                     request.getSession().setAttribute("id", adm.getId());
-                    RequestDispatcher view = request.getRequestDispatcher("/SessionAdm.jsp");       
+                    RequestDispatcher view = request.getRequestDispatcher("/index.jsp");       
                     view.forward(request, response);
 } catch (IOException ex) {  
                 Logger.getLogger(LoginAdmController.class

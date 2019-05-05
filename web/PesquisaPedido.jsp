@@ -48,199 +48,87 @@
 </head>
 <body>
     <!-- header-section-starts -->
+     <% if (session.getAttribute("tipo") != "2") { %>
+     <img src="images/Acesso.png">
+    
+       <% } %>
+    
+
+		 <% if (session.getAttribute("tipo") == "2") { %>
 	<div id="header"></div>
 		
-					<div class="main-search">
-						<form action="search.html">
-							<input type="text" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}" class="text"/>
-							<input type="submit" value=""/>
-						</form>
-						<div class="close"><img src="images/cross.png" /></div>
-					</div>
-					<div class="srch"><button></button></div>
-					<script type="text/javascript">
-                        $('.main-search').hide();
-                        $('button').click(function (){
-                                $('.main-search').show();
-                                $('.main-search text').focus();
-                            }
-                        );
-                        $('.close').click(function(){
-                            $('.main-search').hide();
-                        });
-					</script>
-
-				</div>
-			</div>
-		</div>
-	</div>
+				
 	<!-- header-section-ends -->
 	<!-- content-section-starts -->
         <div  class="container text-center"> 
-           <h1>Pesquisa Pedido</h1>
+           <h1>Historico Pedido</h1>
+            </div>
            <br>
         <table border=1 id="tablePesquisa" class=" col-lg-12 "> 
             <tr>
-                <td>Código Pedido</td>
-                <td>Código Comida</td>
-                <td>Subtotal</td>
-                <td colspan=2>Ação</td>
+                <td aling="center">Ação</td>
+                <td align="center">Código Pedido</td>
+                <td align="center">Nome Cliente</td>
+                <td align="center">CEP</td>
+                <td align="center">Logradouro</td>
+                <td align="center">Bairro</td>
+                <td align="center">Numero</td>
+                <td align="center">Complemento</td>
+                <td align="center">Cidade</td>
+                <td align="center">Nome Comida</td>
+                <td align="center">Preço</td>
+                <td align="center">Quantidade</td>
+                 <td align="center">Total</td>
+                <td align="center">Forma Pagamento</td>                               
+             
+            
+  
+            
+           
             </tr>
-            <div><c:out value="${vazio}"/></div>
           
-                <c:forEach items="${pedidos}" var="pedido">
-                    <tr>
-                        <td><c:out value="${pedido.id}"/></td>
-                        <td><c:out value="${pedido.total}"/></td>
-                        <td><c:out value="${pedido.date}"/></td>
-                        <td><a href="ManterPedidoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${pedido.id}"/>">Editar</a></td>
-                        <td>
-                            <a href="ManterPedidoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${pedido.id}"/>">Excluir</a></td>
+          
+             
+                    
+                <c:forEach items="${comidasPedidas}" var="comidaPedida">
+                    <tr><c:if test="${comidaPedida.comida.loja.id == id}">
+                         <c:if test="${comidaPedida.saiuEntrega == 'Fazendo'}">
+                        <td align="center"><a href="EnviaComidaController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${comidaPedida.id}"/>">Enviar</a></td>
+                         </c:if>
+                        <c:if test="${comidaPedida.saiuEntrega == 'Saiu Entrega'}">
+                            <td align="center">Enviado</td>
+                        </c:if>
+                        <td align="center" ><c:out value="${comidaPedida.pedido.id}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.cliente.nome}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.cliente.cep}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.cliente.logradouro}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.cliente.bairro}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.cliente.numero}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.cliente.complemento}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.cliente.cidade}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.comida.nome}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.comida.preco}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.quantidade}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.total}"/></td>
+                        <td align="center"><c:out value="${comidaPedida.pedido.metodoPagamento}"/></td>
+                         </c:if>
+    
                     </tr>
-                </c:forEach>
 
+                </c:forEach>
+         
+                        
         </table>
+          
             <div id="botaoInclui">
-        <form action="ManterPedidoController?acao=prepararOperacao&operacao=Incluir" method="post">
-            <input type="submit" name="btnIncluir" value="Incluir">
-        </form>
-        </div></div>
+       
+        </div>
                 
                 <br>
              </div>
         </div>
-                <div class="special-offers-section">
-			<div class="container">
-				<div class="special-offers-section-head text-center dotted-line">
-					<h4>Best Ofertas</h4>
-				</div>
-				<div class="special-offers-section-grids">
-					<div class="m_3"><span class="middle-dotted-line"> </span> </div>
-					<div class="container">
-						<ul id="flexiselDemo3">
-							<li>
-								<div class="offer">
-									<div class="offer-image">
-										<img src="images/p1.jpg" class="img-responsive" alt=""/>
-									</div>
-									<div class="offer-text">
-										<h4>Frago Frito</h4>
-										<p>O melhor frango já frito que você irá comer. </p>
-										<input type="button" value="Pedir">
-										<span></span>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</li>
-							<li>
-								<div class="offer">
-									<div class="offer-image">
-										<img src="images/p2.jpg" class="img-responsive" alt=""/>
-									</div>
-									<div class="offer-text">
-										<h4>Sopa pra nóis</h4>
-										<p>A melhor sopa já feita que você irá comer. </p>
-										<input type="button" value="Pedir">
-										<span></span>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</li>
-							<li>
-								<div class="offer">
-									<div class="offer-image">
-										<img src="images/p1.jpg" class="img-responsive" alt=""/>
-									</div>
-									<div class="offer-text">
-										<h4>Frago Frito</h4>
-										<p>O melhor frango já frito que você irá comer com outro tempero. </p>
-										<input type="button" value="Pedir">
-										<span></span>
-									</div>
 
-									<div class="clearfix"></div>
-								</div>
-							</li>
-							<li>
-								<div class="offer">
-									<div class="offer-image">
-										<img src="images/p2.jpg" class="img-responsive" alt=""/>
-									</div>
-									<div class="offer-text">
-										<h4>Frago Frito de Novo</h4>
-										<p>Só existe frango frito nesse delivery. </p>
-										<input type="button" value="Pedir">
-										<span></span>
-									</div>
-								
-								<div class="clearfix"></div>
-								</div>
-					    </li>
-					 </ul>
-				 <script type="text/javascript">
-					$(window).load(function() {
-						
-						$("#flexiselDemo3").flexisel({
-							visibleItems: 3,
-							animationSpeed: 1000,
-							autoPlay: true,
-							autoPlaySpeed: 3000,    		
-							pauseOnHover: true,
-							enableResponsiveBreakpoints: true,
-							responsiveBreakpoints: { 
-								portrait: { 
-									changePoint:480,
-									visibleItems: 1
-								}, 
-								landscape: { 
-									changePoint:640,
-									visibleItems: 2
-								},
-								tablet: { 
-									changePoint:768,
-									visibleItems: 3
-								}
-							}
-						});
-						
-					});
-				    </script>
-				    <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-				</div>
-			</div>
-		</div>
-		</div>
-<div class="clearfix"></div>
-
-					<div class="clearfix"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- content-section-ends -->
-	<!-- footer-section-starts -->
-	<div class="footer">
-		<div class="container">
-			<p class="wow fadeInLeft" data-wow-delay="0.4s">&copy; 2018 NyahFood</p>		</div>
-		</div>
-	</div>
-	<!-- footer-section-ends -->
-	  <script type="text/javascript">
-						$(document).ready(function() {
-							/*
-							var defaults = {
-					  			containerID: 'toTop', // fading element id
-								containerHoverID: 'toTopHover', // fading element hover id
-								scrollSpeed: 1200,
-								easingType: 'linear' 
-					 		};
-							*/
-							
-							$().UItoTop({ easingType: 'easeOutQuart' });
-							
-						});
-					</script>
-				<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+                                    <% } %>
 
 </body>
 </html>

@@ -68,7 +68,7 @@ public class CadastroClienteController extends HttpServlet {
         }
         
         try {
-             Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
+             Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, cep, logradouro, numero, bairro,
                 complemento, cidade, estado);
            
             if (operacao.equals("Incluir")) {

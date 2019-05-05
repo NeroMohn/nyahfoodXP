@@ -26,16 +26,18 @@ public class ComidaPedida implements Serializable{
     private Comida comida;
     @ManyToOne
     private Pedido pedido;
+    private String saiuEntrega;
     
     public ComidaPedida(){}
 
     
-    public ComidaPedida(int quantidade, double total, Comida comida, Pedido pedido) {
+    public ComidaPedida(int quantidade, double total, Comida comida, Pedido pedido, String saiuEntrega) {
        
         setQuantidade(quantidade);
         setTotal(total);
         setComida(comida);
         setPedido(pedido);
+        setSaiuEntrega(saiuEntrega);
     }
 
   
@@ -48,6 +50,14 @@ public class ComidaPedida implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+      public String getSaiuEntrega() {
+        return saiuEntrega;
+    }
+
+    public void setSaiuEntrega(String saiuEntrega) {
+        this.saiuEntrega = saiuEntrega;
     }
 
     public int getQuantidade() {

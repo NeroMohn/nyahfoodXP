@@ -65,12 +65,14 @@
            <br>
         <table border=1 id="tablePesquisa" class=" col-lg-12 "> 
             <tr>
+                 <td>Data/Tempo</td>
                 <td>Código Pedido</td>
                 <td>Nome Comida</td>
                 <td>Preço</td>
                 <td>Quantidade</td>
                  <td>Total</td>
-                <td>Forma Pagamento</td>                               
+                <td>Forma Pagamento</td> 
+                <td>Status</td>
              
             
   
@@ -83,12 +85,14 @@
                     
                 <c:forEach items="${comidasPedidas}" var="comidaPedida">
                     <tr><c:if test="${comidaPedida.pedido.cliente.id == id}">
+                        <td><c:out value="${comidaPedida.pedido.date}"/></td>
                         <td><c:out value="${comidaPedida.pedido.id}"/></td>
                         <td><c:out value="${comidaPedida.comida.nome}"/></td>
                         <td><c:out value="${comidaPedida.comida.preco}"/></td>
                         <td><c:out value="${comidaPedida.quantidade}"/></td>
                         <td><c:out value="${comidaPedida.pedido.total}"/></td>
                         <td><c:out value="${comidaPedida.pedido.metodoPagamento}"/></td>
+                           <td><c:out value="${comidaPedida.saiuEntrega}"/></td>
                          </c:if>
     
                     </tr>

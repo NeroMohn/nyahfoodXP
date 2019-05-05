@@ -1,6 +1,8 @@
 package controller;
 
+import dao.ComidaDAO;
 import dao.ComidaPedidaDAO;
+import dao.LojaDAO;
 import model.ComidaPedida;
 
 import java.io.IOException;
@@ -20,8 +22,11 @@ public class PesquisaComidaPedidaController extends HttpServlet {
         if (obterTodasComidasPedidas.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
+        
+        String id = request.getSession().getAttribute("id").toString();
+        request.setAttribute("id",id);
         request.setAttribute("comidasPedidas", ComidaPedidaDAO.getInstance().getAllComidaPedidas());
-        RequestDispatcher view = request.getRequestDispatcher("/PesquisaComidaPedida.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/PesquisaPedido.jsp");
         view.forward(request, response);
     }
     @Override

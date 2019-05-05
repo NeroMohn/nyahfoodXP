@@ -113,7 +113,7 @@ public class ManterComidaPedidaController extends HttpServlet {
              
                 
         try {  
-                ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder);
+                ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder, "Fazendo");
             
             if (operacao.equals("Incluir")) {
                 comidaPedida.salvar();

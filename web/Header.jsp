@@ -61,14 +61,14 @@
                                                 <% if (session.getAttribute("tipo") == "1") { %>
                                                     <li><a href="PesquisaLojaController">Restaurantes</a></li>
                                                     <li><a href="PesquisaPedidoClienteController">Historico</a></li>
-                                                    <li><a href="PesquisaCompraCliente.jsp">Acompanhar Pedido</a></li>
+                                                   
                                                 
                                                    
                                             <% } %>
                                                      <% if (session.getAttribute("tipo") == "2") { %>
                                                     <li><a href="ManterComidaController?acao=prepararOperacao&operacao=Incluir">Cadastrar Comida</a></li>
                                                    <li><a href="PesquisaComidaLojaController">Seus Cadastros</a></li>
-                                                    <li><a href="PesquisaComidaPedida.jsp">Pedidos</a></li>
+                                                    <li><a href="PesquisaComidaPedidaController">Pedidos</a></li>
                                             <% } %>
                                                  <% if (session.getAttribute("tipo") == "3") { %>
                                                     <li><a href="AdminLogado.jsp">ADMINISTRADOR</a></li>

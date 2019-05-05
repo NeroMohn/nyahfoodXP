@@ -81,7 +81,7 @@ public class LoginLojaController extends HttpServlet {
                 request.getSession().setAttribute("senha", senha);
                 request.getSession().setAttribute("tipo", tipo);
                 request.getSession().setAttribute("id", loja.getId());
-                RequestDispatcher view = request.getRequestDispatcher("/SessionCliente.jsp");       
+                RequestDispatcher view = request.getRequestDispatcher("/index.jsp");       
                 view.forward(request, response);
             } catch (IOException ex) {  
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
