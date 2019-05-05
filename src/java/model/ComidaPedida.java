@@ -30,7 +30,7 @@ public class ComidaPedida implements Serializable{
     public ComidaPedida(){}
 
     
-    public ComidaPedida(int quantidade, double total, Long codComida, Long codPedido) {
+    public ComidaPedida(int quantidade, double total, Comida comida, Pedido pedido) {
        
         setQuantidade(quantidade);
         setTotal(total);

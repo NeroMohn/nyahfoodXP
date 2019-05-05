@@ -83,16 +83,22 @@
                                         <td>Quantidade:</td>
                                         <td><input type="text" name="txtQuantidade" value="${comidaPedida.quantidade}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></td>
                                     </tr>
-                                   <!--  <tr>
-                                        <td>Total:</td>
-                                        <td><input type="text" name="txtTotal" value="${comidaPedida.total}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></td>
+                                     <tr>
+                                         <td>Tipo Pagamento:</td>
+                                        <td> <select name="optPagamento" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                             <c:forEach items="${pagamentos}" var="pagamento">
+                                                 
+                                                <option value="${pagamento.nome}"> ${pagamento.nome}</option>
+                                              </c:forEach>
+                                                </select>
+                            </td>
                                     </tr>
-                                    <tr>-->
+                                    <tr>
                                         <td>Comida:</td>
                                         <td>
                                             <select name="optComida" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                                      
-                                                <option value="${comida.id}"> ${comida.nome}</option>
+                                                <option value="${comida.nome}"> ${comida.nome}</option>
                           
                                         </select>
                                     </td>

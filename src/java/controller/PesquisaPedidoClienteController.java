@@ -1,5 +1,6 @@
 package controller;
 
+import dao.ComidaPedidaDAO;
 import dao.PedidoDAO;
 import model.Pedido;
 
@@ -18,11 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 public class PesquisaPedidoClienteController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
         List<Pedido> obterTodosPedidos = PedidoDAO.getInstance().getAllPedidos();
         if(obterTodosPedidos.isEmpty()){
-            request.setAttribute("vazio", "");
+            request.setAttribute("vazio", "Mensagem");
         }
-        request.setAttribute("pedidos", obterTodosPedidos);
+        
+        String id = request.getSession().getAttribute("id").toString();
+        request.setAttribute("id",id);
+        request.setAttribute("pedidos", PedidoDAO.getInstance().getAllPedidos());
+        request.setAttribute("comidasPedidas", ComidaPedidaDAO.getInstance().getAllComidaPedidas()); 
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaPedidoCliente.jsp");
         view.forward(request, response);
     }

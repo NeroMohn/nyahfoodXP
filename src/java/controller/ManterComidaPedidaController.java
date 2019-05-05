@@ -9,6 +9,7 @@ import dao.ClienteDAO;
 import dao.ComidaDAO;
 import dao.ComidaPedidaDAO;
 import dao.PedidoDAO;
+import dao.TipoPagamentoDAO;
 import java.io.IOException;
 
 import java.text.SimpleDateFormat;
@@ -65,7 +66,7 @@ public class ManterComidaPedidaController extends HttpServlet {
             request.setAttribute("operacao", operacao);
             request.setAttribute("comidas", ComidaDAO.getInstance().getAllComidas());
             request.setAttribute("pedidos", PedidoDAO.getInstance().getAllPedidos());
-      
+            request.setAttribute("pagamentos", TipoPagamentoDAO.getInstance().getAllTipoPagamentos());
            
 
             String tipo = request.getSession().getAttribute("tipo").toString();
@@ -95,24 +96,25 @@ public class ManterComidaPedidaController extends HttpServlet {
     public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String operacao = request.getParameter("operacao");
         String quantidade = request.getParameter("txtQuantidade");
+        String tipoPagamento = request.getParameter("optPagamento");
 
                 Long idCliente = Long.parseLong(request.getSession().getAttribute("id").toString());
                 String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(Calendar.getInstance().getTime());
                 Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
-                Pedido pedido = new Pedido(0, null, timeStamp, cliente, null);
-                PedidoDAO.getInstance().salvar(pedido);
-                Pedido pedidoHolder = PedidoDAO.getInstance().getPedido(pedido.getId());
-                Long idPedido = pedidoHolder.getId();
-                request.getSession().setAttribute("idPedido", PedidoDAO.getInstance().getPedido(idPedido));
-           
-             
                 Long   id = Long.parseLong(request.getParameter("txtIdComidaPedida"));
-
                 Comida comidaHolder = ComidaDAO.getInstance().getComida(id);
                 Double total = comidaHolder.getPreco() * Integer.parseInt(quantidade);	
+                Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente, null);
+                PedidoDAO.getInstance().salvar(pedido);
+                Pedido pedidoHolder = PedidoDAO.getInstance().getPedido(pedido.getId());
+              
+               
+           
+             
+                
         try {  
-                ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, id, idPedido);
-                ComidaPedidaDAO.getInstance().salvar(comidaPedida);
+                ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder);
+            
             if (operacao.equals("Incluir")) {
                 comidaPedida.salvar();
             } else if (operacao.equals("Editar")) {
@@ -122,7 +124,7 @@ public class ManterComidaPedidaController extends HttpServlet {
                 comidaPedida.setId(id);
                 comidaPedida.excluir();
             }
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaComidaLojaController");
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaPedidoClienteController");
             view.forward(request, response);
             }catch (IOException e) {
             throw new ServletException(e);

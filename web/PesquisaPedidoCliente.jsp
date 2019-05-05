@@ -66,21 +66,36 @@
         <table border=1 id="tablePesquisa" class=" col-lg-12 "> 
             <tr>
                 <td>Código Pedido</td>
-                <td>Código Comida</td>
-                <td>Subtotal</td>
+                <td>Nome Comida</td>
+                <td>Preço</td>
+                <td>Quantidade</td>
+                 <td>Total</td>
+                <td>Forma Pagamento</td>                               
+             
+            
+  
+            
            
             </tr>
-            <div><c:out value="${vazio}"/></div>
           
-                <c:forEach items="${pedidos}" var="pedido">
-                    <tr>
-                        <td><c:out value="${pedido.id}"/></td>
-                        <td><c:out value="${pedido.total}"/></td>
-                        <td><c:out value="${pedido.date}"/></td>
-                        
+          
+             
+                    
+                <c:forEach items="${comidasPedidas}" var="comidaPedida">
+                    <tr><c:if test="${comidaPedida.pedido.cliente.id == id}">
+                        <td><c:out value="${comidaPedida.pedido.id}"/></td>
+                        <td><c:out value="${comidaPedida.comida.nome}"/></td>
+                        <td><c:out value="${comidaPedida.comida.preco}"/></td>
+                        <td><c:out value="${comidaPedida.quantidade}"/></td>
+                        <td><c:out value="${comidaPedida.pedido.total}"/></td>
+                        <td><c:out value="${comidaPedida.pedido.metodoPagamento}"/></td>
+                         </c:if>
+    
                     </tr>
-                </c:forEach>
 
+                </c:forEach>
+         
+                        
         </table>
             <div id="botaoInclui">
        
