@@ -69,7 +69,7 @@
            </form><br>
       <table  class=" col-lg-12 ">
             <tr>
-                <td>Código Cliente</td>
+                <td>Código Loja</td>
                 <td>Nome Loja</td>
                  <td>Telefone Loja</td>
                   <td>Email Loja</td>
@@ -85,7 +85,7 @@
                            <td>Cnpj Loja</td>
                            <td>Descricao Loja</td>
                            <td>Nome Gerente Loja</td>
-                           <td>Cod. Tipo Cozinha Loja</td>
+                           <td>Tipo Cozinha</td>
                            
                 <td colspan = 2 > Ação</td>
             </tr>
@@ -108,7 +108,7 @@
                            <td><c:out value="${loja.cnpj}"/></td>
                              <td><c:out value="${loja.descricao}"/></td>
                                <td><c:out value="${loja.nomeGerente}"/></td>
-                                 <td><c:out value="${loja.TipoCozinha}"/></td>
+                                 <td><c:out value="${loja.tipoCozinha.nome}"/></td>
                                              
                         <td><a href="ManterLojaController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${loja.id}"/>">Editar</a></td>
                         <td>

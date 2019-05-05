@@ -4,8 +4,6 @@ import dao.LojaDAO;
 import model.Loja;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +20,9 @@ public class PesquisaLojaControllerADM extends HttpServlet {
         if(obterTodasLojas.isEmpty()){
             request.setAttribute("vazio", "Mensagem");
         }
-        request.setAttribute("lojas", obterTodasLojas);
+        String id = request.getSession().getAttribute("id").toString();
+        request.setAttribute("id",id);
+        request.setAttribute("lojas", LojaDAO.getInstance().getAllLojas());
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaLojaADM.jsp");
         view.forward(request, response);
     }

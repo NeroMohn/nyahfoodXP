@@ -82,6 +82,26 @@ public class TipoCozinhaDAO {
         return tipoCozinha;
     }
        
+       public TipoCozinha getTipoCozinhaNome(String nome){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        TipoCozinha tipoCozinha = null;
+        try{
+            tx.begin();
+            tipoCozinha = em.find(TipoCozinha.class, nome);
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return tipoCozinha;
+    }
+       
         
     public List<TipoCozinha> getAllTipoCozinhas(){
          
