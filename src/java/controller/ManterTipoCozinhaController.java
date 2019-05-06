@@ -44,7 +44,7 @@ public class ManterTipoCozinhaController extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
-                Long idTipoCozinha = Long.parseLong(request.getParameter("idTipoCozinha"));
+                Long idTipoCozinha = Long.parseLong(request.getParameter("id"));
                 TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
                 request.setAttribute("tipoCozinha", tipoCozinha);
 

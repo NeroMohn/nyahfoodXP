@@ -18,7 +18,7 @@ public class PesquisaLojaControllerADM extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Loja> obterTodasLojas = LojaDAO.getInstance().getAllLojas();
         if(obterTodasLojas.isEmpty()){
-            request.setAttribute("vazio", "Mensagem");
+            request.setAttribute("vazio", "Sem Lojas Cadastradas");
         }
         String id = request.getSession().getAttribute("id").toString();
         request.setAttribute("id",id);

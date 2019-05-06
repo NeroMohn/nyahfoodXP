@@ -56,14 +56,15 @@ public class ManterPedidoController extends HttpServlet {
                 view.forward(request, response);
             } else {
                 if (!operacao.equals("Incluir")) {
-                    Long idPedido = Long.parseLong(request.getParameter("idPedido"));
+                    Long idPedido = Long.parseLong(request.getParameter("id"));
                     Pedido pedido = PedidoDAO.getInstance().getPedido(idPedido);
                     request.setAttribute("pedido", pedido);
-
+                 
                 }
+                   RequestDispatcher view = request.getRequestDispatcher("/ManterPedido.jsp");
+                    view.forward(request, response);
             }
-            RequestDispatcher view = request.getRequestDispatcher("/ManterPedido.jsp");
-            view.forward(request, response);
+      
         } catch (ServletException ex) {
             Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -77,10 +78,13 @@ public class ManterPedidoController extends HttpServlet {
         Double total = Double.parseDouble(request.getParameter("txtTotal"));
         String metodoPagamento = request.getParameter("txtMetodoPagamento");
         String date = request.getParameter("txtDate");
-        Long codCliente = Long.parseLong(request.getSession().getAttribute("id").toString());
-        Cliente cliente = ClienteDAO.getInstance().getCliente(codCliente);
-        Long codCupomDesconto = Long.parseLong(request.getParameter("txtCodCupomDesconto"));
-        CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(codCupomDesconto);
+        
+        Long idPedido = Long.parseLong(request.getParameter("txtIdPedido"));
+        Pedido pedidop = PedidoDAO.getInstance().getPedido(idPedido);
+        Long idCliente = Long.parseLong(request.getParameter("optCliente"));
+        Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
+        //Long codCupomDesconto = Long.parseLong(request.getParameter("txtCodCupomDesconto"));
+       // CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(codCupomDesconto);
         Long id = null;
 
         if (!operacao.equals("Incluir")) {
@@ -88,7 +92,7 @@ public class ManterPedidoController extends HttpServlet {
         }
 
         try {
-            Pedido pedido = new Pedido(total, metodoPagamento, date, cliente, cupomDesconto);
+            Pedido pedido = new Pedido(total, metodoPagamento, date, cliente, null);
             if (operacao.equals("Incluir")) {
                 pedido.salvar();
             } else if (operacao.equals("Editar")) {
@@ -98,7 +102,7 @@ public class ManterPedidoController extends HttpServlet {
                 pedido.setId(id);
                 pedido.excluir();
             }
-            RequestDispatcher view = request.getRequestDispatcher("PesquisaClienteController");
+            RequestDispatcher view = request.getRequestDispatcher("PesquisaPedidoControllerADM");
             view.forward(request, response);
         } catch (IOException e) {
             throw new ServletException(e);

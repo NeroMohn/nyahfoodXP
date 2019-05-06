@@ -47,23 +47,7 @@
     <!-- header-section-starts -->
 	<div id="header"></div>
 					
-					<div class="srch"><button></button></div>
-					<script type="text/javascript">
-                        $('.main-search').hide();
-                        $('button').click(function (){
-                                $('.main-search').show();
-                                $('.main-search text').focus();
-                            }
-                        );
-                        $('.close').click(function(){
-                            $('.main-search').hide();
-                        });
-					</script>
-
-				</div>
-			</div>
-		</div>
-	</div>
+					
 	<!-- header-section-ends -->
 	<!-- content-section-starts -->
         <div  class="container text-center"> 

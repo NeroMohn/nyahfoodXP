@@ -74,7 +74,8 @@
                    <td>Metodo Pag. Pedido</td>
                 <td>Data Pedido</td>
                    <td>Cod. Cliente </td>
-                <td>Cod. Cupom Descconto</td>
+                        <td>Nome Cliente </td>
+              <!--  <td>Cod. Cupom Descconto</td> -->
                 <td colspan=2>Ação</td>
             </tr>
             <div><c:out value="${vazio}"/></div>
@@ -85,8 +86,9 @@
                         <td><c:out value="${pedido.total}"/></td>
                         <td><c:out value="${pedido.metodoPagamento}"/></td>
                         <td><c:out value="${pedido.date}"/></td>
-                        <td><c:out value="${pedido.codCliente}"/></td>
-                        <td><c:out value="${pedido.codCupomDesconto}"/></td>
+                        <td><c:out value="${pedido.cliente.id}"/></td>
+                        <td><c:out value="${pedido.cliente.nome}"/></td>
+                        <!-- <td><c:out value="${pedido.cupomDesconto}"/></td>-->
                         <td><a href="ManterPedidoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${pedido.id}"/>">Editar</a></td>
                         <td>
                             <a href="ManterPedidoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${pedido.id}"/>">Excluir</a></td>

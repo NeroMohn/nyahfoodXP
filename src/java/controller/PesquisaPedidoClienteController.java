@@ -22,7 +22,7 @@ public class PesquisaPedidoClienteController extends HttpServlet {
        
         List<Pedido> obterTodosPedidos = PedidoDAO.getInstance().getAllPedidos();
         if(obterTodosPedidos.isEmpty()){
-            request.setAttribute("vazio", "Mensagem");
+            request.setAttribute("vazio", "Sem Pedidos Cadastrados");
         }
         
         String id = request.getSession().getAttribute("id").toString();

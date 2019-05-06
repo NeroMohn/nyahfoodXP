@@ -71,8 +71,8 @@
                 <td>Tempo Estimado Comida</td>
                  <td>Foto Comida</td>
                 <td>Preço Comida</td>
-                 <td>Desconto Comida</td>
-                <td>Cod. Loja Comida</td>
+                 
+                <td>Loja Nome</td>
                 <td colspan=2>Ação</td>
             </tr>
             <div><c:out value="${vazio}"/></div>
@@ -84,8 +84,7 @@
                         <td><c:out value="${comida.tempoEstimado}"/></td>
                          <td><c:out value="${comida.foto}"/></td>
                         <td><c:out value="${comida.preco}"/></td>
-                         <td><c:out value="${comida.desconto}"/></td>
-                        <td><c:out value="${comida.codLoja}"/></td>
+                        <td><c:out value="${comida.loja.nome}"/></td>
                         <td><a href="ManterComidaControllerADM?acao=prepararOperacao&operacao=Editar&id=<c:out value="${comida.id}"/>">Editar</a></td>
                         <td>
                             <a href="ManterComidaControllerADM?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${comida.id}"/>">Excluir</a></td>

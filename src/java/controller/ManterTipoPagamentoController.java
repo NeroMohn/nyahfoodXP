@@ -36,7 +36,7 @@ public class ManterTipoPagamentoController extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
-                Long idTipoPagamento = Long.parseLong(request.getParameter("idTipoPagamento"));
+                Long idTipoPagamento = Long.parseLong(request.getParameter("id"));
                 TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento);
                 request.setAttribute("tipoPagamento", tipoPagamento);
 

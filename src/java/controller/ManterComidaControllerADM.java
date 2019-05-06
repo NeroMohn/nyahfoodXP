@@ -46,6 +46,7 @@ public class ManterComidaControllerADM extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             request.setAttribute("lojas", LojaDAO.getInstance().getAllLojas());
+        
             String tipo = request.getSession().getAttribute("tipo").toString();
             request.setAttribute("tipo", tipo);
             if (tipo != "3") {
@@ -53,7 +54,7 @@ public class ManterComidaControllerADM extends HttpServlet {
                 view.forward(request, response);
             } else {
                 if (!operacao.equals("Incluir")) {
-                    Long idComida = Long.parseLong(request.getParameter("idComida"));
+                    Long idComida = Long.parseLong(request.getParameter("id"));
                     Comida comida = ComidaDAO.getInstance().getComida(idComida);
                     request.setAttribute("comida", comida);
                 }
@@ -76,8 +77,9 @@ public class ManterComidaControllerADM extends HttpServlet {
         Integer tempoEstimado = Integer.parseInt(request.getParameter("txtTempoEstimado"));
         String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
-        Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
-        Loja loja = LojaDAO.getInstance().getLoja(codLoja);
+        Long idComida = Long.parseLong(request.getParameter("txtIdComida"));
+        Long idLoja = Long.parseLong(request.getParameter("optLoja"));
+        Loja loja = LojaDAO.getInstance().getLoja(idLoja);
         Long id = null;
 
         if (!operacao.equals("Incluir")) {

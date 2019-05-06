@@ -83,11 +83,9 @@ public class ManterLojaController extends HttpServlet {
         }
 
         try {
-            Loja loja = new Loja(nome, nomeGerente, telefone, email,
-                    senha, cnpj, descricao, tipoCozinha,
-                    foto, cep, logradouro,
-                    bairro, complemento, cidade, estado,
-                    numero);
+            Loja loja = new Loja(nome, nomeGerente, email, senha, telefone, cnpj,
+                        descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
+                        complemento, cidade, estado);
             if (operacao.equals("Incluir")) {
                 loja.salvar();
             } else if (operacao.equals("Editar")) {

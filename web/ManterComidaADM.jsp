@@ -78,19 +78,19 @@
 
 
                             <table>
-
-                                <tr>
-                                    <td>Código da Comida:</td>
-                                    <td>
-                                        <input type="text" name="txtIdComida" value="${comida.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>>
+  <tr>
+                                
+                                   
+                                    <td><input type="hidden" required name="txtIdComida" value="${comida.id}">
                                         </td>
                                     </tr>
+                              
                                     <tr>
                                         <td>Loja:</td>
                                         <td>
                                             <select name="optLoja" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                                             <c:forEach items="${lojas}" var="loja">
-                                                <option value="${loja.id}" <c:if test="${loja.id == comida.Loja.id}"> selected</c:if>>${loja.nome}</option>
+                                                <option value="${loja.id}"  >${loja.nome}</option>
                                             </c:forEach>
                                         </select>
                                     </td>
@@ -115,7 +115,7 @@
                                             Tempo Preparo (em minutos):
                                         </td>
                                         <td>
-                                            <input type="text" pattern="[0-9].{1,5}$" required name="txtTempoEstimado" value="${comida.tempoEstimado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
+                                            <input type="text" pattern="[0-9].{0,5}$" required name="txtTempoEstimado" value="${comida.tempoEstimado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                                         </td>
                                     </tr>
                                     <tr>

@@ -27,6 +27,7 @@ public class PesquisaComidaControllerADM extends HttpServlet {
             view.forward(request, response);
 }else{
             RequestDispatcher view = request.getRequestDispatcher("/AcessoNegado.jsp");
+             view.forward(request, response);
         }
     }
     
