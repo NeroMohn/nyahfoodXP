@@ -84,14 +84,14 @@
 				<div class="login-section">
 					<ul>                      
                                               <% if (session.getAttribute("tipo") == null) { %>
-                                               <li><a  href="LoginLojaController?acao=preparar">Login Loja</a></li>
+                                      
                                             <% } else {%>
                                                
                                             <% } %>
                                                 
                                          
                                               <% if (session.getAttribute("tipo") == null) { %>
-                                               <li><a href="LoginClienteController?acao=preparar">Login Cliente</a></li>
+                                               <li><a href="LoginGeral?acao=preparar">Login</a></li>
                                                <li><a href="CadastroLojaController?acao=prepararOperacao&operacao=Incluir">Registrar Loja</a> </li>
                                                 <li><a href="CadastroClienteController?acao=prepararOperacao&operacao=Incluir">Registrar Cliente</a> </li>
                                             <% } else {%>

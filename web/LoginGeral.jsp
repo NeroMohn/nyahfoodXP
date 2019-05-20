@@ -110,11 +110,9 @@
 				  <div>
                                       <span>Senha <label for="pass">*</label></span>
 					 <input  pattern=".{6,25}$" required type="password" name="senha" id="pass" value="">
-                                          <h1 id="Logout">Senha ou Login incorreto!!!</h1>
 				  </div>
 					<div>						
 					</div>
-                                   
 				  <a class="forgot" href="#">Esqueceu sua senha?</a>
 				   <input type="submit" name="login" value="Logar">
 
