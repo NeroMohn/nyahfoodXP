@@ -1,8 +1,10 @@
 package controller;
 
 import dao.ClienteDAO;
+import dao.GeralDAO;
 import java.io.IOException;
 import static java.lang.Long.parseLong;
+import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -35,6 +37,7 @@ public class CadastroClienteController extends HttpServlet {
             if (!operacao.equals("Incluir")) {
                 Long idCliente = Long.parseLong(request.getParameter("id"));
                 Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
+             
                 request.setAttribute("cliente", cliente);
             }
             RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");
@@ -71,9 +74,13 @@ public class CadastroClienteController extends HttpServlet {
              Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, cep, logradouro, numero, bairro,
                 complemento, cidade, estado);
            
+             Class teste2 = cliente.getClass();
+           
+             
             if (operacao.equals("Incluir")) {
                 
-                cliente.salvar();
+                GeralDAO.getInstance().salvar(teste2);
+                
             } else if (operacao.equals("Editar")) { 
                 cliente.setId(id);
                 cliente.salvar();
