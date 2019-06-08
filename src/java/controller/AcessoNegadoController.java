@@ -6,7 +6,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -32,8 +31,8 @@ public class AcessoNegadoController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response){
-            RequestDispatcher view = request.getRequestDispatcher("/AcessoNegado.jsp");       
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher view = request.getRequestDispatcher("/AcessoNegado.jsp");
         try {
             view.forward(request, response);
         } catch (ServletException ex) {

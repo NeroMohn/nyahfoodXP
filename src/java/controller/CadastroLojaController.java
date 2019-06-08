@@ -1,9 +1,8 @@
 package controller;
 
-import dao.LojaDAO;
+import dao.GeralDAO;
 import dao.TipoCozinhaDAO;
 import java.io.IOException;
-import static java.lang.Long.parseLong;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,14 +34,14 @@ public class CadastroLojaController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
             if (!operacao.equals("Incluir")) {
                 Long idLoja = Long.parseLong(request.getParameter("idLoja"));
-                Loja loja = LojaDAO.getInstance().getLoja(idLoja);
+                Loja loja = (Loja) GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
                 request.setAttribute("loja", loja);
             }
             RequestDispatcher view = request.getRequestDispatcher("/CadastroLoja.jsp");
@@ -73,30 +72,27 @@ public class CadastroLojaController extends HttpServlet {
         String complemento = request.getParameter("txtComplementoLoja");
         String cidade = request.getParameter("txtCidadeLoja");
         String estado = request.getParameter("txtEstadoLoja");
-        try {
-            if (operacao.equals("Incluir")) {
-                Loja loja = new Loja(nome, nomeGerente, email, senha, telefone, cnpj,
-                        descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
-                        complemento, cidade, estado);
-                LojaDAO.getInstance().salvar(loja);
+        Long id = null;
 
-            } else {
-                if (operacao.equals("Editar")) {
-                    if (request.getSession().getAttribute("id") != null) {
-                        String idLoja1 = (String) request.getSession().getAttribute("id");
-                        Long idLoja = parseLong(idLoja1);
-                        Loja loja = LojaDAO.getInstance().getLoja(idLoja);
-                        LojaDAO.getInstance().salvar(loja);
-                    }
-                } else {
-                    if (operacao.equals("Excluir")) {
-                        Long idLoja = Long.parseLong(request.getParameter("txtIdLoja"));
-                        
-                        Loja loja;
-                        loja = LojaDAO.getInstance().getLoja(idLoja) ;
-                        LojaDAO.getInstance().excluir(loja);
-                    }
-                }
+        if (!operacao.equals("Incluir")) {
+            id = Long.parseLong(request.getParameter("txtIdLoja"));
+        }
+
+        try {
+            Loja loja = new Loja(nome, nomeGerente, email, senha, telefone, cnpj,
+                    descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
+                    complemento, cidade, estado);
+            Object objeto = loja;
+
+            if (operacao.equals("Incluir")) {
+                GeralDAO.getInstance().salvar(objeto);
+            } else if (operacao.equals("Editar")) {
+                loja.setId(id);
+                GeralDAO.getInstance().salvar(objeto);
+            } else if (operacao.equals("Excluir")) {
+                loja.setId(id);
+                GeralDAO.getInstance().excluir(objeto);
+
             }
             RequestDispatcher view = request.getRequestDispatcher("LoginLoja.jsp");
             view.forward(request, response);
@@ -122,10 +118,14 @@ public class CadastroLojaController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(CadastroLojaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroLojaController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastroLojaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroLojaController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -142,10 +142,14 @@ public class CadastroLojaController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(CadastroLojaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroLojaController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastroLojaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroLojaController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
