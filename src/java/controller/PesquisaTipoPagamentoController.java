@@ -2,11 +2,8 @@
 package controller;
 
 import dao.GeralDAO;
-import dao.TipoPagamentoDAO;
-import model.TipoPagamento;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
