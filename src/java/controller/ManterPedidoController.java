@@ -5,10 +5,7 @@
  */
 package controller;
 
-import dao.ClienteDAO;
-import dao.CupomDescontoDAO;
 import dao.GeralDAO;
-import dao.PedidoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -20,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
-import model.CupomDesconto;
 import model.Pedido;
 /**
  *
@@ -48,7 +44,7 @@ public class ManterPedidoController extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("clientes", ClienteDAO.getInstance().getAllClientes());
+            request.setAttribute("clientes", (Cliente)GeralDAO.getInstance().getAllObjetos(Class.forName("model.Cliente")));
             String tipo = request.getSession().getAttribute("tipo").toString();
 
             if (tipo != "3") {
@@ -83,14 +79,9 @@ public class ManterPedidoController extends HttpServlet {
         String operacao = request.getParameter("operacao");
         Double total = Double.parseDouble(request.getParameter("txtTotal"));
         String metodoPagamento = request.getParameter("txtMetodoPagamento");
-        String date = request.getParameter("txtDate");
-        
-        Long idPedido = Long.parseLong(request.getParameter("txtIdPedido"));
-        Pedido pedidop = PedidoDAO.getInstance().getPedido(idPedido);
+        String date = request.getParameter("txtDate");   
         Long idCliente = Long.parseLong(request.getParameter("optCliente"));
-        Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
-        //Long codCupomDesconto = Long.parseLong(request.getParameter("txtCodCupomDesconto"));
-       // CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(codCupomDesconto);
+        Cliente cliente = (Cliente)GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
         Long id = null;
 
         if (!operacao.equals("Incluir")) {

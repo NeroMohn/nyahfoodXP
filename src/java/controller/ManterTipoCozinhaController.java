@@ -6,9 +6,7 @@
 package controller;
 
 import dao.GeralDAO;
-import dao.TipoCozinhaDAO;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -51,7 +49,7 @@ public class ManterTipoCozinhaController extends HttpServlet {
             if (!operacao.equals("Incluir")) {
                 Long idTipoCozinha = Long.parseLong(request.getParameter("id"));
                 TipoCozinha tipoCozinha;
-                tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(idTipoCozinha, Class.forName("model.Cliente"));
+                tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(idTipoCozinha, Class.forName("model.TipoCozinha"));
                 request.setAttribute("tipoCozinha", tipoCozinha);
 
             }

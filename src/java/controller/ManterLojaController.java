@@ -1,8 +1,6 @@
 package controller;
 
 import dao.GeralDAO;
-import dao.LojaDAO;
-import dao.TipoCozinhaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -41,7 +39,7 @@ public class ManterLojaController extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
+            request.setAttribute("tiposCozinha", (TipoCozinha) GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoCozinha")));
             if (!operacao.equals("Incluir")) {
                 Long idLoja = Long.parseLong(request.getParameter("id"));
                 Loja loja = (Loja) GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
@@ -67,7 +65,7 @@ public class ManterLojaController extends HttpServlet {
         String cnpj = request.getParameter("txtCnpjLoja");
         String descricao = request.getParameter("txtDescricaoLoja");
         Long codTipoCozinha = Long.parseLong(request.getParameter("optTipoCozinha"));
-        TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(codTipoCozinha);
+        TipoCozinha tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(codTipoCozinha, Class.forName("model.TipoCozinha"));
         String foto = request.getParameter("txtFotoLoja");
         String cep = request.getParameter("txtCepLoja");
         String logradouro = request.getParameter("txtLogradouroLoja");
@@ -84,8 +82,8 @@ public class ManterLojaController extends HttpServlet {
 
         try {
             Loja loja = new Loja(nome, nomeGerente, email, senha, telefone, cnpj,
-                        descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
-                        complemento, cidade, estado);
+                    descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
+                    complemento, cidade, estado);
             Object objeto = loja;
             if (operacao.equals("Incluir")) {
                 loja.setId(id);

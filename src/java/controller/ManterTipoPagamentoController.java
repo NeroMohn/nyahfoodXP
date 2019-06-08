@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.TipoPagamentoDAO;
+import dao.GeralDAO;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +19,7 @@ import model.TipoPagamento;
 public class ManterTipoPagamentoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         String acao = request.getParameter("acao");
         if (acao.equals("confirmarOperacao")) {
             confirmarOperacao(request, response);
@@ -30,14 +30,14 @@ public class ManterTipoPagamentoController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
                 Long idTipoPagamento = Long.parseLong(request.getParameter("id"));
-                TipoPagamento tipoPagamento = TipoPagamentoDAO.getInstance().getTipoPagamento(idTipoPagamento);
+                TipoPagamento tipoPagamento = (TipoPagamento)GeralDAO.getInstance().getObjeto(idTipoPagamento, Class.forName("Model.TipoPagamento"));
                 request.setAttribute("tipoPagamento", tipoPagamento);
 
             }
@@ -93,7 +93,11 @@ public class ManterTipoPagamentoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -107,7 +111,11 @@ public class ManterTipoPagamentoController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
