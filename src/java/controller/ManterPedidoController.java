@@ -57,7 +57,7 @@ public class ManterPedidoController extends HttpServlet {
             } else {
                 if (!operacao.equals("Incluir")) {
                     Long idPedido = Long.parseLong(request.getParameter("id"));
-                    Pedido pedido = (Pedido) GeralDAO.getInstance().getObjecto(idPedido, Class.forName("model.Pedido"));
+                    Pedido pedido = (Pedido) GeralDAO.getInstance().getObjeto(idPedido, Class.forName("model.Pedido"));
                     request.setAttribute("pedido", pedido);
                  
                 }
