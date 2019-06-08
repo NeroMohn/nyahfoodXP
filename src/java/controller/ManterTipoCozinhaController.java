@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.GeralDAO;
 import dao.TipoCozinhaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,26 +27,31 @@ import model.TipoCozinha;
 public class ManterTipoCozinhaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, ClassNotFoundException {
         String acao = request.getParameter("acao");
         if (acao.equals("confirmarOperacao")) {
             confirmarOperacao(request, response);
         } else {
             if (acao.equals("prepararOperacao")) {
-                prepararOperacao(request, response);
+                try {
+                    prepararOperacao(request, response);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ManterTipoCozinhaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
                 Long idTipoCozinha = Long.parseLong(request.getParameter("id"));
-                TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(idTipoCozinha);
+                TipoCozinha tipoCozinha;
+                tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(idTipoCOzinha, Class.forName("model.Cliente"));
                 request.setAttribute("tipoCozinha", tipoCozinha);
 
             }
@@ -70,15 +76,15 @@ public class ManterTipoCozinhaController extends HttpServlet {
 
         try {
             TipoCozinha tipoCozinha = new TipoCozinha(nome);
+            Object objeto = tipoCozinha;
             if (operacao.equals("Incluir")) {
-                
-                tipoCozinha.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Editar")) {
                 tipoCozinha.setId(id);
-                tipoCozinha.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 tipoCozinha.setId(id);
-                tipoCozinha.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaTipoCozinhaController");
             view.forward(request, response);
