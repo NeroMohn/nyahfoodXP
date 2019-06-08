@@ -17,13 +17,14 @@ public class PesquisaPedidoControllerCliente extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         List<Object> obterTodosPedidos = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Pedido"));
-        if(obterTodosPedidos.isEmpty()){
+        if (obterTodosPedidos.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
         request.setAttribute("pedidos", obterTodosPedidos);
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaPedidoCliente.jsp");
         view.forward(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

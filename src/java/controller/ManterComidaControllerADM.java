@@ -45,7 +45,7 @@ public class ManterComidaControllerADM extends HttpServlet {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             request.setAttribute("lojas", GeralDAO.getInstance().getAllObjetos(Class.forName("model.loja")));
-        
+
             String tipo = request.getSession().getAttribute("tipo").toString();
             request.setAttribute("tipo", tipo);
             if (tipo != "3") {
@@ -54,7 +54,7 @@ public class ManterComidaControllerADM extends HttpServlet {
             } else {
                 if (!operacao.equals("Incluir")) {
                     Long idComida = Long.parseLong(request.getParameter("id"));
-                    Comida comida = (Comida)GeralDAO.getInstance().getObjeto(idComida, Class.forName("model.Comida"));
+                    Comida comida = (Comida) GeralDAO.getInstance().getObjeto(idComida, Class.forName("model.Comida"));
                     request.setAttribute("comida", comida);
                 }
                 RequestDispatcher view = request.getRequestDispatcher("/ManterComidaADM.jsp");
@@ -77,7 +77,7 @@ public class ManterComidaControllerADM extends HttpServlet {
         String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
         Long idLoja = Long.parseLong(request.getParameter("optLoja"));
-        Loja loja = (Loja)GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
+        Loja loja = (Loja) GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
         Long id = null;
 
         if (!operacao.equals("Incluir")) {
@@ -86,7 +86,7 @@ public class ManterComidaControllerADM extends HttpServlet {
 
         try {
             Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
-            
+
             Object objeto = comida;
 
             if (operacao.equals("Incluir")) {

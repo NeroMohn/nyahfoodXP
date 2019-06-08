@@ -18,7 +18,7 @@ public class PesquisaComidaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         List<Object> obterTodasComidas = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Comida"));
-        if(obterTodasComidas.isEmpty()){
+        if (obterTodasComidas.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
         request.setAttribute("comidas", obterTodasComidas);

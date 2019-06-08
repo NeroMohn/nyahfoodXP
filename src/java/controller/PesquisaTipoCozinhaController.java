@@ -14,19 +14,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 public class PesquisaTipoCozinhaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         List<Object> obterTodosTiposCozinha = GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoCozinha"));
-        if(obterTodosTiposCozinha.isEmpty()){
+        if (obterTodosTiposCozinha.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
         request.setAttribute("tiposcozinhas", obterTodosTiposCozinha);
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaTipoCozinha.jsp");
         view.forward(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -17,7 +17,7 @@ public class PesquisaClienteController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         String tipo = request.getSession().getAttribute("tipo").toString();
-        if (tipo == "3"){
+        if (tipo == "3") {
             List<Object> obterTodosClientes = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Cliente"));
             if (obterTodosClientes.isEmpty()) {
                 request.setAttribute("vazio", "");
@@ -25,12 +25,10 @@ public class PesquisaClienteController extends HttpServlet {
             request.setAttribute("clientes", obterTodosClientes);
             RequestDispatcher view = request.getRequestDispatcher("/PesquisaCliente.jsp");
             view.forward(request, response);
-}
-        else{
+        } else {
             RequestDispatcher view = request.getRequestDispatcher("/AcessoNegado.jsp");
         }
     }
-    
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

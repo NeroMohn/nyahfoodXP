@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
 import model.Pedido;
+
 /**
  *
  * @author Yukas
@@ -44,7 +45,7 @@ public class ManterPedidoController extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("clientes", (Cliente)GeralDAO.getInstance().getAllObjetos(Class.forName("model.Cliente")));
+            request.setAttribute("clientes", (Cliente) GeralDAO.getInstance().getAllObjetos(Class.forName("model.Cliente")));
             String tipo = request.getSession().getAttribute("tipo").toString();
 
             if (tipo != "3") {
@@ -61,12 +62,11 @@ public class ManterPedidoController extends HttpServlet {
                         Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                 
                 }
-                   RequestDispatcher view = request.getRequestDispatcher("/ManterPedido.jsp");
-                    view.forward(request, response);
+                RequestDispatcher view = request.getRequestDispatcher("/ManterPedido.jsp");
+                view.forward(request, response);
             }
-      
+
         } catch (ServletException ex) {
             Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -79,9 +79,9 @@ public class ManterPedidoController extends HttpServlet {
         String operacao = request.getParameter("operacao");
         Double total = Double.parseDouble(request.getParameter("txtTotal"));
         String metodoPagamento = request.getParameter("txtMetodoPagamento");
-        String date = request.getParameter("txtDate");   
+        String date = request.getParameter("txtDate");
         Long idCliente = Long.parseLong(request.getParameter("optCliente"));
-        Cliente cliente = (Cliente)GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
+        Cliente cliente = (Cliente) GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
         Long id = null;
 
         if (!operacao.equals("Incluir")) {
@@ -98,8 +98,8 @@ public class ManterPedidoController extends HttpServlet {
                 pedido.setId(id);
                 GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
-               pedido.setId(id);
-               GeralDAO.getInstance().excluir(objeto);
+                pedido.setId(id);
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaPedidoControllerADM");
             view.forward(request, response);

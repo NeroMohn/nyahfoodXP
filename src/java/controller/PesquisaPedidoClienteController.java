@@ -21,18 +21,19 @@ import model.ComidaPedida;
 public class PesquisaPedidoClienteController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-       
+
         List<Object> obterTodosPedidos = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Pedido"));
-        if(obterTodosPedidos.isEmpty()){
+        if (obterTodosPedidos.isEmpty()) {
             request.setAttribute("vazio", "Sem Pedidos Cadastrados");
         }
         String id = request.getSession().getAttribute("id").toString();
-        request.setAttribute("id",id);
+        request.setAttribute("id", id);
         request.setAttribute("pedidos", obterTodosPedidos);
-        request.setAttribute("comidasPedidas", (ComidaPedida)GeralDAO.getInstance().getAllObjetos(Class.forName("model.ComidaPedida"))); 
+        request.setAttribute("comidasPedidas", (ComidaPedida) GeralDAO.getInstance().getAllObjetos(Class.forName("model.ComidaPedida")));
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaPedidoCliente.jsp");
         view.forward(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -1,4 +1,3 @@
-
 package controller;
 
 import java.io.IOException;
@@ -20,14 +19,14 @@ public class LogoutController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            deslogar(request, response);
-        }
+        deslogar(request, response);
+    }
 
     private void deslogar(HttpServletRequest request, HttpServletResponse response) {
         try {
             request.getSession().invalidate();
-            RequestDispatcher view =request.getRequestDispatcher("index.jsp");
-            view.forward(request,response);
+            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+            view.forward(request, response);
         } catch (ServletException ex) {
             Logger.getLogger(LogoutController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

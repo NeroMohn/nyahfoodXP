@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.GeralDAO;
@@ -21,16 +20,14 @@ import model.Cliente;
 @WebServlet(name = "LoginClienteController", urlPatterns = {"/LoginClienteController"})
 public class LoginClienteController extends HttpServlet {
 
-
- 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
-            String acao = request.getParameter("acao");
-            if(acao.equals("preparar")){
-                prepararOperacao(request, response);
-            }else if (acao.equals("logar")){
-                logar(request, response);   
-            }
+        String acao = request.getParameter("acao");
+        if (acao.equals("preparar")) {
+            prepararOperacao(request, response);
+        } else if (acao.equals("logar")) {
+            logar(request, response);
+        }
     }
 
     @Override
@@ -57,7 +54,6 @@ public class LoginClienteController extends HttpServlet {
         }
     }
 
-
     @Override
     public String getServletInfo() {
         return "Short description";
@@ -68,18 +64,15 @@ public class LoginClienteController extends HttpServlet {
         String senha = request.getParameter("senha");
         String tipo = "1";
         Cliente cliente = GeralDAO.getInstance().getClienteEmail(login);
-  
-        
-        if(cliente == null){
-              try{
-            RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");       
-            view.forward(request, response);
-            } catch (IOException ex) {  
+
+        if (cliente == null) {
+            try {
+                RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");
+                view.forward(request, response);
+            } catch (IOException ex) {
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-            
-        else if(senha.equals(cliente.getSenha())&& login.equals(cliente.getEmail())){
+        } else if (senha.equals(cliente.getSenha()) && login.equals(cliente.getEmail())) {
             try {
                 Long idCliente = cliente.getId();
                 String nomeCliente = cliente.getNome();
@@ -88,23 +81,23 @@ public class LoginClienteController extends HttpServlet {
                 request.getSession().setAttribute("id", idCliente);
                 request.getSession().setAttribute("nome", nomeCliente);
                 request.getSession().setAttribute("status", 0);
-                RequestDispatcher view = request.getRequestDispatcher("/index.jsp");       
+                RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
                 view.forward(request, response);
-            } catch (IOException ex) {  
+            } catch (IOException ex) {
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else {
-            try{
-            RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");       
-            view.forward(request, response);
-            } catch (IOException ex) {  
+        } else {
+            try {
+                RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");
+                view.forward(request, response);
+            } catch (IOException ex) {
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        }
+    }
 
     private void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher view = request.getRequestDispatcher("/LoginCliente.jsp");    
+        RequestDispatcher view = request.getRequestDispatcher("/LoginCliente.jsp");
         try {
             view.forward(request, response);
         } catch (ServletException ex) {

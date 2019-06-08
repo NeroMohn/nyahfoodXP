@@ -17,19 +17,17 @@ import model.Loja;
 public class PesquisaComidaLojaClienteController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-     
+
         List<Object> obterTodasComidas = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Comida"));
-        if(obterTodasComidas.isEmpty()){
+        if (obterTodasComidas.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
         Long id = Long.parseLong(request.getParameter("id"));
-        request.setAttribute("loja", (Loja)GeralDAO.getInstance().getObjeto(id, Class.forName("model.Loja")));
+        request.setAttribute("loja", (Loja) GeralDAO.getInstance().getObjeto(id, Class.forName("model.Loja")));
         request.setAttribute("comidas", obterTodasComidas);
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaComida.jsp");
         view.forward(request, response);
-   
-       
-     
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

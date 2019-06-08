@@ -18,15 +18,16 @@ public class PesquisaLojaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         List<Object> obterTodasLojas = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Loja"));
-        if(obterTodasLojas.isEmpty()){
+        if (obterTodasLojas.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
         String id = request.getSession().getAttribute("id").toString();
-        request.setAttribute("id",id);
+        request.setAttribute("id", id);
         request.setAttribute("lojas", obterTodasLojas);
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaLoja.jsp");
         view.forward(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

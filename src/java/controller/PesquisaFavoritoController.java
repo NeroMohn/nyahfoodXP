@@ -17,7 +17,7 @@ public class PesquisaFavoritoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         List<Object> obterTodosFavoritos = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Favorito"));
-        if(obterTodosFavoritos.isEmpty()){
+        if (obterTodosFavoritos.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
         request.setAttribute("favoritos", obterTodosFavoritos);

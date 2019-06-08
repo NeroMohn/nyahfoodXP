@@ -1,10 +1,7 @@
 package controller;
 
-import dao.ClienteDAO;
 import dao.GeralDAO;
 import java.io.IOException;
-import static java.lang.Long.parseLong;
-import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -31,18 +28,16 @@ public class CadastroClienteController extends HttpServlet {
     }
 
     public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
-        try{
-        String operacao = request.getParameter("operacao");
-        request.setAttribute("operacao", operacao);
-        if (!operacao.equals("Incluir")) {
-           Long idCliente = Long.parseLong(request.getParameter("id"));
-            
-          
-                Cliente cliente = (Cliente)GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
+        try {
+            String operacao = request.getParameter("operacao");
+            request.setAttribute("operacao", operacao);
+            if (!operacao.equals("Incluir")) {
+                Long idCliente = Long.parseLong(request.getParameter("id"));
+                Cliente cliente = (Cliente) GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
                 request.setAttribute("cliente", cliente);
-        }
-        RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");    
-        view.forward(request, response);
+            }
+            RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");
+            view.forward(request, response);
         } catch (ServletException ex) {
             Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -66,23 +61,20 @@ public class CadastroClienteController extends HttpServlet {
         String cidade = request.getParameter("txtCidadeCliente");
         String estado = request.getParameter("txtEstadoCliente");
         Long id = null;
-      
+
         if (!operacao.equals("Incluir")) {
-         id = Long.parseLong(request.getParameter("txtIdCliente"));    
+            id = Long.parseLong(request.getParameter("txtIdCliente"));
         }
-        
+
         try {
-             Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, cep, logradouro, numero, bairro,
-                complemento, cidade, estado);
-           
-              Object objeto = cliente;
-           
-             
+            Cliente cliente = new Cliente(nome, cpf, email, senha, telefone, cep, logradouro, numero, bairro,
+                    complemento, cidade, estado);
+
+            Object objeto = cliente;
+
             if (operacao.equals("Incluir")) {
-                
                 GeralDAO.getInstance().salvar(objeto);
-                
-            } else if (operacao.equals("Editar")) { 
+            } else if (operacao.equals("Editar")) {
                 cliente.setId(id);
                 GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {

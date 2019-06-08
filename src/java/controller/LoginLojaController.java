@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.GeralDAO;
@@ -21,16 +20,14 @@ import model.Loja;
 @WebServlet(name = "LoginLojaController", urlPatterns = {"/LoginLojaController"})
 public class LoginLojaController extends HttpServlet {
 
-
- 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
-            String acao = request.getParameter("acao");
-            if(acao.equals("preparar")){
-                prepararOperacao(request, response);
-            }else if (acao.equals("logar")){
-                logar(request, response);   
-            }
+        String acao = request.getParameter("acao");
+        if (acao.equals("preparar")) {
+            prepararOperacao(request, response);
+        } else if (acao.equals("logar")) {
+            logar(request, response);
+        }
     }
 
     @Override
@@ -55,7 +52,6 @@ public class LoginLojaController extends HttpServlet {
         }
     }
 
-
     @Override
     public String getServletInfo() {
         return "Short description";
@@ -66,39 +62,37 @@ public class LoginLojaController extends HttpServlet {
         String senha = request.getParameter("senha");
         String tipo = "2";
         Loja loja = GeralDAO.getInstance().getLojaEmail(login);
-     
-        if(loja == null){
-             try{
-            RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");       
-            view.forward(request, response);
-            } catch (IOException ex) {  
+
+        if (loja == null) {
+            try {
+                RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");
+                view.forward(request, response);
+            } catch (IOException ex) {
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else if(senha.equals(loja.getSenha())&& login.equals(loja.getEmail())){
+        } else if (senha.equals(loja.getSenha()) && login.equals(loja.getEmail())) {
             try {
                 request.getSession().setAttribute("login", login);
                 request.getSession().setAttribute("senha", senha);
                 request.getSession().setAttribute("tipo", tipo);
                 request.getSession().setAttribute("id", loja.getId());
-                RequestDispatcher view = request.getRequestDispatcher("/index.jsp");       
+                RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
                 view.forward(request, response);
-            } catch (IOException ex) {  
+            } catch (IOException ex) {
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else {
-            try{
-            RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");       
-            view.forward(request, response);
-            } catch (IOException ex) {  
+        } else {
+            try {
+                RequestDispatcher view = request.getRequestDispatcher("/SenhaIncorreta.jsp");
+                view.forward(request, response);
+            } catch (IOException ex) {
                 Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-                
 
     private void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher view = request.getRequestDispatcher("/LoginLoja.jsp");    
+        RequestDispatcher view = request.getRequestDispatcher("/LoginLoja.jsp");
         try {
             view.forward(request, response);
         } catch (ServletException ex) {

@@ -26,16 +26,12 @@ import model.Pedido;
  *
  * @author David
  */
-
 @WebServlet(name = "ManterComidaPedidaController", urlPatterns = {"/controller.ManterComidaPedidaController"})
 public class ManterComidaPedidaController extends HttpServlet {
 
-
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-           
             throws ServletException, IOException, ClassNotFoundException {
-       
+
         String tipo = request.getSession().getAttribute("tipo").toString();
         String acao = request.getParameter("acao");
         if (tipo != "1") {
@@ -63,12 +59,11 @@ public class ManterComidaPedidaController extends HttpServlet {
             request.setAttribute("pedidos", GeralDAO.getInstance().getAllObjetos(Class.forName("model.Pedido")));
             request.setAttribute("pagamentos", GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoPagamento")));
             String tipo = request.getSession().getAttribute("tipo").toString();
-            request.setAttribute("tipo", tipo);  
+            request.setAttribute("tipo", tipo);
             Long id = Long.parseLong(request.getParameter("id"));
             request.setAttribute("id", id);
-            request.setAttribute("comida", (Comida)GeralDAO.getInstance().getObjeto(id, Class.forName("model.Comida")));
-     
-            
+            request.setAttribute("comida", (Comida) GeralDAO.getInstance().getObjeto(id, Class.forName("model.Comida")));
+
             if (!operacao.equals("Incluir")) {
                 request.setAttribute("id", id);
                 Long idComidaPedida;
@@ -91,22 +86,22 @@ public class ManterComidaPedidaController extends HttpServlet {
         String quantidade = request.getParameter("txtQuantidade");
         String tipoPagamento = request.getParameter("optPagamento");
 
-                Long idCliente = Long.parseLong(request.getSession().getAttribute("id").toString());
-                String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(Calendar.getInstance().getTime());
-                Cliente cliente = (Cliente)GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
-                Long id = Long.parseLong(request.getParameter("txtIdComidaPedida"));
-                Comida comidaHolder = (Comida)GeralDAO.getInstance().getObjeto(id, Class.forName("model.Comida"));
-                Double total = comidaHolder.getPreco() * Integer.parseInt(quantidade);	
-                Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente, null);
-                Object objeto1 = pedido;
-                GeralDAO.getInstance().salvar(objeto1);
-                Pedido pedidoHolder = (Pedido)GeralDAO.getInstance().getObjeto(pedido.getId(), Class.forName("model.Pedido"));
-                       
-        try {  
-                ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder, "Fazendo");
-                
-                Object objeto2 = comidaPedida;
-                
+        Long idCliente = Long.parseLong(request.getSession().getAttribute("id").toString());
+        String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(Calendar.getInstance().getTime());
+        Cliente cliente = (Cliente) GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
+        Long id = Long.parseLong(request.getParameter("txtIdComidaPedida"));
+        Comida comidaHolder = (Comida) GeralDAO.getInstance().getObjeto(id, Class.forName("model.Comida"));
+        Double total = comidaHolder.getPreco() * Integer.parseInt(quantidade);
+        Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente, null);
+        Object objeto1 = pedido;
+        GeralDAO.getInstance().salvar(objeto1);
+        Pedido pedidoHolder = (Pedido) GeralDAO.getInstance().getObjeto(pedido.getId(), Class.forName("model.Pedido"));
+
+        try {
+            ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder, "Fazendo");
+
+            Object objeto2 = comidaPedida;
+
             if (operacao.equals("Incluir")) {
                 GeralDAO.getInstance().salvar(objeto2);
             } else if (operacao.equals("Editar")) {
@@ -118,23 +113,24 @@ public class ManterComidaPedidaController extends HttpServlet {
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaPedidoClienteController");
             view.forward(request, response);
-            }catch (IOException e) {
+        } catch (IOException e) {
             throw new ServletException(e);
-        }catch(ServletException e){
+        } catch (ServletException e) {
             throw e;
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -152,7 +148,7 @@ public class ManterComidaPedidaController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -167,8 +163,7 @@ public class ManterComidaPedidaController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 }
-            

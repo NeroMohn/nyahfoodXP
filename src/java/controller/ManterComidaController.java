@@ -50,7 +50,7 @@ public class ManterComidaController extends HttpServlet {
             } else {
                 if (!operacao.equals("Incluir")) {
                     Long idComida = Long.parseLong(request.getParameter("id"));
-                    Comida comida = (Comida)GeralDAO.getInstance().getObjeto(idComida, Class.forName("model.Comida"));
+                    Comida comida = (Comida) GeralDAO.getInstance().getObjeto(idComida, Class.forName("model.Comida"));
                     request.setAttribute("comida", comida);
                 }
                 RequestDispatcher view = request.getRequestDispatcher("/ManterComida.jsp");
@@ -71,7 +71,7 @@ public class ManterComidaController extends HttpServlet {
         String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
         Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
-        Loja loja = (Loja)GeralDAO.getInstance().getObjeto(codLoja, Class.forName("model.Loja"));
+        Loja loja = (Loja) GeralDAO.getInstance().getObjeto(codLoja, Class.forName("model.Loja"));
         Long id = null;
 
         if (!operacao.equals("Incluir")) {
@@ -80,7 +80,7 @@ public class ManterComidaController extends HttpServlet {
 
         try {
             Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
-           
+
             Object objeto = comida;
             if (operacao.equals("Incluir")) {
                 GeralDAO.getInstance().salvar(objeto);
