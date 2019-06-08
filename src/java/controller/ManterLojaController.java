@@ -1,5 +1,6 @@
 package controller;
 
+import dao.GeralDAO;
 import dao.LojaDAO;
 import dao.TipoCozinhaDAO;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class ManterLojaController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
 
             String operacao = request.getParameter("operacao");
@@ -43,9 +44,8 @@ public class ManterLojaController extends HttpServlet {
             request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
             if (!operacao.equals("Incluir")) {
                 Long idLoja = Long.parseLong(request.getParameter("id"));
-                Loja loja = LojaDAO.getInstance().getLoja(idLoja);
+                Loja loja = (Loja) GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
                 request.setAttribute("loja", loja);
-
             }
             RequestDispatcher view = request.getRequestDispatcher("/ManterLoja.jsp");
             view.forward(request, response);
@@ -86,16 +86,16 @@ public class ManterLojaController extends HttpServlet {
             Loja loja = new Loja(nome, nomeGerente, email, senha, telefone, cnpj,
                         descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
                         complemento, cidade, estado);
+            Object objeto = loja;
             if (operacao.equals("Incluir")) {
-                loja.salvar();
-            } else if (operacao.equals("Editar")) {
-                // if(request.getSession().getAttribute("id")!=null)
-                //  String idLoja1 = (String)request.getSession().getAttribute("id");
                 loja.setId(id);
-                loja.salvar();
+                GeralDAO.getInstance().salvar(objeto);
+            } else if (operacao.equals("Editar")) {
+                loja.setId(id);
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 loja.setId(id);
-                loja.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaLojaControllerADM");
 

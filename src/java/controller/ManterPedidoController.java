@@ -7,6 +7,7 @@ package controller;
 
 import dao.ClienteDAO;
 import dao.CupomDescontoDAO;
+import dao.GeralDAO;
 import dao.PedidoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
 import model.CupomDesconto;
 import model.Pedido;
-
 /**
  *
  * @author Yukas
@@ -57,7 +57,7 @@ public class ManterPedidoController extends HttpServlet {
             } else {
                 if (!operacao.equals("Incluir")) {
                     Long idPedido = Long.parseLong(request.getParameter("id"));
-                    Pedido pedido = PedidoDAO.getInstance().getPedido(idPedido);
+                    Pedido pedido = (Pedido) GeralDAO.getInstance().getObjecto(idPedido, Class.forName("model.Pedido"));
                     request.setAttribute("pedido", pedido);
                  
                 }
@@ -93,14 +93,16 @@ public class ManterPedidoController extends HttpServlet {
 
         try {
             Pedido pedido = new Pedido(total, metodoPagamento, date, cliente, null);
+            Object objeto = pedido;
             if (operacao.equals("Incluir")) {
-                pedido.salvar();
+                pedido.setId(id);
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Editar")) {
                 pedido.setId(id);
-                pedido.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
-                pedido.setId(id);
-                pedido.excluir();
+               pedido.setId(id);
+               GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaPedidoControllerADM");
             view.forward(request, response);
