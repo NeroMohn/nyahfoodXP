@@ -6,6 +6,7 @@ import java.lang.reflect.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import model.Adm;
 import model.Cliente;
 
 
@@ -95,7 +96,7 @@ public class GeralDAO {
         List<Object> objects = null;
         try{
             tx.begin();
-            TypedQuery<Object> query = em.createQuery("select cl from "+ classe +"cl", classe);
+            TypedQuery<Object> query = em.createQuery("select cl from "+ classe.getName() +" cl", classe);
             objects = query.getResultList();
             tx.commit();
         } catch (Exception e){
@@ -131,6 +132,30 @@ public class GeralDAO {
             PersistenceUtil.close(em);
         }
         return cliente;
+    }
+    
+    public Adm getAdmLogin(String login){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Adm adm = null;
+        try{
+           tx.begin();
+            TypedQuery<Adm> query = em.createQuery("select a From Adm a where a.login LIKE :login", Adm.class);
+            query.setParameter("login", login);
+            
+            adm = query.getSingleResult();
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+                return adm;
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return adm;
     }
     
     

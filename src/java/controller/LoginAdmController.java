@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.AdmDAO;
+import dao.GeralDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -98,7 +98,7 @@ public class LoginAdmController extends HttpServlet {
         String senha = request.getParameter("senha");
         String tipo = "3";
         Adm adm = null;
-        adm = AdmDAO.getInstance().getAdm(login);
+        adm = GeralDAO.getInstance().getAdmLogin(login);
         if(adm == null){
             try{
                 RequestDispatcher view = request.getRequestDispatcher("/LoginIncorreto.jsp");       

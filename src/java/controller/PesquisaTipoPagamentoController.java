@@ -1,12 +1,15 @@
 
 package controller;
 
+import dao.GeralDAO;
 import dao.TipoPagamentoDAO;
 import model.TipoPagamento;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 public class PesquisaTipoPagamentoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<TipoPagamento> obterTodosTiposPagamento = TipoPagamentoDAO.getInstance().getAllTipoPagamentos();
+            throws ServletException, IOException, ClassNotFoundException {
+        List<Object> obterTodosTiposPagamento = GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoPagamento"));
         if (obterTodosTiposPagamento.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
@@ -38,7 +41,11 @@ public class PesquisaTipoPagamentoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PesquisaTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -52,7 +59,11 @@ public class PesquisaTipoPagamentoController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PesquisaTipoPagamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
