@@ -19,7 +19,7 @@ import model.Cliente;
 public class CadastroClienteController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         String acao = request.getParameter("acao");
         if (acao.equals("confirmarOperacao")) {
             confirmarOperacao(request, response);
@@ -30,22 +30,23 @@ public class CadastroClienteController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            String operacao = request.getParameter("operacao");
-            request.setAttribute("operacao", operacao);
-            if (!operacao.equals("Incluir")) {
-                Long idCliente = Long.parseLong(request.getParameter("id"));
-                Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
-             
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
+        try{
+        String operacao = request.getParameter("operacao");
+        request.setAttribute("operacao", operacao);
+        if (!operacao.equals("Incluir")) {
+           Long idCliente = Long.parseLong(request.getParameter("id"));
+            
+          
+                Cliente cliente = (Cliente)GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
                 request.setAttribute("cliente", cliente);
-            }
-            RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");
-            view.forward(request, response);
+        }
+        RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");    
+        view.forward(request, response);
         } catch (ServletException ex) {
-            Logger.getLogger(CadastroClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(CadastroClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -74,19 +75,19 @@ public class CadastroClienteController extends HttpServlet {
              Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, cep, logradouro, numero, bairro,
                 complemento, cidade, estado);
            
-             Class teste2 = cliente.getClass();
+              Object objeto = cliente;
            
              
             if (operacao.equals("Incluir")) {
                 
-                GeralDAO.getInstance().salvar(teste2);
+                GeralDAO.getInstance().salvar(objeto);
                 
             } else if (operacao.equals("Editar")) { 
                 cliente.setId(id);
-                cliente.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 cliente.setId(id);
-                cliente.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("LoginCliente.jsp");
             view.forward(request, response);
@@ -100,13 +101,21 @@ public class CadastroClienteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastroClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastroClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

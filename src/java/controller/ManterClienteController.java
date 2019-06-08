@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
 import dao.ClienteDAO;
+import dao.GeralDAO;
 import java.sql.SQLException;
 
 /**
@@ -45,14 +46,16 @@ public class ManterClienteController extends HttpServlet {
             }
         }
     }
-public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try{
         String operacao = request.getParameter("operacao");
         request.setAttribute("operacao", operacao);
         if (!operacao.equals("Incluir")) {
-            Long idCliente = Long.parseLong(request.getParameter("id"));
-            Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
-            request.setAttribute("cliente", cliente);
+           Long idCliente = Long.parseLong(request.getParameter("id"));
+            
+          
+                Cliente cliente = (Cliente)GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
+                request.setAttribute("cliente", cliente);
         }
         RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");    
         view.forward(request, response);
@@ -88,15 +91,19 @@ public void prepararOperacao(HttpServletRequest request, HttpServletResponse res
              Cliente cliente = new Cliente( nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
                 complemento, cidade, estado);
            
+            Object objeto = cliente;
+           
+             
             if (operacao.equals("Incluir")) {
                 
-                cliente.salvar();
+                GeralDAO.getInstance().salvar(objeto);
+                
             } else if (operacao.equals("Editar")) { 
                 cliente.setId(id);
-                cliente.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 cliente.setId(id);
-                cliente.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaClienteController");
             view.forward(request, response);

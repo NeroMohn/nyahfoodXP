@@ -10,10 +10,7 @@ import model.Cliente;
 
 
 
-/**
- *
- * @author Yukas
- */
+
 public class GeralDAO {
     
     private static GeralDAO instance = new GeralDAO();
@@ -26,19 +23,18 @@ public class GeralDAO {
         
     }
     
-    public void salvar(Class classe){
+    public void salvar(Object objeto){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
          
         try{
             tx.begin();
-            
-            Method m = classe.getMethod("getId", null);
-                
-            if( m != null){
-                em.merge(classe);
+            Method metodo = objeto.getClass().getMethod("getId", null);
+            //Class c = objeto.getClass();
+            if( metodo != null){
+                em.merge(objeto);
             }else{
-                em.persist(classe);
+                em.persist(objeto);
             }
             tx.commit();
         } catch (Exception e){
@@ -51,12 +47,13 @@ public class GeralDAO {
         }
     }
     
-     public void excluir(Cliente cliente){
+     public void excluir(Object objeto){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(Cliente.class, cliente.getId()));
+            Method metodo = objeto.getClass().getMethod("getId", null);
+            em.remove(em.getReference(objeto.getClass(), metodo.invoke(objeto)));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -68,14 +65,16 @@ public class GeralDAO {
         }
     }
      
-       public Cliente getCliente(long id){
+       public Object getObjeto(long id, Class classe){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Cliente cliente = null;
+      
+        Object obj = null;
         try{
             tx.begin();
-            cliente = em.find(Cliente.class, id);
+            
+            obj = em.find(classe, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -85,19 +84,19 @@ public class GeralDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return cliente;
+        return obj;
     }
        
         
-    public List<Cliente> getAllClientes(){
+    public List<Object> getAllObjetos(Class classe){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<Cliente> clientes = null;
+        List<Object> objects = null;
         try{
             tx.begin();
-            TypedQuery<Cliente> query = em.createQuery("select cl from Cliente cl", Cliente.class);
-            clientes = query.getResultList();
+            TypedQuery<Object> query = em.createQuery("select cl from "+ classe +"cl", classe);
+            objects = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -107,7 +106,7 @@ public class GeralDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return clientes;
+        return objects;
     }
     
     public Cliente getClienteEmail(String email){
