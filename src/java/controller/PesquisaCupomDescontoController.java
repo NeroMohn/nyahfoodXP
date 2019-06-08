@@ -1,6 +1,7 @@
 package controller;
 
 import dao.CupomDescontoDAO;
+import dao.GeralDAO;
 import model.CupomDesconto;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,12 +23,12 @@ import java.util.List;
 public class PesquisaCupomDescontoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<CupomDesconto> obterTodosCuponsDesconto = CupomDescontoDAO.getInstance().getAllCupomDescontos();
+            throws ServletException, IOException, ClassNotFoundException {
+        List<Object> obterTodosCuponsDesconto = GeralDAO.getInstance().getAllObjetos(Class.forName("model.CupomDesconto"));
         if (obterTodosCuponsDesconto.isEmpty()) {
             request.setAttribute("vazio", "Mensagem");
         }
-        request.setAttribute("cuponsDesconto", CupomDescontoDAO.getInstance().getAllCupomDescontos());
+        request.setAttribute("cuponsDesconto", obterTodosCuponsDesconto);
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaCupomDesconto.jsp");
         view.forward(request, response);
     }
@@ -33,13 +36,21 @@ public class PesquisaCupomDescontoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PesquisaCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PesquisaCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
