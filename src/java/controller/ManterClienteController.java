@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
-import dao.ClienteDAO;
 import dao.GeralDAO;
 import java.sql.SQLException;
 

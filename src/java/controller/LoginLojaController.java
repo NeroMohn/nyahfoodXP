@@ -1,6 +1,7 @@
 
 package controller;
 
+import dao.GeralDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Loja;
-import dao.LojaDAO;
 
 /**
  *
@@ -65,7 +65,7 @@ public class LoginLojaController extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         String tipo = "2";
-        Loja loja = LojaDAO.getInstance().getLojaEmail(login);
+        Loja loja = GeralDAO.getInstance().getLojaEmail(login);
      
         if(loja == null){
              try{

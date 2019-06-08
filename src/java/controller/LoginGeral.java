@@ -1,9 +1,7 @@
 
 package controller;
 
-import dao.AdmDAO;
-import dao.ClienteDAO;
-import dao.LojaDAO;
+import dao.GeralDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -14,8 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
-import model.Adm;
 import model.Cliente;
 import model.Loja;
 
@@ -71,8 +67,8 @@ public class LoginGeral extends HttpServlet {
     private void logar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException, IOException {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-        Cliente cliente = ClienteDAO.getInstance().getClienteEmail(login);
-        Loja loja = LojaDAO.getInstance().getLojaEmail(login);
+        Cliente cliente = GeralDAO.getInstance().getClienteEmail(login);
+        Loja loja = GeralDAO.getInstance().getLojaEmail(login);
         
         if(cliente == null && loja == null){
               try{

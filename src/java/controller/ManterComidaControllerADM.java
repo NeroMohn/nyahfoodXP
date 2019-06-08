@@ -6,7 +6,6 @@
 package controller;
 
 import dao.GeralDAO;
-import dao.LojaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -45,7 +44,7 @@ public class ManterComidaControllerADM extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("lojas", LojaDAO.getInstance().getAllLojas());
+            request.setAttribute("lojas", GeralDAO.getInstance().getAllObjetos(Class.forName("model.loja")));
         
             String tipo = request.getSession().getAttribute("tipo").toString();
             request.setAttribute("tipo", tipo);
@@ -77,9 +76,8 @@ public class ManterComidaControllerADM extends HttpServlet {
         Integer tempoEstimado = Integer.parseInt(request.getParameter("txtTempoEstimado"));
         String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
-        Long idComida = Long.parseLong(request.getParameter("txtIdComida"));
         Long idLoja = Long.parseLong(request.getParameter("optLoja"));
-        Loja loja = LojaDAO.getInstance().getLoja(idLoja);
+        Loja loja = (Loja)GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
         Long id = null;
 
         if (!operacao.equals("Incluir")) {

@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import model.Adm;
 import model.Cliente;
+import model.Loja;
 
 
 
@@ -133,6 +134,31 @@ public class GeralDAO {
         }
         return cliente;
     }
+    public Loja getLojaEmail(String email){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Loja loja = null;
+        try{
+            tx.begin();
+            TypedQuery<Loja> query = em.createQuery("select l From Loja l where l.email LIKE :email", Loja.class);
+            query.setParameter("email", email);
+            
+            loja = query.getSingleResult();
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                
+                tx.rollback();
+                return loja;
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return loja;
+    }
+    
     
     public Adm getAdmLogin(String login){
         

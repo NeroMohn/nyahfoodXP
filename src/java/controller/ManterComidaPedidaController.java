@@ -5,11 +5,7 @@
  */
 package controller;
 
-import dao.ClienteDAO;
-import dao.ComidaDAO;
 import dao.GeralDAO;
-import dao.PedidoDAO;
-import dao.TipoPagamentoDAO;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -63,9 +59,9 @@ public class ManterComidaPedidaController extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("comidas", ComidaDAO.getInstance().getAllComidas());
-            request.setAttribute("pedidos", PedidoDAO.getInstance().getAllPedidos());
-            request.setAttribute("pagamentos", TipoPagamentoDAO.getInstance().getAllTipoPagamentos());
+            request.setAttribute("comidas", GeralDAO.getInstance().getAllObjetos(Class.forName("model.Comida")));
+            request.setAttribute("pedidos", GeralDAO.getInstance().getAllObjetos(Class.forName("model.Pedido")));
+            request.setAttribute("pagamentos", GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoPagamento")));
             String tipo = request.getSession().getAttribute("tipo").toString();
             request.setAttribute("tipo", tipo);  
             Long id = Long.parseLong(request.getParameter("id"));
@@ -90,34 +86,35 @@ public class ManterComidaPedidaController extends HttpServlet {
 
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         String operacao = request.getParameter("operacao");
         String quantidade = request.getParameter("txtQuantidade");
         String tipoPagamento = request.getParameter("optPagamento");
 
                 Long idCliente = Long.parseLong(request.getSession().getAttribute("id").toString());
                 String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(Calendar.getInstance().getTime());
-                Cliente cliente = ClienteDAO.getInstance().getCliente(idCliente);
-                Long   id = Long.parseLong(request.getParameter("txtIdComidaPedida"));
-                Comida comidaHolder = ComidaDAO.getInstance().getComida(id);
+                Cliente cliente = (Cliente)GeralDAO.getInstance().getObjeto(idCliente, Class.forName("model.Cliente"));
+                Long id = Long.parseLong(request.getParameter("txtIdComidaPedida"));
+                Comida comidaHolder = (Comida)GeralDAO.getInstance().getObjeto(id, Class.forName("model.Comida"));
                 Double total = comidaHolder.getPreco() * Integer.parseInt(quantidade);	
                 Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente, null);
-                PedidoDAO.getInstance().salvar(pedido);
-                Pedido pedidoHolder = PedidoDAO.getInstance().getPedido(pedido.getId());
+                Object objeto1 = pedido;
+                GeralDAO.getInstance().salvar(objeto1);
+                Pedido pedidoHolder = (Pedido)GeralDAO.getInstance().getObjeto(pedido.getId(), Class.forName("model.Pedido"));
                        
         try {  
                 ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder, "Fazendo");
                 
-                Object objeto = comidaPedida;
+                Object objeto2 = comidaPedida;
                 
             if (operacao.equals("Incluir")) {
-                GeralDAO.getInstance().salvar(objeto);
+                GeralDAO.getInstance().salvar(objeto2);
             } else if (operacao.equals("Editar")) {
                 comidaPedida.setId(id);
-                GeralDAO.getInstance().salvar(objeto);
+                GeralDAO.getInstance().salvar(objeto2);
             } else if (operacao.equals("Excluir")) {
                 comidaPedida.setId(id);
-                GeralDAO.getInstance().excluir(objeto);
+                GeralDAO.getInstance().excluir(objeto2);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaPedidoClienteController");
             view.forward(request, response);

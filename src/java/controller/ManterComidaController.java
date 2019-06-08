@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Comida;
 import dao.GeralDAO;
-import dao.LojaDAO;
 import model.Loja;
 
 /**
@@ -72,7 +71,7 @@ public class ManterComidaController extends HttpServlet {
         String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
         Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
-        Loja loja = LojaDAO.getInstance().getLoja(codLoja);
+        Loja loja = (Loja)GeralDAO.getInstance().getObjeto(codLoja, Class.forName("model.Loja"));
         Long id = null;
 
         if (!operacao.equals("Incluir")) {

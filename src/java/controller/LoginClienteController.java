@@ -1,7 +1,7 @@
 
 package controller;
 
-import dao.ClienteDAO;
+import dao.GeralDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
 import model.Cliente;
 
 /**
@@ -68,7 +67,7 @@ public class LoginClienteController extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         String tipo = "1";
-        Cliente cliente = ClienteDAO.getInstance().getClienteEmail(login);
+        Cliente cliente = GeralDAO.getInstance().getClienteEmail(login);
   
         
         if(cliente == null){
