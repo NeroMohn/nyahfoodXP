@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Comida;
-import dao.ComidaDAO;
+import dao.GeralDAO;
 import dao.LojaDAO;
 import model.Loja;
 
@@ -39,7 +39,7 @@ public class ManterComidaController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
             String tipo = request.getSession().getAttribute("tipo").toString();
             String operacao = request.getParameter("operacao");
@@ -50,9 +50,8 @@ public class ManterComidaController extends HttpServlet {
                 view.forward(request, response);
             } else {
                 if (!operacao.equals("Incluir")) {
-
                     Long idComida = Long.parseLong(request.getParameter("id"));
-                    Comida comida = ComidaDAO.getInstance().getComida(idComida);
+                    Comida comida = (Comida)GeralDAO.getInstance().getObjeto(idComida, Class.forName("model.Comida"));
                     request.setAttribute("comida", comida);
                 }
                 RequestDispatcher view = request.getRequestDispatcher("/ManterComida.jsp");
@@ -72,7 +71,6 @@ public class ManterComidaController extends HttpServlet {
         Integer tempoEstimado = Integer.parseInt(request.getParameter("txtTempoEstimado"));
         String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
-
         Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
         Loja loja = LojaDAO.getInstance().getLoja(codLoja);
         Long id = null;
@@ -83,14 +81,16 @@ public class ManterComidaController extends HttpServlet {
 
         try {
             Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
+           
+            Object objeto = comida;
             if (operacao.equals("Incluir")) {
-                comida.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Editar")) {
                 comida.setId(id);
-                comida.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 comida.setId(id);
-                comida.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaComidaLojaController");
             view.forward(request, response);

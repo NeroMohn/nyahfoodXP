@@ -7,11 +7,10 @@ package controller;
 
 import dao.ClienteDAO;
 import dao.ComidaDAO;
-import dao.ComidaPedidaDAO;
+import dao.GeralDAO;
 import dao.PedidoDAO;
 import dao.TipoPagamentoDAO;
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -39,7 +38,7 @@ public class ManterComidaPedidaController extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
            
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
        
         String tipo = request.getSession().getAttribute("tipo").toString();
         String acao = request.getParameter("acao");
@@ -59,7 +58,7 @@ public class ManterComidaPedidaController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
 
             String operacao = request.getParameter("operacao");
@@ -67,20 +66,18 @@ public class ManterComidaPedidaController extends HttpServlet {
             request.setAttribute("comidas", ComidaDAO.getInstance().getAllComidas());
             request.setAttribute("pedidos", PedidoDAO.getInstance().getAllPedidos());
             request.setAttribute("pagamentos", TipoPagamentoDAO.getInstance().getAllTipoPagamentos());
-           
-
             String tipo = request.getSession().getAttribute("tipo").toString();
             request.setAttribute("tipo", tipo);  
             Long id = Long.parseLong(request.getParameter("id"));
             request.setAttribute("id", id);
-            request.setAttribute("comida", ComidaDAO.getInstance().getComida(id));
+            request.setAttribute("comida", (Comida)GeralDAO.getInstance().getObjeto(id, Class.forName("model.Comida")));
      
             
             if (!operacao.equals("Incluir")) {
                 request.setAttribute("id", id);
                 Long idComidaPedida;
                 idComidaPedida = Long.parseLong(request.getParameter("id"));
-                ComidaPedida comidaPedida = ComidaPedidaDAO.getInstance().getComidaPedida(idComidaPedida);
+                ComidaPedida comidaPedida = (ComidaPedida) GeralDAO.getInstance().getObjeto(idComidaPedida, Class.forName("model.ComidaPedida"));
                 request.setAttribute("comidaPedida", comidaPedida);
             }
             RequestDispatcher view = request.getRequestDispatcher("/ManterComidaPedida.jsp");
@@ -107,22 +104,20 @@ public class ManterComidaPedidaController extends HttpServlet {
                 Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente, null);
                 PedidoDAO.getInstance().salvar(pedido);
                 Pedido pedidoHolder = PedidoDAO.getInstance().getPedido(pedido.getId());
-              
-               
-           
-             
-                
+                       
         try {  
                 ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder, "Fazendo");
-            
+                
+                Object objeto = comidaPedida;
+                
             if (operacao.equals("Incluir")) {
-                comidaPedida.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Editar")) {
                 comidaPedida.setId(id);
-                comidaPedida.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 comidaPedida.setId(id);
-                comidaPedida.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaPedidoClienteController");
             view.forward(request, response);
@@ -144,7 +139,11 @@ public class ManterComidaPedidaController extends HttpServlet {
 @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
             processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -158,7 +157,11 @@ public class ManterComidaPedidaController extends HttpServlet {
     @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
             processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

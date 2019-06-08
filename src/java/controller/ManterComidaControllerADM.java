@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.ComidaDAO;
+import dao.GeralDAO;
 import dao.LojaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -40,7 +40,7 @@ public class ManterComidaControllerADM extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
 
             String operacao = request.getParameter("operacao");
@@ -55,7 +55,7 @@ public class ManterComidaControllerADM extends HttpServlet {
             } else {
                 if (!operacao.equals("Incluir")) {
                     Long idComida = Long.parseLong(request.getParameter("id"));
-                    Comida comida = ComidaDAO.getInstance().getComida(idComida);
+                    Comida comida = (Comida)GeralDAO.getInstance().getObjeto(idComida, Class.forName("model.Comida"));
                     request.setAttribute("comida", comida);
                 }
                 RequestDispatcher view = request.getRequestDispatcher("/ManterComidaADM.jsp");
@@ -88,15 +88,17 @@ public class ManterComidaControllerADM extends HttpServlet {
 
         try {
             Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
+            
+            Object objeto = comida;
 
             if (operacao.equals("Incluir")) {
-                comida.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Editar")) {
                 comida.setId(id);
-                comida.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 comida.setId(id);
-                comida.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaComidaControllerADM");
             view.forward(request, response);

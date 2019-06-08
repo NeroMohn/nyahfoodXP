@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CupomDesconto;
 import dao.CupomDescontoDAO;
+import dao.GeralDAO;
 
 /**
  *
@@ -25,7 +26,7 @@ import dao.CupomDescontoDAO;
 public class ManterCupomDescontoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         String acao = request.getParameter("acao");
         if (acao.equals("confirmarOperacao")) {
             confirmarOperacao(request, response);
@@ -37,13 +38,13 @@ public class ManterCupomDescontoController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
                 Long idCupomDesconto = Long.parseLong(request.getParameter("idCupomDesconto"));
-                CupomDesconto cupomDesconto = CupomDescontoDAO.getInstance().getCupomDesconto(idCupomDesconto);
+                CupomDesconto cupomDesconto = (CupomDesconto) GeralDAO.getInstance().getObjeto(idCupomDesconto, Class.forName("model.CupomDesconto"));
                 request.setAttribute("cupomDesconto", cupomDesconto);
             }
             RequestDispatcher view = request.getRequestDispatcher("/ManterCupomDesconto.jsp");
@@ -69,17 +70,18 @@ public class ManterCupomDescontoController extends HttpServlet {
 
         try {
             CupomDesconto cupomDesconto = new CupomDesconto(nome, valor, ativo);
+            Object objeto = cupomDesconto;
+
             if (operacao.equals("Incluir")) {
-                cupomDesconto.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Editar")) {
                 cupomDesconto.setId(id);
-                cupomDesconto.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 cupomDesconto.setId(id);
-                cupomDesconto.excluir();
+                GeralDAO.getInstance().excluir(objeto);
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaCupomDescontoController");
-
             view.forward(request, response);
         } catch (IOException e) {
             throw new ServletException(e);
@@ -91,7 +93,11 @@ public class ManterCupomDescontoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -105,7 +111,11 @@ public class ManterCupomDescontoController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterCupomDescontoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
