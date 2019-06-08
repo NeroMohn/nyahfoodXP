@@ -95,7 +95,7 @@ public class GeralDAO {
         List<Object> objects = null;
         try{
             tx.begin();
-            TypedQuery<Object> query = em.createQuery("select cl from "+ classe +"cl", classe);
+            TypedQuery<Object> query = em.createQuery("select cl from "+ classe.getName() +" cl", classe);
             objects = query.getResultList();
             tx.commit();
         } catch (Exception e){
