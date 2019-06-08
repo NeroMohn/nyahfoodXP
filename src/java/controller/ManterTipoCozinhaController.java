@@ -51,7 +51,7 @@ public class ManterTipoCozinhaController extends HttpServlet {
             if (!operacao.equals("Incluir")) {
                 Long idTipoCozinha = Long.parseLong(request.getParameter("id"));
                 TipoCozinha tipoCozinha;
-                tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(idTipoCOzinha, Class.forName("model.Cliente"));
+                tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(idTipoCozinha, Class.forName("model.Cliente"));
                 request.setAttribute("tipoCozinha", tipoCozinha);
 
             }
