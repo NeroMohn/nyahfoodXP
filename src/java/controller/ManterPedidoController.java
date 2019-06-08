@@ -43,7 +43,7 @@ public class ManterPedidoController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         try {
 
             String operacao = request.getParameter("operacao");
@@ -57,8 +57,14 @@ public class ManterPedidoController extends HttpServlet {
             } else {
                 if (!operacao.equals("Incluir")) {
                     Long idPedido = Long.parseLong(request.getParameter("id"));
-                    Pedido pedido = (Pedido) GeralDAO.getInstance().getObjeto(idPedido, Class.forName("model.Pedido"));
-                    request.setAttribute("pedido", pedido);
+                    Pedido pedido;
+                    try {
+                        pedido = (Pedido) GeralDAO.getInstance().getObjeto(idPedido, Class.forName("model.Pedido"));
+                        request.setAttribute("pedido", pedido);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(ManterPedidoController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                  
                 }
                    RequestDispatcher view = request.getRequestDispatcher("/ManterPedido.jsp");
