@@ -7,6 +7,9 @@ package controller;
 
 import dao.GeralDAO;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -30,7 +33,7 @@ import model.Pedido;
 public class ManterComidaPedidaController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException {
+            throws ServletException, IOException, ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IllegalAccessException, IllegalAccessException, IllegalAccessException, IllegalAccessException, IllegalAccessException, InvocationTargetException {
 
         String tipo = request.getSession().getAttribute("tipo").toString();
         String acao = request.getParameter("acao");
@@ -40,7 +43,11 @@ public class ManterComidaPedidaController extends HttpServlet {
         } else {
 
             if (acao.equals("confirmarOperacao")) {
-                confirmarOperacao(request, response);
+                try {
+                    confirmarOperacao(request, response);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 if (acao.equals("prepararOperacao")) {
                     prepararOperacao(request, response);
@@ -81,7 +88,7 @@ public class ManterComidaPedidaController extends HttpServlet {
 
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
+    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         String operacao = request.getParameter("operacao");
         String quantidade = request.getParameter("txtQuantidade");
         String tipoPagamento = request.getParameter("optPagamento");
@@ -95,10 +102,10 @@ public class ManterComidaPedidaController extends HttpServlet {
         Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente, null);
         Object objeto1 = pedido;
         GeralDAO.getInstance().salvar(objeto1);
-        Pedido pedidoHolder = (Pedido) GeralDAO.getInstance().getObjeto(pedido.getId(), Class.forName("model.Pedido"));
-
+  
+       
         try {
-            ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedidoHolder, "Fazendo");
+            ComidaPedida comidaPedida = new ComidaPedida(Integer.parseInt(quantidade), total, comidaHolder, pedido, "Fazendo");
 
             Object objeto2 = comidaPedida;
 
@@ -133,8 +140,22 @@ public class ManterComidaPedidaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            try {
+                processRequest(request, response);
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvocationTargetException ex) {
+                Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchFieldException ex) {
+            Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
             Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -151,8 +172,20 @@ public class ManterComidaPedidaController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            try {
+                processRequest(request, response);
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvocationTargetException ex) {
+                Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchFieldException ex) {
             Logger.getLogger(ManterComidaPedidaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

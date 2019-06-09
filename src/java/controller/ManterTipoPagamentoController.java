@@ -37,7 +37,7 @@ public class ManterTipoPagamentoController extends HttpServlet {
             request.setAttribute("operacao", operacao);
             if (!operacao.equals("Incluir")) {
                 Long idTipoPagamento = Long.parseLong(request.getParameter("id"));
-                TipoPagamento tipoPagamento = (TipoPagamento) GeralDAO.getInstance().getObjeto(idTipoPagamento, Class.forName("Model.TipoPagamento"));
+                TipoPagamento tipoPagamento = (TipoPagamento) GeralDAO.getInstance().getObjeto(idTipoPagamento, Class.forName("model.TipoPagamento"));
                 request.setAttribute("tipoPagamento", tipoPagamento);
 
             }
@@ -62,14 +62,16 @@ public class ManterTipoPagamentoController extends HttpServlet {
 
         try {
             TipoPagamento tipoPagamento = new TipoPagamento(nome);
+            Object objeto = tipoPagamento;
             if (operacao.equals("Incluir")) {
-                tipoPagamento.salvar();
+                
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Editar")) {
                 tipoPagamento.setId(id);
-                tipoPagamento.salvar();
+                GeralDAO.getInstance().salvar(objeto);
             } else if (operacao.equals("Excluir")) {
                 tipoPagamento.setId(id);
-                tipoPagamento.excluir();
+                GeralDAO.getInstance().excluir(objeto);
 
             }
             RequestDispatcher view = request.getRequestDispatcher("PesquisaTipoPagamentoController");

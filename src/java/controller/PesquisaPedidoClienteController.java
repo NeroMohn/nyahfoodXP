@@ -29,7 +29,7 @@ public class PesquisaPedidoClienteController extends HttpServlet {
         String id = request.getSession().getAttribute("id").toString();
         request.setAttribute("id", id);
         request.setAttribute("pedidos", obterTodosPedidos);
-        request.setAttribute("comidasPedidas", (ComidaPedida) GeralDAO.getInstance().getAllObjetos(Class.forName("model.ComidaPedida")));
+        request.setAttribute("comidasPedidas", GeralDAO.getInstance().getAllObjetos(Class.forName("model.ComidaPedida")));
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaPedidoCliente.jsp");
         view.forward(request, response);
     }

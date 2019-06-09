@@ -19,7 +19,7 @@ public class Pedido implements Serializable{
     private static final long serialVerionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    public Long id;
     private double total;
     private String metodoPagamento;
     private String date;

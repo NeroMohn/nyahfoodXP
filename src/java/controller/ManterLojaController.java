@@ -39,7 +39,7 @@ public class ManterLojaController extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("tiposCozinha", (TipoCozinha) GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoCozinha")));
+            request.setAttribute("tiposCozinha",GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoCozinha")));
             if (!operacao.equals("Incluir")) {
                 Long idLoja = Long.parseLong(request.getParameter("id"));
                 Loja loja = (Loja) GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));

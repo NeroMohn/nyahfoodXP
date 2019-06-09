@@ -44,7 +44,7 @@ public class ManterComidaControllerADM extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("lojas", GeralDAO.getInstance().getAllObjetos(Class.forName("model.loja")));
+            request.setAttribute("lojas", GeralDAO.getInstance().getAllObjetos(Class.forName("model.Loja")));
 
             String tipo = request.getSession().getAttribute("tipo").toString();
             request.setAttribute("tipo", tipo);

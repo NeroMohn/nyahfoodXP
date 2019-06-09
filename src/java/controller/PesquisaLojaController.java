@@ -19,7 +19,7 @@ public class PesquisaLojaController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         List<Object> obterTodasLojas = GeralDAO.getInstance().getAllObjetos(Class.forName("model.Loja"));
         if (obterTodasLojas.isEmpty()) {
-            request.setAttribute("vazio", "Mensagem");
+            request.setAttribute("vazio", "Sem Lojas");
         }
         String id = request.getSession().getAttribute("id").toString();
         request.setAttribute("id", id);

@@ -45,7 +45,7 @@ public class ManterPedidoController extends HttpServlet {
 
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("clientes", (Cliente) GeralDAO.getInstance().getAllObjetos(Class.forName("model.Cliente")));
+            request.setAttribute("clientes",  GeralDAO.getInstance().getAllObjetos(Class.forName("model.Cliente")));
             String tipo = request.getSession().getAttribute("tipo").toString();
 
             if (tipo != "3") {
