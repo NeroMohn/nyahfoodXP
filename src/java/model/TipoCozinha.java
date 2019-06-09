@@ -1,6 +1,6 @@
 package model;
 
-import dao.TipoCozinhaDAO;
+import TesteSobra.TipoCozinhaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -53,14 +53,7 @@ public class TipoCozinha implements Serializable{
         TipoCozinhaDAO.getInstance().excluir(this);
     }
     
-    public static TipoCozinha getTipoCozinha(Long id){
-        return TipoCozinhaDAO.getInstance().getTipoCozinha(id);
-    }
-    
-    public static List<TipoCozinha> getAllTipoCozinhas(){
-        return TipoCozinhaDAO.getInstance().getAllTipoCozinhas();
-    }
-    
+
     
     
     

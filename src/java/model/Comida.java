@@ -1,6 +1,6 @@
 package model;
 
-import dao.ComidaDAO;
+import TesteSobra.ComidaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -123,12 +123,6 @@ public class Comida implements Serializable {
         ComidaDAO.getInstance().excluir(this);
     }
     
-    public static Comida getComida(long id){
-        return ComidaDAO.getInstance().getComida(id);
-    }
-    
-    public static List<Comida> getAllComidas(){
-        return ComidaDAO.getInstance().getAllComidas();
-    }
+
 
 }

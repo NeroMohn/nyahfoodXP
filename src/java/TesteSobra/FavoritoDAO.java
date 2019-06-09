@@ -1,38 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.Cliente;
+import model.Favorito;
 
 
 /**
  *
  * @author Yukas
  */
-public class ClienteDAO {
+public class FavoritoDAO {
     
-    private static ClienteDAO instance = new ClienteDAO();
+    private static FavoritoDAO instance = new FavoritoDAO();
     
-    public static ClienteDAO getInstance(){
+    public static FavoritoDAO getInstance(){
         return instance;
     }
     
-    private ClienteDAO(){
+    private FavoritoDAO(){
         
     }
     
-    public void salvar(Cliente cliente){
+    public void salvar(Favorito favorito){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(cliente.getId() != null){
-                em.merge(cliente);
+            if(favorito.getId() != null){
+                em.merge(favorito);
             }else{
-                em.persist(cliente);
+                em.persist(favorito);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +46,12 @@ public class ClienteDAO {
         }
     }
     
-     public void excluir(Cliente cliente){
+     public void excluir(Favorito favorito){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(Cliente.class, cliente.getId()));
+            em.remove(em.getReference(Favorito.class, favorito.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +63,14 @@ public class ClienteDAO {
         }
     }
      
-       public Cliente getCliente(long id){
+       public Favorito getFavorito(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Cliente cliente = null;
+        Favorito favorito = null;
         try{
             tx.begin();
-            cliente = em.find(Cliente.class, id);
+            favorito = em.find(Favorito.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,19 +80,19 @@ public class ClienteDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return cliente;
+        return favorito;
     }
        
         
-    public List<Cliente> getAllClientes(){
+    public List<Favorito> getAllFavoritos(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<Cliente> clientes = null;
+        List<Favorito> favoritos = null;
         try{
             tx.begin();
-            TypedQuery<Cliente> query = em.createQuery("select cl from Cliente cl", Cliente.class);
-            clientes = query.getResultList();
+            TypedQuery<Favorito> query = em.createQuery("select fa from Favorito fa", Favorito.class);
+            favoritos = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -101,31 +102,7 @@ public class ClienteDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return clientes;
-    }
-    
-    public Cliente getClienteEmail(String email){
-        
-        EntityManager em = PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Cliente cliente = null;
-        try{
-            tx.begin();
-            TypedQuery<Cliente> query = em.createQuery("select c From Cliente c where c.email LIKE :email", Cliente.class);
-            query.setParameter("email", email);
-            
-            cliente = query.getSingleResult();
-            tx.commit();
-        } catch (Exception e){
-            if(tx != null && tx.isActive()){
-                tx.rollback();
-                return cliente;
-            }
-            throw new RuntimeException(e);
-        }finally{
-            PersistenceUtil.close(em);
-        }
-        return cliente;
+        return favoritos;
     }
     
     

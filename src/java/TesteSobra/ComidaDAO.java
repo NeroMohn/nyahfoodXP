@@ -1,38 +1,40 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.TipoCozinha;
+import model.Comida;
+import model.Loja;
 
 
 /**
  *
  * @author Yukas
  */
-public class TipoCozinhaDAO {
+public class ComidaDAO {
     
-    private static TipoCozinhaDAO instance = new TipoCozinhaDAO();
+    private static ComidaDAO instance = new ComidaDAO();
     
-    public static TipoCozinhaDAO getInstance(){
+    public static ComidaDAO getInstance(){
         return instance;
     }
     
-    private TipoCozinhaDAO(){
+    private ComidaDAO(){
         
     }
     
-    public void salvar(TipoCozinha tipoCozinha){
+    public void salvar(Comida comida){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(tipoCozinha.getId() != null){
-                em.merge(tipoCozinha);
+            if(comida.getId() != null){
+                em.merge(comida);
             }else{
-                em.persist(tipoCozinha);
+                em.persist(comida);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +47,12 @@ public class TipoCozinhaDAO {
         }
     }
     
-     public void excluir(TipoCozinha tipoCozinha){
+     public void excluir(Comida comida){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(TipoCozinha.class, tipoCozinha.getId()));
+            em.remove(em.getReference(Comida.class, comida.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +64,14 @@ public class TipoCozinhaDAO {
         }
     }
      
-       public TipoCozinha getTipoCozinha(long id){
+       public Comida getComida(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        TipoCozinha tipoCozinha = null;
+        Comida comida = null;
         try{
             tx.begin();
-            tipoCozinha = em.find(TipoCozinha.class, id);
+            comida = em.find(Comida.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,39 +81,19 @@ public class TipoCozinhaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return tipoCozinha;
-    }
-       
-       public TipoCozinha getTipoCozinhaNome(String nome){
-        
-        EntityManager em = PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        TipoCozinha tipoCozinha = null;
-        try{
-            tx.begin();
-            tipoCozinha = em.find(TipoCozinha.class, nome);
-            tx.commit();
-        } catch (Exception e){
-            if(tx != null && tx.isActive()){
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        }finally{
-            PersistenceUtil.close(em);
-        }
-        return tipoCozinha;
+        return comida;
     }
        
         
-    public List<TipoCozinha> getAllTipoCozinhas(){
+    public List<Comida> getAllComidas(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<TipoCozinha> tipoCozinhas = null;
+        List<Comida> comidas = null;
         try{
             tx.begin();
-            TypedQuery<TipoCozinha> query = em.createQuery("select tc from TipoCozinha tc", TipoCozinha.class);
-            tipoCozinhas = query.getResultList();
+            TypedQuery<Comida> query = em.createQuery("select co from Comida co ", Comida.class);
+            comidas = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -121,7 +103,30 @@ public class TipoCozinhaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return tipoCozinhas;
+        return comidas;
+    }
+    
+        public List<Comida> getAllComidasFromLoja(Long id){
+        
+   
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        List<Comida> comidas = null;
+        try{
+            tx.begin();
+            TypedQuery<Comida> query = em.createQuery("select co from Comida co where co.loja LIKE loja ", Comida.class);
+          
+            comidas = query.getResultList();
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return comidas;
     }
     
     

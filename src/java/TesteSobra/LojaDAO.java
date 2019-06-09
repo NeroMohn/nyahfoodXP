@@ -1,38 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.Favorito;
+import model.Loja;
 
 
 /**
  *
  * @author Yukas
  */
-public class FavoritoDAO {
+public class LojaDAO {
     
-    private static FavoritoDAO instance = new FavoritoDAO();
+    private static LojaDAO instance = new LojaDAO();
     
-    public static FavoritoDAO getInstance(){
+    public static LojaDAO getInstance(){
         return instance;
     }
     
-    private FavoritoDAO(){
+    private LojaDAO(){
         
     }
     
-    public void salvar(Favorito favorito){
+    public void salvar(Loja loja){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(favorito.getId() != null){
-                em.merge(favorito);
+            if(loja.getId() != null){
+                em.merge(loja);
             }else{
-                em.persist(favorito);
+                em.persist(loja);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +46,12 @@ public class FavoritoDAO {
         }
     }
     
-     public void excluir(Favorito favorito){
+     public void excluir(Loja loja){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(Favorito.class, favorito.getId()));
+            em.remove(em.getReference(Loja.class, loja.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +63,14 @@ public class FavoritoDAO {
         }
     }
      
-       public Favorito getFavorito(long id){
+       public Loja getLoja(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Favorito favorito = null;
+        Loja loja = null;
         try{
             tx.begin();
-            favorito = em.find(Favorito.class, id);
+            loja = em.find(Loja.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,19 +80,19 @@ public class FavoritoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return favorito;
+        return loja;
     }
        
         
-    public List<Favorito> getAllFavoritos(){
+    public List<Loja> getAllLojas(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<Favorito> favoritos = null;
+        List<Loja> lojas = null;
         try{
             tx.begin();
-            TypedQuery<Favorito> query = em.createQuery("select fa from Favorito fa", Favorito.class);
-            favoritos = query.getResultList();
+            TypedQuery<Loja> query = em.createQuery("select lo from Loja lo", Loja.class);
+            lojas = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -101,7 +102,32 @@ public class FavoritoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return favoritos;
+        return lojas;
+    }
+    
+    public Loja getLojaEmail(String email){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Loja loja = null;
+        try{
+            tx.begin();
+            TypedQuery<Loja> query = em.createQuery("select l From Loja l where l.email LIKE :email", Loja.class);
+            query.setParameter("email", email);
+            
+            loja = query.getSingleResult();
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                
+                tx.rollback();
+                return loja;
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return loja;
     }
     
     

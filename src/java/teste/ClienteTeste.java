@@ -1,10 +1,10 @@
 package teste;
 
-import dao.AdmDAO;
-import dao.ClienteDAO;
-import dao.LojaDAO;
-import dao.TipoCozinhaDAO;
-import dao.TipoPagamentoDAO;
+import TesteSobra.AdmDAO;
+import TesteSobra.ClienteDAO;
+import TesteSobra.LojaDAO;
+import TesteSobra.TipoCozinhaDAO;
+import TesteSobra.TipoPagamentoDAO;
 import model.Adm;
 import model.Cliente;
 import model.Loja;

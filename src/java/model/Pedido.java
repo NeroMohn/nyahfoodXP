@@ -1,6 +1,6 @@
 package model;
 
-import dao.PedidoDAO;
+import TesteSobra.PedidoDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -99,12 +99,6 @@ public class Pedido implements Serializable{
         PedidoDAO.getInstance().excluir(this);
     }
     
-    public static Pedido getPedido(long id){
-        return PedidoDAO.getInstance().getPedido(id);
-    }
-    
-    public static List<Pedido> getAllPedidos(){
-        return PedidoDAO.getInstance().getAllPedidos();
-    }
+
 
 }

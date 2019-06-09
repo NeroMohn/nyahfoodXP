@@ -1,39 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.Comida;
-import model.Loja;
+import model.Pedido;
 
 
 /**
  *
  * @author Yukas
  */
-public class ComidaDAO {
+public class PedidoDAO {
     
-    private static ComidaDAO instance = new ComidaDAO();
+    private static PedidoDAO instance = new PedidoDAO();
     
-    public static ComidaDAO getInstance(){
+    public static PedidoDAO getInstance(){
         return instance;
     }
     
-    private ComidaDAO(){
+    private PedidoDAO(){
         
     }
     
-    public void salvar(Comida comida){
+    public void salvar(Pedido pedido){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(comida.getId() != null){
-                em.merge(comida);
+            if(pedido.getId() != null){
+                em.merge(pedido);
             }else{
-                em.persist(comida);
+                em.persist(pedido);
             }
             tx.commit();
         } catch (Exception e){
@@ -46,12 +46,12 @@ public class ComidaDAO {
         }
     }
     
-     public void excluir(Comida comida){
+     public void excluir(Pedido pedido){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(Comida.class, comida.getId()));
+            em.remove(em.getReference(Pedido.class, pedido.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -63,14 +63,14 @@ public class ComidaDAO {
         }
     }
      
-       public Comida getComida(long id){
+       public Pedido getPedido(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Comida comida = null;
+        Pedido pedido = null;
         try{
             tx.begin();
-            comida = em.find(Comida.class, id);
+            pedido = em.find(Pedido.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -80,19 +80,19 @@ public class ComidaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return comida;
+        return pedido;
     }
        
         
-    public List<Comida> getAllComidas(){
+    public List<Pedido> getAllPedidos(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<Comida> comidas = null;
+        List<Pedido> pedidos = null;
         try{
             tx.begin();
-            TypedQuery<Comida> query = em.createQuery("select co from Comida co ", Comida.class);
-            comidas = query.getResultList();
+            TypedQuery<Pedido> query = em.createQuery("select pe from Pedido pe", Pedido.class);
+            pedidos = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -102,30 +102,7 @@ public class ComidaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return comidas;
-    }
-    
-        public List<Comida> getAllComidasFromLoja(Long id){
-        
-   
-        EntityManager em = PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        List<Comida> comidas = null;
-        try{
-            tx.begin();
-            TypedQuery<Comida> query = em.createQuery("select co from Comida co where co.loja LIKE loja ", Comida.class);
-          
-            comidas = query.getResultList();
-            tx.commit();
-        } catch (Exception e){
-            if(tx != null && tx.isActive()){
-                tx.rollback();
-            }
-            throw new RuntimeException(e);
-        }finally{
-            PersistenceUtil.close(em);
-        }
-        return comidas;
+        return pedidos;
     }
     
     

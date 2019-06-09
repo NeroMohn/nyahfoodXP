@@ -1,7 +1,7 @@
 package controller;
 
 import dao.GeralDAO;
-import dao.TipoCozinhaDAO;
+import TesteSobra.TipoCozinhaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;

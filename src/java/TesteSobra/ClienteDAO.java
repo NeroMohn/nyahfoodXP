@@ -1,38 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.Pedido;
+import model.Cliente;
 
 
 /**
  *
  * @author Yukas
  */
-public class PedidoDAO {
+public class ClienteDAO {
     
-    private static PedidoDAO instance = new PedidoDAO();
+    private static ClienteDAO instance = new ClienteDAO();
     
-    public static PedidoDAO getInstance(){
+    public static ClienteDAO getInstance(){
         return instance;
     }
     
-    private PedidoDAO(){
+    private ClienteDAO(){
         
     }
     
-    public void salvar(Pedido pedido){
+    public void salvar(Cliente cliente){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(pedido.getId() != null){
-                em.merge(pedido);
+            if(cliente.getId() != null){
+                em.merge(cliente);
             }else{
-                em.persist(pedido);
+                em.persist(cliente);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +46,12 @@ public class PedidoDAO {
         }
     }
     
-     public void excluir(Pedido pedido){
+     public void excluir(Cliente cliente){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(Pedido.class, pedido.getId()));
+            em.remove(em.getReference(Cliente.class, cliente.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +63,14 @@ public class PedidoDAO {
         }
     }
      
-       public Pedido getPedido(long id){
+       public Cliente getCliente(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Pedido pedido = null;
+        Cliente cliente = null;
         try{
             tx.begin();
-            pedido = em.find(Pedido.class, id);
+            cliente = em.find(Cliente.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,19 +80,19 @@ public class PedidoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return pedido;
+        return cliente;
     }
        
         
-    public List<Pedido> getAllPedidos(){
+    public List<Cliente> getAllClientes(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<Pedido> pedidos = null;
+        List<Cliente> clientes = null;
         try{
             tx.begin();
-            TypedQuery<Pedido> query = em.createQuery("select pe from Pedido pe", Pedido.class);
-            pedidos = query.getResultList();
+            TypedQuery<Cliente> query = em.createQuery("select cl from Cliente cl", Cliente.class);
+            clientes = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -101,7 +102,31 @@ public class PedidoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return pedidos;
+        return clientes;
+    }
+    
+    public Cliente getClienteEmail(String email){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Cliente cliente = null;
+        try{
+            tx.begin();
+            TypedQuery<Cliente> query = em.createQuery("select c From Cliente c where c.email LIKE :email", Cliente.class);
+            query.setParameter("email", email);
+            
+            cliente = query.getSingleResult();
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+                return cliente;
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return cliente;
     }
     
     

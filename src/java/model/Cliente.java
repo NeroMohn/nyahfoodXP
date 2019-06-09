@@ -1,6 +1,6 @@
 package model;
 
-import dao.ClienteDAO;
+import TesteSobra.ClienteDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -44,13 +44,7 @@ public class Cliente extends Usuario implements Serializable {
         ClienteDAO.getInstance().excluir(this);
     }
     
-    public static Cliente getCliente(Long id){
-        return ClienteDAO.getInstance().getCliente(id);
-    }
-    
-    public static List<Cliente> getAllClientes(){
-        return ClienteDAO.getInstance().getAllClientes();
-    }
+
    
     
 }

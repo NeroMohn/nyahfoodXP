@@ -1,38 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.Loja;
+import model.CupomDesconto;
 
 
 /**
  *
  * @author Yukas
  */
-public class LojaDAO {
+public class CupomDescontoDAO {
     
-    private static LojaDAO instance = new LojaDAO();
+    private static CupomDescontoDAO instance = new CupomDescontoDAO();
     
-    public static LojaDAO getInstance(){
+    public static CupomDescontoDAO getInstance(){
         return instance;
     }
     
-    private LojaDAO(){
+    private CupomDescontoDAO(){
         
     }
     
-    public void salvar(Loja loja){
+    public void salvar(CupomDesconto cupomDesconto){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(loja.getId() != null){
-                em.merge(loja);
+            if(cupomDesconto.getId() != null){
+                em.merge(cupomDesconto);
             }else{
-                em.persist(loja);
+                em.persist(cupomDesconto);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +46,12 @@ public class LojaDAO {
         }
     }
     
-     public void excluir(Loja loja){
+     public void excluir(CupomDesconto cupomDesconto){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(Loja.class, loja.getId()));
+            em.remove(em.getReference(CupomDesconto.class, cupomDesconto.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +63,14 @@ public class LojaDAO {
         }
     }
      
-       public Loja getLoja(long id){
+       public CupomDesconto getCupomDesconto(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Loja loja = null;
+        CupomDesconto cupomDesconto = null;
         try{
             tx.begin();
-            loja = em.find(Loja.class, id);
+            cupomDesconto = em.find(CupomDesconto.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,19 +80,19 @@ public class LojaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return loja;
+        return cupomDesconto;
     }
        
         
-    public List<Loja> getAllLojas(){
+    public List<CupomDesconto> getAllCupomDescontos(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<Loja> lojas = null;
+        List<CupomDesconto> cupomDescontos = null;
         try{
             tx.begin();
-            TypedQuery<Loja> query = em.createQuery("select lo from Loja lo", Loja.class);
-            lojas = query.getResultList();
+            TypedQuery<CupomDesconto> query = em.createQuery("select cd from CupomDesconto cd", CupomDesconto.class);
+            cupomDescontos = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -101,32 +102,7 @@ public class LojaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return lojas;
-    }
-    
-    public Loja getLojaEmail(String email){
-        
-        EntityManager em = PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Loja loja = null;
-        try{
-            tx.begin();
-            TypedQuery<Loja> query = em.createQuery("select l From Loja l where l.email LIKE :email", Loja.class);
-            query.setParameter("email", email);
-            
-            loja = query.getSingleResult();
-            tx.commit();
-        } catch (Exception e){
-            if(tx != null && tx.isActive()){
-                
-                tx.rollback();
-                return loja;
-            }
-            throw new RuntimeException(e);
-        }finally{
-            PersistenceUtil.close(em);
-        }
-        return loja;
+        return cupomDescontos;
     }
     
     

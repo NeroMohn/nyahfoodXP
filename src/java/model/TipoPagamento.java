@@ -1,6 +1,6 @@
 package model;
 
-import dao.TipoPagamentoDAO;
+import TesteSobra.TipoPagamentoDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -54,13 +54,7 @@ public class TipoPagamento implements Serializable{
         TipoPagamentoDAO.getInstance().excluir(this);
     }
     
-    public static TipoPagamento getTipoPagamento(Long id){
-        return TipoPagamentoDAO.getInstance().getTipoPagamento(id);
-    }
-    
-    public static List<TipoPagamento> getAllTipoPagamentos(){
-        return TipoPagamentoDAO.getInstance().getAllTipoPagamentos();
-    }
+   
     
 
 }

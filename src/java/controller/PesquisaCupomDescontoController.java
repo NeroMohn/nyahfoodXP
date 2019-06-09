@@ -1,6 +1,6 @@
 package controller;
 
-import dao.CupomDescontoDAO;
+import TesteSobra.CupomDescontoDAO;
 import dao.GeralDAO;
 import model.CupomDesconto;
 

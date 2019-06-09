@@ -1,38 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.CupomDesconto;
+import model.TipoCozinha;
 
 
 /**
  *
  * @author Yukas
  */
-public class CupomDescontoDAO {
+public class TipoCozinhaDAO {
     
-    private static CupomDescontoDAO instance = new CupomDescontoDAO();
+    private static TipoCozinhaDAO instance = new TipoCozinhaDAO();
     
-    public static CupomDescontoDAO getInstance(){
+    public static TipoCozinhaDAO getInstance(){
         return instance;
     }
     
-    private CupomDescontoDAO(){
+    private TipoCozinhaDAO(){
         
     }
     
-    public void salvar(CupomDesconto cupomDesconto){
+    public void salvar(TipoCozinha tipoCozinha){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(cupomDesconto.getId() != null){
-                em.merge(cupomDesconto);
+            if(tipoCozinha.getId() != null){
+                em.merge(tipoCozinha);
             }else{
-                em.persist(cupomDesconto);
+                em.persist(tipoCozinha);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +46,12 @@ public class CupomDescontoDAO {
         }
     }
     
-     public void excluir(CupomDesconto cupomDesconto){
+     public void excluir(TipoCozinha tipoCozinha){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(CupomDesconto.class, cupomDesconto.getId()));
+            em.remove(em.getReference(TipoCozinha.class, tipoCozinha.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +63,14 @@ public class CupomDescontoDAO {
         }
     }
      
-       public CupomDesconto getCupomDesconto(long id){
+       public TipoCozinha getTipoCozinha(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        CupomDesconto cupomDesconto = null;
+        TipoCozinha tipoCozinha = null;
         try{
             tx.begin();
-            cupomDesconto = em.find(CupomDesconto.class, id);
+            tipoCozinha = em.find(TipoCozinha.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,19 +80,39 @@ public class CupomDescontoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return cupomDesconto;
+        return tipoCozinha;
+    }
+       
+       public TipoCozinha getTipoCozinhaNome(String nome){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        TipoCozinha tipoCozinha = null;
+        try{
+            tx.begin();
+            tipoCozinha = em.find(TipoCozinha.class, nome);
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return tipoCozinha;
     }
        
         
-    public List<CupomDesconto> getAllCupomDescontos(){
+    public List<TipoCozinha> getAllTipoCozinhas(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<CupomDesconto> cupomDescontos = null;
+        List<TipoCozinha> tipoCozinhas = null;
         try{
             tx.begin();
-            TypedQuery<CupomDesconto> query = em.createQuery("select cd from CupomDesconto cd", CupomDesconto.class);
-            cupomDescontos = query.getResultList();
+            TypedQuery<TipoCozinha> query = em.createQuery("select tc from TipoCozinha tc", TipoCozinha.class);
+            tipoCozinhas = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -101,7 +122,7 @@ public class CupomDescontoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return cupomDescontos;
+        return tipoCozinhas;
     }
     
     

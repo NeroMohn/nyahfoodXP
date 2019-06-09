@@ -1,6 +1,6 @@
 package controller;
 
-import dao.ComidaDAO;
+import TesteSobra.ComidaDAO;
 import dao.GeralDAO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

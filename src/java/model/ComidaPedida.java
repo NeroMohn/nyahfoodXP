@@ -1,6 +1,6 @@
 package model;
 
-import dao.ComidaPedidaDAO;
+import TesteSobra.ComidaPedidaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -100,12 +100,6 @@ public class ComidaPedida implements Serializable{
         ComidaPedidaDAO.getInstance().excluir(this);
     }
     
-    public static ComidaPedida getComidaPedida(Long id){
-        return ComidaPedidaDAO.getInstance().getComidaPedida(id);
-    }
-    
-    public static List<ComidaPedida> getAllComidaPedidas(){
-        return ComidaPedidaDAO.getInstance().getAllComidaPedidas();
-    }
+
     
 }

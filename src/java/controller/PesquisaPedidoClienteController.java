@@ -1,8 +1,8 @@
 package controller;
 
-import dao.ComidaPedidaDAO;
+import TesteSobra.ComidaPedidaDAO;
 import dao.GeralDAO;
-import dao.PedidoDAO;
+import TesteSobra.PedidoDAO;
 import model.Pedido;
 
 import java.io.IOException;

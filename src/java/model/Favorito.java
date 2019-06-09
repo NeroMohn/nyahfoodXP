@@ -1,6 +1,6 @@
 package model;
 
-import dao.FavoritoDAO;
+import TesteSobra.FavoritoDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -64,13 +64,6 @@ public class Favorito implements Serializable{
         FavoritoDAO.getInstance().excluir(this);
     }
     
-    public static Favorito getFavorito(Long id){
-        return FavoritoDAO.getInstance().getFavorito(id);
-    }
-    
-    public static List<Favorito> getAllFavoritos(){
-        return FavoritoDAO.getInstance().getAllFavoritos();
-    }
 
     
     

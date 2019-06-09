@@ -1,7 +1,7 @@
 
 package model;
 
-import dao.AdmDAO;
+import TesteSobra.AdmDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -70,11 +70,5 @@ private static final long serialVersionUID = 1L;
         AdmDAO.getInstance().excluir(this);
     }
     
-    public static Adm getAdm(long id){
-        return AdmDAO.getInstance().getAdm(id);
-    }
-    
-    public static List<Adm> getAllAdms(){
-        return AdmDAO.getInstance().getAllAdms();
-    }
+
 }

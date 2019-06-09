@@ -1,38 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.ComidaPedida;
+import model.Adm;
 
 
 /**
  *
  * @author Yukas
  */
-public class ComidaPedidaDAO {
+public class AdmDAO {
     
-    private static ComidaPedidaDAO instance = new ComidaPedidaDAO();
+    private static AdmDAO instance = new AdmDAO();
     
-    public static ComidaPedidaDAO getInstance(){
+    public static AdmDAO getInstance(){
         return instance;
     }
     
-    private ComidaPedidaDAO(){
+    private AdmDAO(){
         
     }
     
-    public void salvar(ComidaPedida comidaPedida){
+    public void salvar(Adm adm){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(comidaPedida.getId() != null){
-                em.merge(comidaPedida);
+            if(adm.getId() != null){
+                em.merge(adm);
             }else{
-                em.persist(comidaPedida);
+                em.persist(adm);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +46,12 @@ public class ComidaPedidaDAO {
         }
     }
     
-     public void excluir(ComidaPedida comidaPedida){
+     public void excluir(Adm adm){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(ComidaPedida.class, comidaPedida.getId()));
+            em.remove(em.getReference(Adm.class, adm.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +63,14 @@ public class ComidaPedidaDAO {
         }
     }
      
-       public ComidaPedida getComidaPedida(long id){
+       public Adm getAdm(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        ComidaPedida comidaPedida = null;
+        Adm adm = null;
         try{
             tx.begin();
-            comidaPedida = em.find(ComidaPedida.class, id);
+            adm = em.find(Adm.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,19 +80,19 @@ public class ComidaPedidaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return comidaPedida;
+        return adm;
     }
        
         
-    public List<ComidaPedida> getAllComidaPedidas(){
+    public List<Adm> getAllAdms(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<ComidaPedida> comidaPedidas = null;
+        List<Adm> adms = null;
         try{
             tx.begin();
-            TypedQuery<ComidaPedida> query = em.createQuery("select cop from ComidaPedida cop", ComidaPedida.class);
-            comidaPedidas = query.getResultList();
+            TypedQuery<Adm> query = em.createQuery("select a from Adm a", Adm.class);
+            adms = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -101,8 +102,30 @@ public class ComidaPedidaDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return comidaPedidas;
+        return adms;
     }
     
+    public Adm getAdmLogin(String login){
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Adm adm = null;
+        try{
+           tx.begin();
+            TypedQuery<Adm> query = em.createQuery("select a From Adm a where a.login LIKE :login", Adm.class);
+            query.setParameter("login", login);
+            adm = query.getSingleResult();
+            tx.commit();
+        } catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+                return adm;
+            }
+            throw new RuntimeException(e);
+        }finally{
+            PersistenceUtil.close(em);
+        }
+        return adm;
+    }
     
 }

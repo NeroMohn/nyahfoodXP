@@ -5,7 +5,7 @@
  */
 package model;
 
-import dao.LojaDAO;
+import TesteSobra.LojaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -108,13 +108,6 @@ public class Loja extends Usuario implements Serializable {
         LojaDAO.getInstance().excluir(this);
     }
     
-    public static Loja getLoja(long id){
-        return LojaDAO.getInstance().getLoja(id);
-    }
-    
-    public static List<Loja> getAllLojas(){
-        return LojaDAO.getInstance().getAllLojas();
-    }
 
 
 }

@@ -1,38 +1,39 @@
 
-package dao;
+package TesteSobra;
 
+import dao.PersistenceUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import model.TipoPagamento;
+import model.ComidaPedida;
 
 
 /**
  *
  * @author Yukas
  */
-public class TipoPagamentoDAO {
+public class ComidaPedidaDAO {
     
-    private static TipoPagamentoDAO instance = new TipoPagamentoDAO();
+    private static ComidaPedidaDAO instance = new ComidaPedidaDAO();
     
-    public static TipoPagamentoDAO getInstance(){
+    public static ComidaPedidaDAO getInstance(){
         return instance;
     }
     
-    private TipoPagamentoDAO(){
+    private ComidaPedidaDAO(){
         
     }
     
-    public void salvar(TipoPagamento tipoPagamento){
+    public void salvar(ComidaPedida comidaPedida){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            if(tipoPagamento.getId() != null){
-                em.merge(tipoPagamento);
+            if(comidaPedida.getId() != null){
+                em.merge(comidaPedida);
             }else{
-                em.persist(tipoPagamento);
+                em.persist(comidaPedida);
             }
             tx.commit();
         } catch (Exception e){
@@ -45,12 +46,12 @@ public class TipoPagamentoDAO {
         }
     }
     
-     public void excluir(TipoPagamento tipoPagamento){
+     public void excluir(ComidaPedida comidaPedida){
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            em.remove(em.getReference(TipoPagamento.class, tipoPagamento.getId()));
+            em.remove(em.getReference(ComidaPedida.class, comidaPedida.getId()));
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -62,14 +63,14 @@ public class TipoPagamentoDAO {
         }
     }
      
-       public TipoPagamento getTipoPagamento(long id){
+       public ComidaPedida getComidaPedida(long id){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        TipoPagamento tipoPagamento = null;
+        ComidaPedida comidaPedida = null;
         try{
             tx.begin();
-            tipoPagamento = em.find(TipoPagamento.class, id);
+            comidaPedida = em.find(ComidaPedida.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -79,19 +80,19 @@ public class TipoPagamentoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return tipoPagamento;
+        return comidaPedida;
     }
        
         
-    public List<TipoPagamento> getAllTipoPagamentos(){
+    public List<ComidaPedida> getAllComidaPedidas(){
          
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        List<TipoPagamento> tipoPagamentos = null;
+        List<ComidaPedida> comidaPedidas = null;
         try{
             tx.begin();
-            TypedQuery<TipoPagamento> query = em.createQuery("select tp from TipoPagamento tp", TipoPagamento.class);
-            tipoPagamentos = query.getResultList();
+            TypedQuery<ComidaPedida> query = em.createQuery("select cop from ComidaPedida cop", ComidaPedida.class);
+            comidaPedidas = query.getResultList();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
@@ -101,7 +102,7 @@ public class TipoPagamentoDAO {
         }finally{
             PersistenceUtil.close(em);
         }
-        return tipoPagamentos;
+        return comidaPedidas;
     }
     
     
