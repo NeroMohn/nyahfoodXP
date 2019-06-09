@@ -111,78 +111,35 @@ public class GeralDAO {
         return objects;
     }
     
-    public Cliente getClienteEmail(String email){
+    public Object getClienteEmail(String email, Class classe, String login){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-        Cliente cliente = null;
+        Object objeto = null;
         try{
             tx.begin();
-            TypedQuery<Cliente> query = em.createQuery("select c From Cliente c where c.email LIKE :email", Cliente.class);
+            TypedQuery<Object> query = em.createQuery("select c From "+ classe.getName() +" c where c."+login +" LIKE :"+login , classe);
+            if(login == "email"){
             query.setParameter("email", email);
-            
-            cliente = query.getSingleResult();
+            }else{
+               query.setParameter("login", email);
+            }
+            objeto = query.getSingleResult();
             tx.commit();
         } catch (Exception e){
             if(tx != null && tx.isActive()){
                 tx.rollback();
-                return cliente;
+                return objeto;
             }
             throw new RuntimeException(e);
         }finally{
             PersistenceUtil.close(em);
         }
-        return cliente;
+        return objeto;
     }
-    public Loja getLojaEmail(String email){
-        
-        EntityManager em = PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Loja loja = null;
-        try{
-            tx.begin();
-            TypedQuery<Loja> query = em.createQuery("select l From Loja l where l.email LIKE :email", Loja.class);
-            query.setParameter("email", email);
-            
-            loja = query.getSingleResult();
-            tx.commit();
-        } catch (Exception e){
-            if(tx != null && tx.isActive()){
-                
-                tx.rollback();
-                return loja;
-            }
-            throw new RuntimeException(e);
-        }finally{
-            PersistenceUtil.close(em);
-        }
-        return loja;
-    }
+   
     
-    
-    public Adm getAdmLogin(String login){
-        
-        EntityManager em = PersistenceUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        Adm adm = null;
-        try{
-           tx.begin();
-            TypedQuery<Adm> query = em.createQuery("select a From Adm a where a.login LIKE :login", Adm.class);
-            query.setParameter("login", login);
-            
-            adm = query.getSingleResult();
-            tx.commit();
-        } catch (Exception e){
-            if(tx != null && tx.isActive()){
-                tx.rollback();
-                return adm;
-            }
-            throw new RuntimeException(e);
-        }finally{
-            PersistenceUtil.close(em);
-        }
-        return adm;
-    }
+   
     
     
 }

@@ -95,13 +95,13 @@ public class LoginAdmController extends HttpServlet {
         String senha = request.getParameter("senha");
         String tipo = "3";
         Adm adm = null;
-        adm = GeralDAO.getInstance().getAdmLogin(login);
+        adm =(Adm)GeralDAO.getInstance().getClienteEmail(login,Class.forName("model.Adm"),"login");
         if (adm == null) {
             try {
                 RequestDispatcher view = request.getRequestDispatcher("/LoginIncorreto.jsp");
                 view.forward(request, response);
             } catch (IOException ex) {
-                Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         } else if (senha.equals(adm.getSenha()) && login.equals(adm.getLogin())) {
             try {
@@ -129,9 +129,9 @@ public class LoginAdmController extends HttpServlet {
         try {
             view.forward(request, response);
         } catch (ServletException ex) {
-            Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
+          
         } catch (IOException ex) {
-            Logger.getLogger(LoginClienteController.class.getName()).log(Level.SEVERE, null, ex);
+          
         }
     }
 }
