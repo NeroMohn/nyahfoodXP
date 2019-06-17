@@ -95,7 +95,7 @@ public class LoginAdmController extends HttpServlet {
         String senha = request.getParameter("senha");
         String tipo = "3";
         Adm adm = null;
-        adm =(Adm)GeralDAO.getInstance().getClienteEmail(login,Class.forName("model.Adm"),"login");
+        adm =(Adm)GeralDAO.getInstance().getLogin(login,Class.forName("model.Adm"),"login");
         if (adm == null) {
             try {
                 RequestDispatcher view = request.getRequestDispatcher("/LoginIncorreto.jsp");

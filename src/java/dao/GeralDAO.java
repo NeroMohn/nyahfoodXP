@@ -111,7 +111,7 @@ public class GeralDAO {
         return objects;
     }
     
-    public Object getClienteEmail(String email, Class classe, String login){
+    public Object getLogin(String email, Class classe, String login){
         
         EntityManager em = PersistenceUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();

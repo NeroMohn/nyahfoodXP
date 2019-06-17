@@ -63,8 +63,8 @@ public class LoginGeral extends HttpServlet {
     private void logar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException, IOException {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-        Cliente cliente = (Cliente)GeralDAO.getInstance().getClienteEmail(login, Class.forName("model.Cliente"), "email");
-        Loja loja = (Loja)GeralDAO.getInstance().getClienteEmail(login, Class.forName("model.Loja"),"email");
+        Cliente cliente = (Cliente)GeralDAO.getInstance().getLogin(login, Class.forName("model.Cliente"), "email");
+        Loja loja = (Loja)GeralDAO.getInstance().getLogin(login, Class.forName("model.Loja"),"email");
 
         if (cliente == null && loja == null) {
             try {
