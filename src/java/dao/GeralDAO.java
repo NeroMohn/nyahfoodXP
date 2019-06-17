@@ -31,8 +31,8 @@ public class GeralDAO {
          
         try{
             tx.begin();
-            Method metodo = objeto.getClass().getMethod("getId", null);
-            //Class c = objeto.getClass();
+            Method metodo = objeto.getClass().getMethod("getId");
+          
             if( metodo != null){
                 em.merge(objeto);
             }else{
@@ -54,7 +54,7 @@ public class GeralDAO {
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            Method metodo = objeto.getClass().getMethod("getId", null);
+            Method metodo = objeto.getClass().getMethod("getId");
             em.remove(em.getReference(objeto.getClass(), metodo.invoke(objeto)));
             tx.commit();
         } catch (Exception e){

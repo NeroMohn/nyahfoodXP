@@ -88,6 +88,7 @@ public class ManterClienteController extends HttpServlet {
         try {
             Cliente cliente = new Cliente(nome, cpf, email, senha, telefone, logradouro, cep, numero, bairro,
                     complemento, cidade, estado);
+            
             Object objeto = cliente;
 
             if (operacao.equals("Incluir")) {

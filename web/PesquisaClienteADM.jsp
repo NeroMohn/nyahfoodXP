@@ -61,7 +61,7 @@
         <h1>Pesquisa Cliente</h1>
         <br>
         
-        <form action="ManterClienteController?acao=prepararOperacao&operacao=Incluir" method="post">
+        <form action="CadastroClienteController?acao=prepararOperacao&operacao=Incluir" method="post">
             <input type="submit" name="btnIncluir" value="Incluir">
         </form>
                 <br>
@@ -100,9 +100,9 @@
                         <td><c:out value="${cliente.cidade}"/></td>
                          <td><c:out value="${cliente.estado}"/></td>
                                              
-                        <td><a href="ManterClienteController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${cliente.id}"/>">Editar</a></td>
+                        <td><a href="CadastroClienteController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${cliente.id}"/>">Editar</a></td>
                         <td>
-                            <a href="ManterClienteController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${cliente.id}"/>">Excluir</a></td>
+                            <a href="CadastroClienteController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${cliente.id}"/>">Excluir</a></td>
                
                     </tr>
                 </c:forEach>
@@ -112,7 +112,7 @@
        
         </div>  <div  class="container text-center"> 
                          <br>
-            <form action="ManterClienteController?acao=prepararOperacao&operacao=Incluir" method="post">
+            <form action="CadastroClienteController?acao=prepararOperacao&operacao=Incluir" method="post">
             <input type="submit" name="btnIncluir" value="Incluir">
         </form>
         </div>

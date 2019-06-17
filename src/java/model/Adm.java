@@ -1,7 +1,6 @@
 
 package model;
 
-import TesteSobra.AdmDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -62,13 +61,7 @@ private static final long serialVersionUID = 1L;
         this.login = login;
     }
     
-           public void salvar(){
-        AdmDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        AdmDAO.getInstance().excluir(this);
-    }
+
     
 
 }

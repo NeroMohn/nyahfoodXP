@@ -1,6 +1,6 @@
 package model;
 
-import TesteSobra.TipoCozinhaDAO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -43,14 +43,6 @@ public class TipoCozinha implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    
-        public void salvar(){
-        TipoCozinhaDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        TipoCozinhaDAO.getInstance().excluir(this);
     }
     
 

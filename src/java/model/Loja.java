@@ -5,7 +5,7 @@
  */
 package model;
 
-import TesteSobra.LojaDAO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -100,14 +100,7 @@ public class Loja extends Usuario implements Serializable {
         this.tipoCozinha = tipoCozinha;
     }
     
-    public void salvar(){
-        LojaDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        LojaDAO.getInstance().excluir(this);
-    }
-    
+
 
 
 }

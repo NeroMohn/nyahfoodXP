@@ -1,6 +1,6 @@
 package model;
 
-import TesteSobra.PedidoDAO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -25,20 +25,20 @@ public class Pedido implements Serializable{
     private String date;
     @ManyToOne
     private Cliente cliente;
-    @ManyToOne
-    private CupomDesconto cupomDesconto;
+
+  
     
     public Pedido(){
         
     }
 
 
-    public Pedido(double total, String metodoPagamento, String date, Cliente cliente, CupomDesconto cupomDesconto) {
+    public Pedido(double total, String metodoPagamento, String date, Cliente cliente ) {
         this.total = total;
         this.metodoPagamento = metodoPagamento;
         this.date = date;
         this.cliente = cliente;
-        this.cupomDesconto = cupomDesconto;
+  
     }
 
     
@@ -83,22 +83,8 @@ public class Pedido implements Serializable{
         this.cliente = cliente;
     }
 
-    public CupomDesconto getCupomDesconto() {
-        return cupomDesconto;
-    }
 
-    public void setCupomDesconto(CupomDesconto cupomDesconto) {
-        this.cupomDesconto = cupomDesconto;
-    }
-    
-        public void salvar(){
-        PedidoDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        PedidoDAO.getInstance().excluir(this);
-    }
-    
+ 
 
 
 }

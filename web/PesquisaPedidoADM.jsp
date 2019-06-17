@@ -88,7 +88,7 @@
                         <td><c:out value="${pedido.date}"/></td>
                         <td><c:out value="${pedido.cliente.id}"/></td>
                         <td><c:out value="${pedido.cliente.nome}"/></td>
-                        <!-- <td><c:out value="${pedido.cupomDesconto}"/></td>-->
+                  
                         <td><a href="ManterPedidoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${pedido.id}"/>">Editar</a></td>
                         <td>
                             <a href="ManterPedidoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${pedido.id}"/>">Excluir</a></td>

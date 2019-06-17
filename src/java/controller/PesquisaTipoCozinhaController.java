@@ -1,7 +1,7 @@
 package controller;
 
 import dao.GeralDAO;
-import TesteSobra.TipoCozinhaDAO;
+
 import model.TipoCozinha;
 
 import java.io.IOException;

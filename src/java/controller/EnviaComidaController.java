@@ -26,7 +26,7 @@ public class EnviaComidaController extends HttpServlet {
         Long id = Long.parseLong(request.getParameter("id"));
         ComidaPedida comidaPedida = (ComidaPedida) GeralDAO.getInstance().getObjeto(id, Class.forName("model.ComidaPedida"));
         comidaPedida.setSaiuEntrega("Saiu Entrega");
-        comidaPedida.salvar();
+         GeralDAO.getInstance().salvar(comidaPedida);
 
         RequestDispatcher view = request.getRequestDispatcher("/PesquisaComidaPedidaController");
         view.forward(request, response);

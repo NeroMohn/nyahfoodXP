@@ -1,6 +1,6 @@
 package model;
 
-import TesteSobra.ComidaDAO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -115,14 +115,6 @@ public class Comida implements Serializable {
         this.loja = loja;
     }
 
- public void salvar(){
-        ComidaDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        ComidaDAO.getInstance().excluir(this);
-    }
-    
 
 
 }

@@ -89,7 +89,7 @@ public class ManterPedidoController extends HttpServlet {
         }
 
         try {
-            Pedido pedido = new Pedido(total, metodoPagamento, date, cliente, null);
+            Pedido pedido = new Pedido(total, metodoPagamento, date, cliente);
             Object objeto = pedido;
             if (operacao.equals("Incluir")) {
                 pedido.setId(id);

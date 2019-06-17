@@ -1,6 +1,6 @@
 package model;
 
-import TesteSobra.ComidaPedidaDAO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -92,13 +92,7 @@ public class ComidaPedida implements Serializable{
         this.pedido = pedido;
     }
     
-    public void salvar(){
-        ComidaPedidaDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        ComidaPedidaDAO.getInstance().excluir(this);
-    }
+
     
 
     

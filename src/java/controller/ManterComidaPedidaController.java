@@ -99,7 +99,7 @@ public class ManterComidaPedidaController extends HttpServlet {
         Long id = Long.parseLong(request.getParameter("txtIdComidaPedida"));
         Comida comidaHolder = (Comida) GeralDAO.getInstance().getObjeto(id, Class.forName("model.Comida"));
         Double total = comidaHolder.getPreco() * Integer.parseInt(quantidade);
-        Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente, null);
+        Pedido pedido = new Pedido(total, tipoPagamento, timeStamp, cliente);
         Object objeto1 = pedido;
         GeralDAO.getInstance().salvar(objeto1);
   

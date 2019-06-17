@@ -1,6 +1,5 @@
 package model;
 
-import TesteSobra.ClienteDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -34,14 +33,6 @@ public class Cliente extends Usuario implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-    
-    public void salvar(){
-        ClienteDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        ClienteDAO.getInstance().excluir(this);
     }
     
 

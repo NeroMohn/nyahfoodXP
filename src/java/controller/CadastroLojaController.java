@@ -1,7 +1,7 @@
 package controller;
 
 import dao.GeralDAO;
-import TesteSobra.TipoCozinhaDAO;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -38,7 +38,7 @@ public class CadastroLojaController extends HttpServlet {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
-            request.setAttribute("tiposCozinha", TipoCozinhaDAO.getInstance().getAllTipoCozinhas());
+            request.setAttribute("tiposCozinha", GeralDAO.getInstance().getAllObjetos(Class.forName("model.TipoCozinha")));
             if (!operacao.equals("Incluir")) {
                 Long idLoja = Long.parseLong(request.getParameter("idLoja"));
                 Loja loja = (Loja) GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
@@ -63,7 +63,7 @@ public class CadastroLojaController extends HttpServlet {
         String cnpj = request.getParameter("txtCnpjLoja");
         String descricao = request.getParameter("txtDescricaoLoja");
         Long codTipoCozinha = Long.parseLong(request.getParameter("optTipoCozinha"));
-        TipoCozinha tipoCozinha = TipoCozinhaDAO.getInstance().getTipoCozinha(codTipoCozinha);
+        TipoCozinha tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(codTipoCozinha, Class.forName("model.TipoCozinha"));
         String foto = request.getParameter("txtFotoLoja");
         String cep = request.getParameter("txtCepLoja");
         String logradouro = request.getParameter("txtLogradouroLoja");

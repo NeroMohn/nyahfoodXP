@@ -1,6 +1,6 @@
 package model;
 
-import TesteSobra.TipoPagamentoDAO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -46,14 +46,7 @@ public class TipoPagamento implements Serializable{
         this.nome = nome;
     }
     
-     public void salvar(){
-        TipoPagamentoDAO.getInstance().salvar(this);
-    }
-    
-    public void excluir(){
-        TipoPagamentoDAO.getInstance().excluir(this);
-    }
-    
+  
    
     
 
