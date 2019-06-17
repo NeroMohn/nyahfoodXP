@@ -80,7 +80,7 @@ public class CadastroClienteController extends HttpServlet {
                 GeralDAO.getInstance().excluir(objeto);
             }
             
-            RequestDispatcher view = request.getRequestDispatcher("LoginCliente.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("LoginGeral.jsp");
             view.forward(request, response);
         } catch (IOException e) {
             throw new ServletException(e);
