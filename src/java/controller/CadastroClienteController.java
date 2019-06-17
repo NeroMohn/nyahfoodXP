@@ -27,7 +27,7 @@ public class CadastroClienteController extends HttpServlet {
         }
     }
 
-    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
+    public void prepararOperacao(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, IOException {
         try {
             String operacao = request.getParameter("operacao");
             request.setAttribute("operacao", operacao);
@@ -39,10 +39,8 @@ public class CadastroClienteController extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("/CadastroCliente.jsp");
             view.forward(request, response);
         } catch (ServletException ex) {
-            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManterClienteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+          
+        } 
 
     }
 
