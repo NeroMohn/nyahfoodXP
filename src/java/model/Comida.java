@@ -25,7 +25,7 @@ public class Comida implements Serializable {
     private String ingrediente;
     private int tempoEstimado;
     @Column(nullable = true)
-    private String foto;
+
     private double preco;
     @ManyToOne
     private Loja loja;
@@ -34,23 +34,11 @@ public class Comida implements Serializable {
 
     }
 
- /*   public Comida(String nome, String ingrediente, int tempoEstimado, String foto, double preco,
-            Long codLoja) {
-
-        setNome(nome);
-        setIngrediente(ingrediente);
-        setTempoEstimado(tempoEstimado);
-        setFoto(foto);
-        setPreco(preco);
-        setLoja(loja);
-
-    }
-*/
-    public Comida(String nome, String ingrediente, int tempoEstimado, String foto, double preco, Loja loja) {
+    public Comida(String nome, String ingrediente, int tempoEstimado, double preco, Loja loja) {
         this.nome = nome;
         this.ingrediente = ingrediente;
         this.tempoEstimado = tempoEstimado;
-        this.foto = foto;
+
         this.preco = preco;
         this.loja = loja;
     }
@@ -82,13 +70,7 @@ public class Comida implements Serializable {
         this.tempoEstimado = tempoEstimado;
     }
 
-    public String getFoto() {
-        return foto;
-    }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
 
     public double getPreco() {
         return preco;

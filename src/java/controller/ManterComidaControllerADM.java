@@ -74,7 +74,6 @@ public class ManterComidaControllerADM extends HttpServlet {
         String nome = request.getParameter("txtNome");
         String ingrediente = request.getParameter("txtIngrediente");
         Integer tempoEstimado = Integer.parseInt(request.getParameter("txtTempoEstimado"));
-        String foto = request.getParameter("txtFoto");
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
         Long idLoja = Long.parseLong(request.getParameter("optLoja"));
         Loja loja = (Loja) GeralDAO.getInstance().getObjeto(idLoja, Class.forName("model.Loja"));
@@ -85,7 +84,7 @@ public class ManterComidaControllerADM extends HttpServlet {
         }
 
         try {
-            Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
+            Comida comida = new Comida(nome, ingrediente, tempoEstimado, preco, loja);
 
             Object objeto = comida;
 

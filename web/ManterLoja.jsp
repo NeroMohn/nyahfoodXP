@@ -176,7 +176,7 @@
                 </tr>
 
             <tr>
-                <td>Foto:</td>
+                <td></td>
                 <td>   <div id="UploadImagem"></div> <input type="hidden" name="txtFotoLoja" value="${loja.foto}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></input></td>
           
             </tr>

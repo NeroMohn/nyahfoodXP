@@ -69,7 +69,7 @@
                 <td>Nome Comida</td>
                  <td>Ingrediente Comida</td>
                 <td>Tempo Estimado Comida</td>
-                 <td>Foto Comida</td>
+            
                 <td>Preço Comida</td>
                  
                 <td>Loja Nome</td>
@@ -82,7 +82,7 @@
                         <td><c:out value="${comida.nome}"/></td>
                          <td><c:out value="${comida.ingrediente}"/></td>
                         <td><c:out value="${comida.tempoEstimado}"/></td>
-                         <td><c:out value="${comida.foto}"/></td>
+                   
                         <td><c:out value="${comida.preco}"/></td>
                         <td><c:out value="${comida.loja.nome}"/></td>
                         <td><a href="ManterComidaControllerADM?acao=prepararOperacao&operacao=Editar&id=<c:out value="${comida.id}"/>">Editar</a></td>

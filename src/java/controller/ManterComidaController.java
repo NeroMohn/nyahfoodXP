@@ -68,7 +68,7 @@ public class ManterComidaController extends HttpServlet {
         String nome = request.getParameter("txtNome");
         String ingrediente = request.getParameter("txtIngrediente");
         Integer tempoEstimado = Integer.parseInt(request.getParameter("txtTempoEstimado"));
-        String foto = request.getParameter("txtFoto");
+       
         Double preco = Double.parseDouble(request.getParameter("txtPreco"));
         Long codLoja = Long.parseLong(request.getSession().getAttribute("id").toString());
         Loja loja = (Loja) GeralDAO.getInstance().getObjeto(codLoja, Class.forName("model.Loja"));
@@ -79,7 +79,7 @@ public class ManterComidaController extends HttpServlet {
         }
 
         try {
-            Comida comida = new Comida(nome, ingrediente, tempoEstimado, foto, preco, loja);
+            Comida comida = new Comida(nome, ingrediente, tempoEstimado, preco, loja);
 
             Object objeto = comida;
             if (operacao.equals("Incluir")) {

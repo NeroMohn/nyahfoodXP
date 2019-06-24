@@ -22,7 +22,7 @@ public class Loja extends Usuario implements Serializable {
     private String cnpj;
     private String descricao;
     private String nomeGerente;
-    private String foto;
+ 
     @ManyToOne
     private TipoCozinha tipoCozinha;
 
@@ -32,12 +32,12 @@ public class Loja extends Usuario implements Serializable {
     }
     public Loja(String nome, String nomeGerente, String telefone, String email,
             String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,
-            String foto,TipoPagamento tipoPagamento, String cep, String logradouro,
+             TipoPagamento tipoPagamento, String cep, String logradouro,
             String bairro,String complemento, String cidade, String estado,
             String numero) {
         super(nome, telefone, email, senha, cep, logradouro, bairro, complemento, cidade, estado, numero);
         this.nomeGerente = nomeGerente;
-        this.foto = foto;
+
         this.cnpj = cnpj;
         this.descricao = descricao;
         this.tipoCozinha = tipoCozinha;
@@ -45,12 +45,12 @@ public class Loja extends Usuario implements Serializable {
     
         public Loja(String nome, String nomeGerente, String telefone, String email,
             String senha, String cnpj,String descricao,TipoCozinha tipoCozinha,
-            String foto,String cep, String logradouro,
+            String cep, String logradouro,
             String bairro,String complemento, String cidade, String estado,
             String numero) {
         super(nome, telefone, email, senha, cep, logradouro, bairro, complemento, cidade, estado, numero);
         this.nomeGerente = nomeGerente;
-        this.foto = foto;
+      
         this.cnpj = cnpj;
         this.descricao = descricao;
         this.tipoCozinha = tipoCozinha;
@@ -84,13 +84,7 @@ public class Loja extends Usuario implements Serializable {
         this.nomeGerente = nomeGerente;
     }
 
-    public String getFoto() {
-        return foto;
-    }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
 
     public TipoCozinha getTipoCozinha() {
         return tipoCozinha;

@@ -107,17 +107,7 @@
                         <input type="text" pattern="[0-9].{0,5}$" required name="txtTempoEstimado" value="${comida.tempoEstimado}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
                     </td>
                 </tr>
-                  <tr>
-                    <td>
-                        Foto Comida:  
-                    </td>
-                    <td>
-
-                             <div id="UploadImagem"></div> <input type="hidden"  name="txtFoto" value="${comida.foto}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>>
-                   
-                    </td>
-               
-                </tr>
+          
                   <tr>
                     <td>
                         Preço*:

@@ -64,7 +64,7 @@ public class CadastroLojaController extends HttpServlet {
         String descricao = request.getParameter("txtDescricaoLoja");
         Long codTipoCozinha = Long.parseLong(request.getParameter("optTipoCozinha"));
         TipoCozinha tipoCozinha = (TipoCozinha) GeralDAO.getInstance().getObjeto(codTipoCozinha, Class.forName("model.TipoCozinha"));
-        String foto = request.getParameter("txtFotoLoja");
+       
         String cep = request.getParameter("txtCepLoja");
         String logradouro = request.getParameter("txtLogradouroLoja");
         String bairro = request.getParameter("txtBairroLoja");
@@ -80,7 +80,7 @@ public class CadastroLojaController extends HttpServlet {
 
         try {
             Loja loja = new Loja(nome, nomeGerente, email, senha, telefone, cnpj,
-                    descricao, tipoCozinha, foto, cep, logradouro, bairro, numero,
+                    descricao, tipoCozinha, cep, logradouro, bairro, numero,
                     complemento, cidade, estado);
             Object objeto = loja;
 

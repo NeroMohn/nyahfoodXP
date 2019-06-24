@@ -172,11 +172,7 @@
 
                 </tr>
 
-            <tr>
-                <td>Foto:</td>
-                <td>   <div id="UploadImagem"></div> <input type="hidden" name="txtFotoLoja" value="${loja.foto}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></input></td>
-          
-            </tr>
+      
             <tr>
                 <td>CEP*:</td>
                 <td><input pattern="[0-9].{7,10}$"  type="text" name="txtCepLoja" required id="cep" onblur="pesquisacep(this.value)" value="${loja.cep}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>></input></td>

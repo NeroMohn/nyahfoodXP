@@ -74,7 +74,7 @@
                  <td>Telefone Loja</td>
                   <td>Email Loja</td>
                    <td>Senha Loja</td>
-                    <td>Foto Loja</td>
+                    
                      <td>Cep Loja</td>
                       <td>Logradouro Loja</td>
                        <td>Numero Loja</td>
@@ -97,7 +97,7 @@
                          <td><c:out value="${loja.telefone}"/></td>
                         <td><c:out value="${loja.email}"/></td>
                          <td><c:out value="${loja.senha}"/></td>
-                        <td><c:out value="${loja.foto}"/></td>
+                      
                        <td><c:out value="${loja.cep}"/></td>
                          <td><c:out value="${loja.logradouro}"/></td>
                        <td><c:out value="${loja.numero}"/></td>
