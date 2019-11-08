@@ -26,6 +26,7 @@ public abstract class Usuario implements Serializable{
     private String estado;
     private String numero;
     
+  
     public Usuario(){
         
     }

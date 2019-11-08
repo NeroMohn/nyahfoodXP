@@ -25,8 +25,8 @@ public class Pedido implements Serializable{
     private String date;
     @ManyToOne
     private Cliente cliente;
-
-  
+    private float frete;
+    
     
     public Pedido(){
         
@@ -40,6 +40,26 @@ public class Pedido implements Serializable{
         this.cliente = cliente;
   
     }
+
+    public float frete(){
+    
+      
+        if(cliente.distancia < 500){
+            frete = 0;
+        }
+        else if(cliente.distancia < 1000){
+            frete = 10;
+        }
+        else if(cliente.distancia > 1000){
+            frete = 20;
+    
+    }
+        return frete;
+   }
+    
+    
+    
+         
 
     
     

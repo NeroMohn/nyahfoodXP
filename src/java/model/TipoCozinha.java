@@ -2,6 +2,9 @@ package model;
 
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +24,42 @@ public class TipoCozinha implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
+    private String promocao;
+    
+   
+    
+    public String promocaoSemana(){
+         
+         String dayOfWeek = LocalDate.now().getDayOfWeek().name();
+        if(dayOfWeek == "Sunday"){
+            promocao = "frios";
+        }
+         else if(dayOfWeek == "Monday"){
+            promocao = "quentes";
+        }
+                 else if(dayOfWeek == "Tuesday"){
+            promocao = "churrasco";
+        }
+                  else if(dayOfWeek == "Wednesday"){
+            promocao = "bebidas";
+        }
+                  else if(dayOfWeek == "Thursday"){
+            promocao = "massa";
+        }
+                   else if(dayOfWeek == "Friday"){
+            promocao = "molho";
+        }
+                    else if(dayOfWeek == "Saturday"){
+            promocao = "chines";
+        }
+       
+                          
+            return promocao;
+        
+    }
 
+    
+    
     public TipoCozinha(){
         
     }

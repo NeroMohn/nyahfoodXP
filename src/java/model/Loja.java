@@ -22,6 +22,7 @@ public class Loja extends Usuario implements Serializable {
     private String cnpj;
     private String descricao;
     private String nomeGerente;
+    
  
     @ManyToOne
     private TipoCozinha tipoCozinha;
@@ -55,6 +56,9 @@ public class Loja extends Usuario implements Serializable {
         this.descricao = descricao;
         this.tipoCozinha = tipoCozinha;
     }
+        
+        
+  
 
     public Loja(Long id){
         super(id);
