@@ -52,7 +52,7 @@ public class Cliente extends Usuario implements Serializable {
             desconto = 0.1f;
         }else if (idade < 30){
             desconto = 0.05f;
-        }else if (idade > 60){
+        }else{
            desconto = 0.5f;
         } 
         }else{
@@ -64,7 +64,7 @@ public class Cliente extends Usuario implements Serializable {
             desconto = 0.2f;
         }else if (idade < 30){
             desconto = 0.1f;
-        }else if (idade > 60){
+        }else{
            desconto = 0.6f;
         } 
         }
