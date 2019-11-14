@@ -50,7 +50,7 @@ public class Pedido implements Serializable{
         else if(cliente.distancia < 1000){
             frete = 10;
         }
-        else if(cliente.distancia > 1000){
+        else {
             frete = 20;
     
     }
