@@ -25,12 +25,12 @@ public class TipoCozinha implements Serializable{
     private Long id;
     private String nome;
     private String promocao;
-    
+    LocalDate localDate = LocalDate.now();
+    private String dayOfWeek = localDate.getDayOfWeek().name();
    
     
     public String promocaoSemana(){
          
-         String dayOfWeek = LocalDate.now().getDayOfWeek().name();
         if(dayOfWeek == "Sunday"){
             promocao = "frios";
         }
@@ -56,6 +56,22 @@ public class TipoCozinha implements Serializable{
                           
             return promocao;
         
+    }
+
+    public String getPromocao() {
+        return promocao;
+    }
+
+    public void setPromocao(String promocao) {
+        this.promocao = promocao;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     
