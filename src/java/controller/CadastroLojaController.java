@@ -53,7 +53,7 @@ public class CadastroLojaController extends HttpServlet {
         }
     }
 
-    public void confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException {
+    public boolean confirmarOperacao(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException {
         String operacao = request.getParameter("operacao");
         String nome = request.getParameter("txtNomeLoja");
         String nomeGerente = request.getParameter("txtNomeGerenteLoja");
@@ -86,9 +86,11 @@ public class CadastroLojaController extends HttpServlet {
 
             if (operacao.equals("Incluir")) {
                 GeralDAO.getInstance().salvar(objeto);
+            
             } else if (operacao.equals("Editar")) {
                 loja.setId(id);
                 GeralDAO.getInstance().salvar(objeto);
+                 
             } else if (operacao.equals("Excluir")) {
                 loja.setId(id);
                 GeralDAO.getInstance().excluir(objeto);
@@ -96,12 +98,15 @@ public class CadastroLojaController extends HttpServlet {
             }
             RequestDispatcher view = request.getRequestDispatcher("LoginGeral.jsp");
             view.forward(request, response);
+            return true;
         } catch (IOException e) {
             throw new ServletException(e);
+        
         } catch (ServletException e) {
             throw e;
+            
         }
-
+      
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -162,4 +167,6 @@ public class CadastroLojaController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+   
 }

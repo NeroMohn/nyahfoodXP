@@ -19,6 +19,12 @@ public class ClienteTeste {
     GeralDAO.getInstance().salvar(tp1);
      TipoCozinha tp2 = new TipoCozinha("Inglesa");
     GeralDAO.getInstance().salvar(tp2);
+    TipoCozinha tp3 = new TipoCozinha("Irlandesa");
+    GeralDAO.getInstance().salvar(tp3);
+     TipoCozinha tp4 = new TipoCozinha("Americana");
+    GeralDAO.getInstance().salvar(tp4);
+    TipoCozinha tp5 = new TipoCozinha("Brasileira");
+    GeralDAO.getInstance().salvar(tp5);
     TipoPagamento p1 = new TipoPagamento("Dinheiro");
     GeralDAO.getInstance().salvar(p1);
     TipoPagamento p2 = new TipoPagamento("Cartao");
