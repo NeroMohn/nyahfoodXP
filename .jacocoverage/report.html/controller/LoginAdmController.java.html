@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LoginAdmController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;nyahfoodXP&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">LoginAdmController.java</span></div><h1>LoginAdmController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import dao.GeralDAO;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import model.Adm;
+
+/**
+ *
+ * @author rodri
+ */
+@WebServlet(name = &quot;LoginAdmController&quot;, urlPatterns = {&quot;/LoginAdmController&quot;, &quot;/LoginAdmin&quot;})
+<span class="nc" id="L26">public class LoginAdmController extends HttpServlet {</span>
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+<span class="nc" id="L30">        String acao = request.getParameter(&quot;acao&quot;);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (acao.equals(&quot;logar&quot;)) {</span>
+<span class="nc" id="L32">            logar(request, response);</span>
+<span class="nc bnc" id="L33" title="All 4 branches missed.">        } else if (acao.equals(null) || acao.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L34">            prepararOperacao(request, response);</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        } else if (acao.equals(&quot;preparar&quot;)) {</span>
+<span class="nc" id="L36">            prepararOperacao(request, response);</span>
+        } else {
+<span class="nc" id="L38">            prepararOperacao(request, response);</span>
+        }
+<span class="nc" id="L40">    }</span>
+
+// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
+    /**
+     * Handles the HTTP &lt;code&gt;GET&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+<span class="nc" id="L55">            processRequest(request, response);</span>
+<span class="nc" id="L56">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L57">            Logger.getLogger(LoginAdmController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L58">        } catch (SQLException ex) {</span>
+<span class="nc" id="L59">            Logger.getLogger(LoginAdmController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L60">        }</span>
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+<span class="nc" id="L75">            processRequest(request, response);</span>
+<span class="nc" id="L76">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L77">            Logger.getLogger(LoginAdmController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L78">        } catch (SQLException ex) {</span>
+<span class="nc" id="L79">            Logger.getLogger(LoginAdmController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L90">        return &quot;Short description&quot;;</span>
+    }// &lt;/editor-fold&gt;
+
+    private void logar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException, IOException {
+<span class="nc" id="L94">        String login = request.getParameter(&quot;login&quot;);</span>
+<span class="nc" id="L95">        String senha = request.getParameter(&quot;senha&quot;);</span>
+<span class="nc" id="L96">        String tipo = &quot;3&quot;;</span>
+<span class="nc" id="L97">        Adm adm = null;</span>
+<span class="nc" id="L98">        adm =(Adm)GeralDAO.getInstance().getLogin(login,Class.forName(&quot;model.Adm&quot;),&quot;login&quot;);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (adm == null) {</span>
+            try {
+<span class="nc" id="L101">                RequestDispatcher view = request.getRequestDispatcher(&quot;/LoginIncorreto.jsp&quot;);</span>
+<span class="nc" id="L102">                view.forward(request, response);</span>
+<span class="nc" id="L103">            } catch (IOException ex) {</span>
+                
+<span class="nc" id="L105">            }</span>
+<span class="nc bnc" id="L106" title="All 4 branches missed.">        } else if (senha.equals(adm.getSenha()) &amp;&amp; login.equals(adm.getLogin())) {</span>
+            try {
+<span class="nc" id="L108">                request.getSession().setAttribute(&quot;login&quot;, login);</span>
+<span class="nc" id="L109">                request.getSession().setAttribute(&quot;tipo&quot;, tipo);</span>
+<span class="nc" id="L110">                request.getSession().setAttribute(&quot;id&quot;, adm.getId());</span>
+<span class="nc" id="L111">                RequestDispatcher view = request.getRequestDispatcher(&quot;/index.jsp&quot;);</span>
+<span class="nc" id="L112">                view.forward(request, response);</span>
+<span class="nc" id="L113">            } catch (IOException ex) {</span>
+<span class="nc" id="L114">                Logger.getLogger(LoginAdmController.class</span>
+<span class="nc" id="L115">                        .getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L116">            }</span>
+<span class="nc bnc" id="L117" title="All 4 branches missed.">        } else if (login.equals(adm.getLogin()) &amp;&amp; !senha.equals(adm.getSenha())) {</span>
+            try {
+<span class="nc" id="L119">                RequestDispatcher view = request.getRequestDispatcher(&quot;/SenhaIncorreta.jsp&quot;);</span>
+<span class="nc" id="L120">                view.forward(request, response);</span>
+<span class="nc" id="L121">            } catch (IOException ex) {</span>
+<span class="nc" id="L122">                Logger.getLogger(LoginAdmController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L123">            }</span>
+        }
+<span class="nc" id="L125">    }</span>
+
+    private void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+<span class="nc" id="L128">        RequestDispatcher view = request.getRequestDispatcher(&quot;/LoginAdmin.jsp&quot;);</span>
+        try {
+<span class="nc" id="L130">            view.forward(request, response);</span>
+<span class="nc" id="L131">        } catch (ServletException ex) {</span>
+          
+<span class="nc" id="L133">        } catch (IOException ex) {</span>
+          
+<span class="nc" id="L135">        }</span>
+<span class="nc" id="L136">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

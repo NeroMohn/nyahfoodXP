@@ -16,7 +16,7 @@ public class Cliente extends Usuario implements Serializable {
     
     private int idade;
     public float desconto;
-    public String sex;
+    public String sexo;
     
     public float distancia;
     
@@ -57,13 +57,14 @@ public class Cliente extends Usuario implements Serializable {
         this.desconto = desconto;
     }
 
-    public String getSex() {
-        return sex;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
+
 
     public float getDistancia() {
         return distancia;
@@ -77,7 +78,7 @@ public class Cliente extends Usuario implements Serializable {
     
     public float promocao(){
        
-        if(sex == "M"){
+        if(sexo == "H"){
             if(idade < 10){
             desconto = 0.3f;
         }else if(idade < 15){

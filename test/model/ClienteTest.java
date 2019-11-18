@@ -42,7 +42,7 @@ public class ClienteTest {
     public void PromocaoHomem9() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 9);
-        instance.setSex("M");
+        instance.setSexo("H");
         
         String resultadoEsperado = "0.3";
         float resultado = instance.promocao();
@@ -54,7 +54,7 @@ public class ClienteTest {
     public void PromocaoHomem14() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 14);
-        instance.setSex("M");
+        instance.setSexo("H");
         
         String resultadoEsperado = "0.2";
         float resultado = instance.promocao();
@@ -66,7 +66,7 @@ public class ClienteTest {
     public void PromocaoHomem19() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 19);
-        instance.setSex("M");
+        instance.setSexo("H");
         
         String resultadoEsperado = "0.1";
         float resultado = instance.promocao();
@@ -78,7 +78,7 @@ public class ClienteTest {
     public void PromocaoHomem29() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 29);
-        instance.setSex("M");
+        instance.setSexo("H");
         
         String resultadoEsperado = "0.05";
         float resultado = instance.promocao();
@@ -90,7 +90,7 @@ public class ClienteTest {
     public void PromocaoHomem30() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 30);
-        instance.setSex("M");
+        instance.setSexo("H");
         
         String resultadoEsperado = "0.5";
         float resultado = instance.promocao();
@@ -102,7 +102,7 @@ public class ClienteTest {
     public void PromocaoMulher9() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 9);
-        instance.setSex("F");
+        instance.setSexo("M");
         
         String resultadoEsperado = "0.4";
         float resultado = instance.promocao();
@@ -114,7 +114,7 @@ public class ClienteTest {
     public void PromocaoMulher14() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 14);
-        instance.setSex("F");
+        instance.setSexo("M");
         
         String resultadoEsperado = "0.3";
         float resultado = instance.promocao();
@@ -126,7 +126,7 @@ public class ClienteTest {
     public void PromocaoMulher19() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 19);
-        instance.setSex("F");
+        instance.setSexo("M");
         
         String resultadoEsperado = "0.2";
         float resultado = instance.promocao();
@@ -138,7 +138,7 @@ public class ClienteTest {
     public void PromocaoMulher29() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 29);
-        instance.setSex("F");
+        instance.setSexo("M");
         
         String resultadoEsperado = "0.1";
         float resultado = instance.promocao();
@@ -150,7 +150,7 @@ public class ClienteTest {
     public void PromocaoMulher30() {
         Cliente instance = new Cliente();
         instance.setIdade((int) 30);
-        instance.setSex("F");
+        instance.setSexo("M");
         
         String resultadoEsperado = "0.6";
         float resultado = instance.promocao();

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ComidaPedida.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;nyahfoodXP&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">ComidaPedida.java</span></div><h1>ComidaPedida.java</h1><pre class="source lang-java linenums">package model;
+
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+
+/**
+ *
+ * @author Yukas
+ */
+@Entity
+public class ComidaPedida implements Serializable{
+    private static final long serialVerionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private int quantidade;
+    private double total;
+    @ManyToOne
+    private Comida comida;
+    @ManyToOne
+    private Pedido pedido;
+    private String saiuEntrega;
+    
+<span class="nc" id="L31">    public ComidaPedida(){}</span>
+
+    
+<span class="nc" id="L34">    public ComidaPedida(int quantidade, double total, Comida comida, Pedido pedido, String saiuEntrega) {</span>
+       
+<span class="nc" id="L36">        setQuantidade(quantidade);</span>
+<span class="nc" id="L37">        setTotal(total);</span>
+<span class="nc" id="L38">        setComida(comida);</span>
+<span class="nc" id="L39">        setPedido(pedido);</span>
+<span class="nc" id="L40">        setSaiuEntrega(saiuEntrega);</span>
+<span class="nc" id="L41">    }</span>
+
+  
+
+ 
+
+    public Long getId() {
+<span class="nc" id="L48">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L52">        this.id = id;</span>
+<span class="nc" id="L53">    }</span>
+    
+      public String getSaiuEntrega() {
+<span class="nc" id="L56">        return saiuEntrega;</span>
+    }
+
+    public void setSaiuEntrega(String saiuEntrega) {
+<span class="nc" id="L60">        this.saiuEntrega = saiuEntrega;</span>
+<span class="nc" id="L61">    }</span>
+
+    public int getQuantidade() {
+<span class="nc" id="L64">        return quantidade;</span>
+    }
+
+    public void setQuantidade(int quantidade) {
+<span class="nc" id="L68">        this.quantidade = quantidade;</span>
+<span class="nc" id="L69">    }</span>
+
+    public double getTotal() {
+<span class="nc" id="L72">        return total;</span>
+    }
+
+    public void setTotal(double total) {
+<span class="nc" id="L76">        this.total = total;</span>
+<span class="nc" id="L77">    }</span>
+
+    public Comida getComida() {
+<span class="nc" id="L80">        return comida;</span>
+    }
+
+    public void setComida(Comida comida) {
+<span class="nc" id="L84">        this.comida = comida;</span>
+<span class="nc" id="L85">    }</span>
+
+    public Pedido getPedido() {
+<span class="nc" id="L88">        return pedido;</span>
+    }
+
+    public void setPedido(Pedido pedido) {
+<span class="nc" id="L92">        this.pedido = pedido;</span>
+<span class="nc" id="L93">    }</span>
+    
+
+    
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

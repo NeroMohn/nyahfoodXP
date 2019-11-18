@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Cliente.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;nyahfoodXP&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Cliente.java</span></div><h1>Cliente.java</h1><pre class="source lang-java linenums">package model;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+
+
+/**
+ *
+ * @author Yukas
+ */
+@Entity
+public class Cliente extends Usuario implements Serializable {
+    
+    private String cpf;
+    
+    private int idade;
+    public float desconto;
+    public String sexo;
+    
+    public float distancia;
+    
+<span class="fc" id="L23">    public Cliente() {</span>
+
+<span class="fc" id="L25">    }</span>
+    
+    public Cliente(String nome,String cpf, String email, String senha, String telefone, String cep, String logradouro, String bairro,String numero, String complemento, String cidade, String estado) {
+<span class="nc" id="L28">        super(nome, email, senha, telefone, cep, logradouro, bairro, numero, complemento, cidade, estado);</span>
+<span class="nc" id="L29">        this.cpf = cpf;</span>
+<span class="nc" id="L30">    }</span>
+    
+        public Cliente(Long id){
+<span class="nc" id="L33">        super(id);</span>
+<span class="nc" id="L34">    }</span>
+
+    public String getCpf() {
+<span class="nc" id="L37">        return cpf;</span>
+    }
+
+    public void setCpf(String cpf) {
+<span class="nc" id="L41">        this.cpf = cpf;</span>
+<span class="nc" id="L42">    }</span>
+
+    public int getIdade() {
+<span class="nc" id="L45">        return idade;</span>
+    }
+
+    public void setIdade(int idade) {
+<span class="fc" id="L49">        this.idade = idade;</span>
+<span class="fc" id="L50">    }</span>
+
+    public float getDesconto() {
+<span class="nc" id="L53">        return desconto;</span>
+    }
+
+    public void setDesconto(float desconto) {
+<span class="nc" id="L57">        this.desconto = desconto;</span>
+<span class="nc" id="L58">    }</span>
+
+    public String getSexo() {
+<span class="nc" id="L61">        return sexo;</span>
+    }
+
+    public void setSexo(String sexo) {
+<span class="fc" id="L65">        this.sexo = sexo;</span>
+<span class="fc" id="L66">    }</span>
+
+
+    public float getDistancia() {
+<span class="nc" id="L70">        return distancia;</span>
+    }
+
+    public void setDistancia(float distancia) {
+<span class="fc" id="L74">        this.distancia = distancia;</span>
+<span class="fc" id="L75">    }</span>
+    
+    
+    
+    public float promocao(){
+       
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if(sexo == &quot;H&quot;){</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">            if(idade &lt; 10){</span>
+<span class="fc" id="L83">            desconto = 0.3f;</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        }else if(idade &lt; 15){</span>
+<span class="fc" id="L85">            desconto = 0.20f;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        }else if (idade  &lt; 20){</span>
+<span class="fc" id="L87">            desconto = 0.1f;</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        }else if (idade &lt; 30){</span>
+<span class="fc" id="L89">            desconto = 0.05f;</span>
+        }else{
+<span class="fc" id="L91">           desconto = 0.5f;</span>
+        } 
+        }else{
+<span class="fc bfc" id="L94" title="All 2 branches covered.">         if(idade &lt; 10){</span>
+<span class="fc" id="L95">            desconto = 0.4f;</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        }else if(idade &lt; 15){</span>
+<span class="fc" id="L97">            desconto = 0.30f;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        }else if (idade  &lt; 20){</span>
+<span class="fc" id="L99">            desconto = 0.2f;</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        }else if (idade &lt; 30){</span>
+<span class="fc" id="L101">            desconto = 0.1f;</span>
+        }else{
+<span class="fc" id="L103">           desconto = 0.6f;</span>
+        } 
+        }
+<span class="fc" id="L106">        return desconto;</span>
+    }
+    
+    
+    
+    
+
+   
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -10,9 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author Yukas
 
 @Entity
 public class Favorito implements Serializable {
@@ -58,4 +55,3 @@ public class Favorito implements Serializable {
 
 
 }
- */

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LoginGeral.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;nyahfoodXP&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">LoginGeral.java</span></div><h1>LoginGeral.java</h1><pre class="source lang-java linenums">package controller;
+
+import dao.GeralDAO;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import model.Cliente;
+import model.Loja;
+
+/**
+ *
+ * @author rodri
+ */
+@WebServlet(name = &quot;LoginGeral&quot;, urlPatterns = {&quot;/LoginGeral&quot;})
+<span class="nc" id="L22">public class LoginGeral extends HttpServlet {</span>
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+<span class="nc" id="L26">        String acao = request.getParameter(&quot;acao&quot;);</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (acao.equals(&quot;preparar&quot;)) {</span>
+<span class="nc" id="L28">            prepararOperacao(request, response);</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        } else if (acao.equals(&quot;logar&quot;)) {</span>
+<span class="nc" id="L30">            logar(request, response);</span>
+        }
+<span class="nc" id="L32">    }</span>
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+<span class="nc" id="L38">            processRequest(request, response);</span>
+<span class="nc" id="L39">        } catch (SQLException ex) {</span>
+<span class="nc" id="L40">            Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L41">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L42">            Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L43">        }</span>
+<span class="nc" id="L44">    }</span>
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+<span class="nc" id="L50">            processRequest(request, response);</span>
+<span class="nc" id="L51">        } catch (SQLException ex) {</span>
+<span class="nc" id="L52">            Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L53">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L54">            Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L55">        }</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L60">        return &quot;Short description&quot;;</span>
+    }// &lt;/editor-fold&gt;
+
+    private void logar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException, IOException {
+<span class="nc" id="L64">        String login = request.getParameter(&quot;login&quot;);</span>
+<span class="nc" id="L65">        String senha = request.getParameter(&quot;senha&quot;);</span>
+<span class="nc" id="L66">        Cliente cliente = (Cliente)GeralDAO.getInstance().getLogin(login, Class.forName(&quot;model.Cliente&quot;), &quot;email&quot;);</span>
+<span class="nc" id="L67">        Loja loja = (Loja)GeralDAO.getInstance().getLogin(login, Class.forName(&quot;model.Loja&quot;),&quot;email&quot;);</span>
+
+<span class="nc bnc" id="L69" title="All 4 branches missed.">        if (cliente == null &amp;&amp; loja == null) {</span>
+            try {
+<span class="nc" id="L71">                RequestDispatcher view = request.getRequestDispatcher(&quot;/SenhaIncorreta.jsp&quot;);</span>
+<span class="nc" id="L72">                view.forward(request, response);</span>
+<span class="nc" id="L73">            } catch (IOException ex) {</span>
+<span class="nc" id="L74">                Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L75">            }</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        } else if (cliente != null) {</span>
+
+<span class="nc bnc" id="L78" title="All 4 branches missed.">            if (senha.equals(cliente.getSenha()) &amp;&amp; login.equals(cliente.getEmail())) {</span>
+
+<span class="nc" id="L80">                Long idCliente = cliente.getId();</span>
+<span class="nc" id="L81">                String nomeCliente = cliente.getNome();</span>
+<span class="nc" id="L82">                request.getSession().setAttribute(&quot;login&quot;, login);</span>
+<span class="nc" id="L83">                request.getSession().setAttribute(&quot;tipo&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L84">                request.getSession().setAttribute(&quot;id&quot;, idCliente);</span>
+<span class="nc" id="L85">                request.getSession().setAttribute(&quot;nome&quot;, nomeCliente);</span>
+<span class="nc" id="L86">                request.getSession().setAttribute(&quot;status&quot;, 0);</span>
+<span class="nc" id="L87">                RequestDispatcher view = request.getRequestDispatcher(&quot;/index.jsp&quot;);</span>
+<span class="nc" id="L88">                view.forward(request, response);</span>
+<span class="nc" id="L89">            } else {</span>
+
+<span class="nc" id="L91">                RequestDispatcher view = request.getRequestDispatcher(&quot;/SenhaIncorreta.jsp&quot;);</span>
+<span class="nc" id="L92">                view.forward(request, response);</span>
+<span class="nc" id="L93">            }</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        } else if (loja != null) {</span>
+<span class="nc bnc" id="L95" title="All 4 branches missed.">            if (senha.equals(loja.getSenha()) &amp;&amp; login.equals(loja.getEmail())) {</span>
+
+<span class="nc" id="L97">                request.getSession().setAttribute(&quot;login&quot;, login);</span>
+<span class="nc" id="L98">                request.getSession().setAttribute(&quot;senha&quot;, senha);</span>
+<span class="nc" id="L99">                request.getSession().setAttribute(&quot;tipo&quot;, &quot;2&quot;);</span>
+<span class="nc" id="L100">                request.getSession().setAttribute(&quot;id&quot;, loja.getId());</span>
+<span class="nc" id="L101">                RequestDispatcher view = request.getRequestDispatcher(&quot;/index.jsp&quot;);</span>
+<span class="nc" id="L102">                view.forward(request, response);</span>
+<span class="nc" id="L103">            } else {</span>
+                try {
+<span class="nc" id="L105">                    RequestDispatcher view = request.getRequestDispatcher(&quot;/SenhaIncorreta.jsp&quot;);</span>
+<span class="nc" id="L106">                    view.forward(request, response);</span>
+<span class="nc" id="L107">                } catch (IOException ex) {</span>
+<span class="nc" id="L108">                    Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L109">                }</span>
+            }
+
+        }
+
+<span class="nc" id="L114">    }</span>
+
+    private void prepararOperacao(HttpServletRequest request, HttpServletResponse response) {
+<span class="nc" id="L117">        RequestDispatcher view = request.getRequestDispatcher(&quot;/LoginGeral.jsp&quot;);</span>
+        try {
+<span class="nc" id="L119">            view.forward(request, response);</span>
+<span class="nc" id="L120">        } catch (ServletException ex) {</span>
+<span class="nc" id="L121">            Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L122">        } catch (IOException ex) {</span>
+<span class="nc" id="L123">            Logger.getLogger(LoginGeral.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L124">        }</span>
+<span class="nc" id="L125">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
